@@ -1,0 +1,14 @@
+addReviewers: true
+
+addAssignees: author
+
+reviewers:
+  - KoJaem
+  - hyunjun9788
+
+numberOfReviewers: 2
+
+numberOfAssignees: 1
+
+skipKeywords:
+  - wip
