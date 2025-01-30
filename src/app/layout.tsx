@@ -1,7 +1,8 @@
-import { Pretendard } from "@/fonts"
 import type { Metadata } from "next"
 import "../styles/globals.css"
 import "../styles/reset.css"
+import MobileViewLayout from "../components/layout/MobileViewLayout"
+import { Pretendard } from "@/fonts"
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,7 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={Pretendard.className}>{children}</body>
+      <body className={Pretendard.variable}>
+        <MobileViewLayout>{children}</MobileViewLayout>
+      </body>
     </html>
   )
 }
