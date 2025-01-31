@@ -1,4 +1,6 @@
 import HeaderFooterWrapper from "@/components/layout/HeaderFooterWrapper"
+import { GoogleSymbol } from "@/icons/GoogleSymbol"
+import { KakaoSymbol } from "@/icons/KakaoSymbol"
 
 import Image from "next/image"
 
@@ -13,6 +15,16 @@ export default function Home() {
               <br />더 알아갈 수 있어요.
             </div>
             <Image src="https://placehold.co/229x229.png" width={229} height={229} alt="일러스트 이미지" />
+          </div>
+          <div className="flex w-full flex-col gap-3">
+            <button className="flex items-center justify-center gap-3 rounded-xl border border-[#9CAAB9] py-4 hover:opacity-70 active:opacity-80">
+              <GoogleSymbol />
+              Google로 시작하기
+            </button>
+            <button className="flex items-center justify-center gap-3 rounded-xl bg-[#FEE500] py-4 hover:opacity-70 active:opacity-80">
+              <KakaoSymbol />
+              <span>카카오로 시작하기</span>
+            </button>
           </div>
         </section>
       </div>
