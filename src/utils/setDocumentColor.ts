@@ -15,25 +15,20 @@ export const generateColorPalette = (hex: string, numColors: number = 9) => {
   }
 }
 
-export const setDocumentColor = (color: string, colorKey: ColorKeyType, number: number = 10): void => {
-  const palette = generateColorPalette(color, number)
+export const setDocumentColor = (centerColor: string, colorKey: ColorKeyType, number: number = 9): void => {
+  const palette = generateColorPalette(centerColor, number)
 
+  document.documentElement.style.setProperty(`--${colorKey}-color`, centerColor)
   palette.forEach((color, i) => {
-    if (i === number / 2 - 1) {
-      document.documentElement.style.setProperty(`--${colorKey}-color`, color)
-      document.documentElement.style.setProperty(`--${colorKey}-color-${i + 1}0`, color)
-    } else {
-      document.documentElement.style.setProperty(`--${colorKey}-color-${i + 1}0`, color)
-    }
+    document.documentElement.style.setProperty(`--${colorKey}-color-${i + 1}0`, color)
   })
 }
 
 export const generateCSSVariables = (palette: string[], colorKey: ColorKeyType, centerColor: string): string => {
   return (
     palette
-      .map((color, index) => {
-        const percentage = (index + 1) * 10
-        return `--${colorKey}-color-${percentage}: ${color};`
+      .map((color, i) => {
+        return `--${colorKey}-color-${i + 1}0: ${color};`
       })
       .join("\n") +
     `
