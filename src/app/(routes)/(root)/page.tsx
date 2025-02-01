@@ -1,26 +1,25 @@
 "use client"
 
 import HeaderFooterWrapper from "@/components/layout/HeaderFooterWrapper"
-import { useLocalStorage } from "@/hooks/useLocalStorage"
+import { setCookie } from "@/utils/cookie"
 import { setDocumentColor } from "@/utils/setDocumentColor"
 import { useState } from "react"
-import { HexAlphaColorPicker } from "react-colorful"
+import { HexColorPicker } from "react-colorful"
 
 export default function Home() {
   const [color, setColor] = useState("")
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const { setLocalStorage } = useLocalStorage()
 
   const handleChangeColor = (e: string) => {
     setDocumentColor(e, "primary")
     setColor(e)
-    setLocalStorage("primary", e)
+    setCookie("primary", e, 30)
   }
 
   return (
     <HeaderFooterWrapper header footer>
       <button onClick={() => setIsOpen(true)}>primary Color palette</button>
-      {isOpen && <HexAlphaColorPicker color={color} onChange={handleChangeColor} />}
+      {isOpen && <HexColorPicker color={color} onChange={handleChangeColor} />}
       <p>{color}</p>
       <div className="h-fit w-fit rounded-md bg-primary p-4">컬러팔레트</div>
       <div className="h-fit w-fit rounded-md bg-primary-10 p-4">컬러팔레트10</div>

@@ -2,13 +2,17 @@ import chroma from "chroma-js"
 
 type ColorKeyType = "primary" | "secondary"
 
-const generateColorPalette = (hex: string, numColors: number = 10) => {
-  const palette = chroma
-    .scale([chroma(hex).brighten(2), hex, chroma(hex).darken(2)])
-    .mode("lab")
-    .colors(numColors)
+export const generateColorPalette = (hex: string, numColors: number = 9) => {
+  try {
+    const palette = chroma
+      .scale([chroma(hex).brighten(2), hex, chroma(hex).darken(2)])
+      .mode("lab")
+      .colors(numColors)
 
-  return palette
+    return palette
+  } catch {
+    return []
+  }
 }
 
 export const setDocumentColor = (color: string, colorKey: ColorKeyType, number: number = 10): void => {
@@ -22,4 +26,18 @@ export const setDocumentColor = (color: string, colorKey: ColorKeyType, number: 
       document.documentElement.style.setProperty(`--${colorKey}-color-${i + 1}0`, color)
     }
   })
+}
+
+export const generateCSSVariables = (palette: string[], colorKey: ColorKeyType, centerColor: string): string => {
+  return (
+    palette
+      .map((color, index) => {
+        const percentage = (index + 1) * 10
+        return `--primary-color-${percentage}: ${color};`
+      })
+      .join("\n") +
+    `
+    --primary-color: ${centerColor};
+  `
+  )
 }

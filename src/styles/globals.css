@@ -3,7 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --primary-color: #ffd000;
+  /* Todo 필요한 컬러값으로 세팅 */
+  --primary-color: #ff9f90;
+  --primary-color-10: #f78a7c;
+  --primary-color-20: #ed7468;
+  --primary-color-30: #e35e54;
+  --primary-color-40: #d94641;
+  --primary-color-50: #c63232;
+  --primary-color-60: #ad2626;
+  --primary-color-70: #941a1b;
+  --primary-color-80: #7c0c10;
+  --primary-color-90: #650000;
 }
 
 @media (prefers-color-scheme: dark) {
