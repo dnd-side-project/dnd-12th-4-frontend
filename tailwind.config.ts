@@ -17,8 +17,18 @@ export default {
     },
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)"
+        primary: {
+          DEFAULT: "var(--primary-color)",
+          10: "var(--primary-color-10)",
+          20: "var(--primary-color-20)",
+          30: "var(--primary-color-30)",
+          40: "var(--primary-color-40)",
+          50: "var(--primary-color-50)",
+          60: "var(--primary-color-60)",
+          70: "var(--primary-color-70)",
+          80: "var(--primary-color-80)",
+          90: "var(--primary-color-90)"
+        }
       }
     }
   },
