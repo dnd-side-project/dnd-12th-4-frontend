@@ -14,6 +14,17 @@
   --primary-color-70: #941a1b;
   --primary-color-80: #7c0c10;
   --primary-color-90: #650000;
+
+  --secondary-color: #9b59b6;
+  --secondary-color-10: #a566c1;
+  --secondary-color-20: #b274cd;
+  --secondary-color-30: #bc82d8;
+  --secondary-color-40: #c48fe2;
+  --secondary-color-50: #d19ced;
+  --secondary-color-60: #dba9f7;
+  --secondary-color-70: #e5b6ff;
+  --secondary-color-80: #f0c3ff;
+  --secondary-color-90: #fbd0ff;
 }
 
 @media (prefers-color-scheme: dark) {

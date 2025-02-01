@@ -28,6 +28,18 @@ export default {
           70: "var(--primary-color-70)",
           80: "var(--primary-color-80)",
           90: "var(--primary-color-90)"
+        },
+        secondary: {
+          DEFAULT: "var(--secondary-color)",
+          10: "var(--secondary-color-10)",
+          20: "var(--secondary-color-20)",
+          30: "var(--secondary-color-30)",
+          40: "var(--secondary-color-40)",
+          50: "var(--secondary-color-50)",
+          60: "var(--secondary-color-60)",
+          70: "var(--secondary-color-70)",
+          80: "var(--secondary-color-80)",
+          90: "var(--secondary-color-90)"
         }
       }
     }

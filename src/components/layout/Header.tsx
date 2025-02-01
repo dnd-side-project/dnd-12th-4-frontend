@@ -10,7 +10,7 @@ interface Params {
 export default function Header({ title, isBack = true }: Params) {
   const router = useRouter()
   return (
-    <div className="fixed top-0 z-50 flex h-[40px] w-full max-w-screen-lg items-center bg-gray-500 px-[12px]">
+    <div className="fixed top-0 z-50 flex h-[40px] w-full max-w-screen-lg items-center bg-primary-50 px-[12px]">
       {isBack && (
         <button onClick={() => router.back()}>
           <ArrowLeft size={24} />

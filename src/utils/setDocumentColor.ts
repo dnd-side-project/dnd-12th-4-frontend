@@ -1,6 +1,6 @@
 import chroma from "chroma-js"
 
-type ColorKeyType = "primary" | "secondary"
+export type ColorKeyType = "primary" | "secondary"
 
 export const generateColorPalette = (hex: string, numColors: number = 9) => {
   try {
@@ -33,11 +33,11 @@ export const generateCSSVariables = (palette: string[], colorKey: ColorKeyType, 
     palette
       .map((color, index) => {
         const percentage = (index + 1) * 10
-        return `--primary-color-${percentage}: ${color};`
+        return `--${colorKey}-color-${percentage}: ${color};`
       })
       .join("\n") +
     `
-    --primary-color: ${centerColor};
+    --${colorKey}-color: ${centerColor};
   `
   )
 }

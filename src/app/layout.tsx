@@ -1,5 +1,5 @@
 import { Pretendard } from "@/fonts"
-import { generateColorPalette, generateCSSVariables } from "@/utils/setDocumentColor"
+import { ColorKeyType, generateColorPalette, generateCSSVariables } from "@/utils/setDocumentColor"
 import type { Metadata } from "next"
 import { cookies } from "next/headers"
 import MobileViewLayout from "../components/layout/MobileViewLayout"
@@ -18,12 +18,15 @@ export default async function RootLayout({
 }>) {
   //#region palette setting
   const cookieStore = await cookies()
-  const primaryColor = cookieStore.get("primary")?.value
-  let cssVariables
-  if (primaryColor) {
-    const palette = generateColorPalette(primaryColor)
-    cssVariables = generateCSSVariables(palette, "primary", primaryColor)
-  }
+  let cssVariables = ""
+  const colorKeys: ColorKeyType[] = ["primary", "secondary"]
+  colorKeys.forEach((key) => {
+    const color = cookieStore.get(key)?.value
+    if (color) {
+      const palette = generateColorPalette(color)
+      cssVariables += generateCSSVariables(palette, key, color) + "\n"
+    }
+  })
   //endregion palette setting
 
   return (
