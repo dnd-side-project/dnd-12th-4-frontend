@@ -9,7 +9,7 @@ export default function Footer() {
   const navButtonClassName = "flex h-full w-full flex-col items-center justify-center"
 
   return (
-    <div className="fixed bottom-0 z-50 flex h-[80px] w-full max-w-screen-lg items-center justify-around bg-secondary-50 px-[12px]">
+    <div className="fixed bottom-0 z-50 flex h-[80px] w-full max-w-screen-lg items-center justify-around bg-gray-500 px-[12px]">
       <button className={navButtonClassName} onClick={() => router.push("/home")}>
         <House size={24} />
         <p>홈</p>
