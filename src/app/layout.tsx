@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import "../styles/globals.css"
 import "../styles/reset.css"
-import MobileViewLayout from "../components/layout/MobileViewLayout"
+import MobileViewLayout from "@/components/layout/MobileViewLayout"
 import { Pretendard } from "@/fonts"
 
 export const metadata: Metadata = {

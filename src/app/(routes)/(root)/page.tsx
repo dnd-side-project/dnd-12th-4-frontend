@@ -1,7 +1,11 @@
 "use client"
 import HeaderFooterWrapper from "@/components/layout/HeaderFooterWrapper"
 import CharacterInformation from "@/components/root/CharacterInformation"
+import FriendsSlider from "@/components/root/FriendsSlider"
+import Invite from "@/components/root/Invite"
 import TitleSection from "@/components/root/TitleSection"
+import TodayAnswerSlider from "@/components/root/TodayAnswerSlider"
+import TodayAnswerSummary from "@/components/root/TodayAnswerSummary"
 
 export default function Home() {
   return (
@@ -9,6 +13,12 @@ export default function Home() {
       <section className="flex h-full flex-col bg-[#292D30]">
         <TitleSection />
         <CharacterInformation />
+        <section className="flex h-full flex-col gap-[40px] rounded-t-[20px] bg-[#EFF3F7] p-[16px]">
+          <TodayAnswerSummary />
+          <TodayAnswerSlider />
+          <Invite />
+          <FriendsSlider />
+        </section>
       </section>
     </HeaderFooterWrapper>
   )
