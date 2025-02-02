@@ -1,4 +1,4 @@
-import styles from "@/styles/todayAnswerSlider.module.css"
+import "@/styles/todayAnswerSlider.css"
 import { MessageCircle } from "lucide-react"
 import Image from "next/image"
 import "swiper/css"
@@ -18,7 +18,7 @@ export default function TodayAnswerSlider() {
           el: `#today-answer-slider`,
           clickable: true,
           renderBullet: function (index, className) {
-            return `<span class="${className} ${styles} !bg-black !w-[4px] !h-[4px]"> </span>`
+            return `<span class="${className} !bg-black !w-[4px] !h-[4px]"> </span>`
           }
         }}
       >
