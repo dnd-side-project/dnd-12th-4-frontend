@@ -1,11 +1,22 @@
+import "@/styles/inviteButton.css"
+import { share, ShareAPIRequest } from "@/utils/share"
 import { ChevronRight, Share2 } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
 import { Sheet } from "react-modal-sheet"
-import "@/styles/inviteButton.css"
 
 export default function InviteButton() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const handleShare = async () => {
+    const shareData: ShareAPIRequest = {
+      // Todo 데이터 알맞게 수정
+      title: "DND",
+      text: "DND-12-4팀",
+      url: "https://dnd.ac"
+    }
+    share(shareData)
+  }
+
   return (
     <>
       <button
@@ -36,7 +47,7 @@ export default function InviteButton() {
               <p>초대 코드는 언제든지 보낼 수 있어요.</p>
               <button
                 className="mt-[12px] flex items-center justify-between rounded-[12px] border-2 border-[#637180] px-[20px] py-[16px]"
-                onClick={() => {}}
+                onClick={handleShare}
               >
                 <p>12345678</p>
                 <Share2 size={24} />
