@@ -1,4 +1,4 @@
-import FriendInformation from "@/components/friends/FriendInformation"
+import FriendInformation from "@/components/common/FriendInformation"
 import HeaderFooterWrapper from "@/components/layout/HeaderFooterWrapper"
 
 export default function FriendsPage() {
