@@ -25,7 +25,9 @@ export default function Textarea({ count, date, maxLength, ...props }: Params) {
         maxLength={maxLength}
         className={cn("w-full resize-none bg-inherit outline-none placeholder:text-black/60", props.className)}
       />
-      {maxLength && <p className="self-end text-[14px] text-black/60">{`0/${maxLength}`}</p>}
+      {maxLength && (
+        <p className="self-end text-[14px] text-black/60">{`${props.value ? props.value.toString().length : 0}/${maxLength}`}</p>
+      )}
     </section>
   )
 }
