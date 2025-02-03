@@ -1,3 +1,4 @@
+"use client"
 import TitleWithMoreView from "@/components/root/TitleWithMoreView"
 import Image from "next/image"
 import "swiper/css"

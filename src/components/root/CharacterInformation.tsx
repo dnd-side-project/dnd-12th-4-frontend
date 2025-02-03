@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image"
 import { Tooltip } from "react-tooltip"
 // import "react-tooltip/dist/react-tooltip.css"

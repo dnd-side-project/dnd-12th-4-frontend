@@ -1,3 +1,4 @@
+"use client"
 import TitleWithMoreView from "@/components/root/TitleWithMoreView"
 import "@/styles/todayAnswerSlider.css"
 import { MessageCircle } from "lucide-react"

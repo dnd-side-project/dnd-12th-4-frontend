@@ -1,3 +1,4 @@
+"use client"
 import "@/styles/inviteButton.css"
 import { share, ShareAPIRequest } from "@/utils/share"
 import { ChevronRight, Share2 } from "lucide-react"
