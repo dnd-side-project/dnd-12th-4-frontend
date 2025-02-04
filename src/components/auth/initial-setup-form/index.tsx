@@ -3,7 +3,7 @@ import Image from "next/image"
 import React from "react"
 
 interface InitialSetupInfo {
-  url: string
+  imageUrl: string
   title: string
   description: string
   isLastPage?: boolean
@@ -16,7 +16,7 @@ interface InitialSetupFormProps {
 }
 
 function InitialSetupForm({ initialSetupInfo, onNext, setInput }: InitialSetupFormProps) {
-  const { url, title, description } = initialSetupInfo
+  const { imageUrl, title, description } = initialSetupInfo
 
   const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -29,7 +29,7 @@ function InitialSetupForm({ initialSetupInfo, onNext, setInput }: InitialSetupFo
   return (
     <form className="flex flex-col gap-[24px]">
       <div className="flex flex-col gap-[8px]">
-        <Image src={url} width={60} height={60} alt="캐릭터 이미지" />
+        <Image src={imageUrl} width={60} height={60} alt="캐릭터 이미지" />
         <div className="whitespace-pre-line text-[24px] font-semibold leading-[1.6]">{title}</div>
         <div className="whitespace-pre-line leading-[1.6]">{description}</div>
       </div>
