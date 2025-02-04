@@ -13,13 +13,13 @@ export const GUIDE_INFO = {
     {
       messages: ["저에게 간단한 정보를 주시면.", "친구와의 소통을 도와드릴게요!"],
       buttonValue: "알겠어!",
-      nextPageUrl: "auth/signup/common-nickname"
+      nextPageUrl: "common-nickname"
     }
   ],
   COMMON_NICKNAME: {
-    messages: ["개발자", "멋진 이름이네요."],
+    messages: ["", "멋진 이름이네요."],
     buttonValue: "고마워!",
-    nextPageUrl: "auth/signup/invite-or-join"
+    nextPageUrl: "invite-or-join"
   },
   CHANNEL_NICKNAME: { messages: ["이제 친구와 소통하도록", "주파수를 맞춰볼게요."] },
   LATER_INVITATION: { messages: ["그럼 채널로", "보내드릴게요."] }
@@ -27,28 +27,28 @@ export const GUIDE_INFO = {
 
 export const INITIAL_SETUP_INFO = {
   COMMON_NICKNAME: {
-    url: "https://placehold.co/229x229.png",
+    imageUrl: "https://placehold.co/229x229.png",
     title: "그럼..친구들과 소통할\n코드명을 알려주세요",
     description: "코드명은 앞으로 사용할 닉네임이에요.\n회원 가입 후에도 수정이 가능해요.",
     isLastPage: true
   },
   INVITATION_CODE: {
-    url: "https://placehold.co/229x229.png",
+    imageUrl: "https://placehold.co/229x229.png",
     title: "친구에게 받은 코드를\n저에게 알려주세요"
   },
   INVITE_CHANNEL_NICKNAME: {
-    url: "https://placehold.co/229x229.png",
+    imageUrl: "https://placehold.co/229x229.png",
     title: "초대 받은 채널에서\n채널 코드명으로 활동해 보세요",
     description: "채널 코드명은 한 채널에서 사용할 닉네임이에요.\n회원 가입 후에도 수정이 가능해요.",
     isLastPage: true
   },
   CHANNEL_NAME: {
-    url: "https://placehold.co/229x229.png",
+    imageUrl: "https://placehold.co/229x229.png",
     title: "친구들과 소통할\n채널명을 만들어보세요",
     description: "채널명은 언제든지 수정이 가능해요."
   },
   CREATE_CHANNEL_NICKNAME: {
-    url: "https://placehold.co/229x229.png",
+    imageUrl: "https://placehold.co/229x229.png",
     title: "채널에서 채널 코드명으로\n활동해 보세요",
     description: "채널 코드명은 한 채널에서 사용할 닉네임이에요.\n회원 가입 후에도 수정이 가능해요."
   }
