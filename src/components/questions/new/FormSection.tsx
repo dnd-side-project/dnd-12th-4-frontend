@@ -7,10 +7,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Info } from "lucide-react"
 import { useState } from "react"
 import { FieldValues, useForm } from "react-hook-form"
-import { Sheet } from "react-modal-sheet"
-import RecommendQuestionCategory from "./RecommendQuestionCategory"
 import Textarea from "./Textarea"
 import Toggle from "./Toggle"
+import RecommendQuestionBottomSheet from "./RecommendQuestionBottomSheet"
 
 export default function FormSection() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -57,23 +56,7 @@ export default function FormSection() {
           </div>
         </form>
       </section>
-      <Sheet isOpen={isOpen} onClose={() => setIsOpen(false)} snapPoints={[400]} className="">
-        <Sheet.Container>
-          <Sheet.Content>
-            <section className="flex h-full flex-col justify-between p-[16px] text-black">
-              <article className="flex flex-col items-center">
-                <p className="text-[20px] font-semibold">추천 시그널</p>
-                <article className="mt-[8px] flex flex-col gap-[24px]">
-                  <RecommendQuestionCategory />
-                  <p>친구 연인 연인 가족</p>
-                </article>
-              </article>
-              <Button className="w-full">확인</Button>
-            </section>
-          </Sheet.Content>
-        </Sheet.Container>
-        <Sheet.Backdrop onTap={() => setIsOpen(false)} />
-      </Sheet>
+      <RecommendQuestionBottomSheet isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   )
 }
