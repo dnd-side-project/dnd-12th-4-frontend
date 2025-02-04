@@ -1,8 +1,8 @@
 "use client"
 import Button from "@/components/common/Button"
-import { Dispatch, SetStateAction, useState, useRef, useEffect } from "react"
-import { Sheet } from "react-modal-sheet"
 import { AnimatePresence, motion } from "motion/react"
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react"
+import { Sheet } from "react-modal-sheet"
 
 interface Params {
   isOpen: boolean
@@ -53,14 +53,16 @@ export default function RecommendQuestionBottomSheet({ isOpen, setIsOpen }: Para
                       {label}
                     </Button>
                   ))}
-                  <AnimatePresence>
-                    <motion.span
-                      className="absolute bottom-0 h-[3px] rounded-full bg-black"
-                      initial={{ left: indicatorLeft, width: indicatorWidth }}
-                      animate={{ left: indicatorLeft, width: indicatorWidth }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </AnimatePresence>
+                  <div className="absolute bottom-0 left-0 right-0 h-[3px] rounded-full bg-black/20">
+                    <AnimatePresence>
+                      <motion.span
+                        className="absolute bottom-0 h-[3px] rounded-full bg-black"
+                        initial={{ left: indicatorLeft, width: indicatorWidth }}
+                        animate={{ left: indicatorLeft, width: indicatorWidth }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </AnimatePresence>
+                  </div>
                 </div>
                 <p>{categoryData[selected]}</p>
               </article>
