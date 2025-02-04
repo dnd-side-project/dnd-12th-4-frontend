@@ -5,11 +5,12 @@ import React from "react"
 interface GuideProps {
   guideInfo: { messages: string[]; buttonValue?: string; nextPageUrl?: string }
   onNext?: () => void
+  nickname?: string
   isButton: boolean
   // nextPage: number
 }
 
-function Guide({ guideInfo, onNext, isButton }: GuideProps) {
+function Guide({ guideInfo, onNext, nickname, isButton }: GuideProps) {
   const router = useRouter()
   const { messages, buttonValue, nextPageUrl } = guideInfo
   const handleButtonClick = () => {
@@ -17,7 +18,7 @@ function Guide({ guideInfo, onNext, isButton }: GuideProps) {
       onNext()
     }
     if (nextPageUrl) {
-      router.push("/auth/initial/common-nickname")
+      router.push(`/auth/initial/${nextPageUrl}`)
     }
   }
 
@@ -27,7 +28,7 @@ function Guide({ guideInfo, onNext, isButton }: GuideProps) {
         <div className="flex w-full flex-col items-center gap-[24px]">
           <Image src={"https://placehold.co/229x229.png"} width={230} height={230} alt="일러스트 이미지" />
           <div className="text-center text-[24px] font-semibold leading-[1.6]">
-            {messages[0]}
+            {nickname ? nickname + "!" : messages[0]}
             <br />
             {messages[1]}
           </div>
