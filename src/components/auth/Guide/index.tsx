@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import React from "react"
 
 interface GuideProps {
@@ -9,10 +10,14 @@ interface GuideProps {
 }
 
 function Guide({ guideInfo, onNext, isButton }: GuideProps) {
+  const router = useRouter()
   const { messages, buttonValue, nextPageUrl } = guideInfo
   const handleButtonClick = () => {
     if (!nextPageUrl && onNext) {
       onNext()
+    }
+    if (nextPageUrl) {
+      router.push("/auth/initial/common-nickname")
     }
   }
 
