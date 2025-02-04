@@ -22,7 +22,7 @@ export default function CarouselItems() {
             key={carouselItem.id}
             className={`absolute inset-0 transition-opacity duration-1000 ${index === currentIndex ? "opacity-100" : "opacity-0"} flex flex-col items-center gap-10`}
           >
-            <div className="w-[300px] whitespace-pre-line text-center text-2xl font-semibold leading-[1.6] text-[#191919]">
+            <div className="w-[300px] whitespace-pre-line text-center text-[24px] font-semibold leading-[1.6] text-[#191919]">
               {carouselItem.title}
             </div>
             <Image src={carouselItem.image} width={230} height={230} alt="일러스트 이미지" />
