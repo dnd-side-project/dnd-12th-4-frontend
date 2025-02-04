@@ -1,4 +1,6 @@
-import { AuthOptions } from "next-auth"
+import axios from "axios"
+import { AuthOptions, Session } from "next-auth"
+import { JWT } from "next-auth/jwt"
 import Kakao from "next-auth/providers/kakao"
 
 const authOptions: AuthOptions = {
@@ -12,9 +14,27 @@ const authOptions: AuthOptions = {
     jwt: async ({ token, account }) => {
       if (account) {
         token.accessToken = account.access_token
-        token.provider = account.provider
+
+        try {
+          const { data: tokenData } = await axios.get(`${process.env.BACKEND_URL}/auth/kakao/exchange`, {
+            headers: {
+              Authorization: `Bearer ${token.accessToken}`,
+              "Content-Type": "application/json"
+            }
+          })
+          token.accessToken = tokenData.body.token
+        } catch (error) {
+          console.error("카카오 또는 DB 요청 실패:", error)
+        }
       }
       return token
+    },
+    session: async ({ session, token }: { session: Session; token: JWT }) => {
+      if (token) {
+        session.user.accessToken = token.accessToken
+      }
+
+      return session
     }
   },
 
