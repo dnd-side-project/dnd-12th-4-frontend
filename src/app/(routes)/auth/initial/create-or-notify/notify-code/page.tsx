@@ -1,7 +1,7 @@
 "use client"
 
-import Guide from "@/components/auth/guide"
-import InitialSetupForm from "@/components/auth/initial-setup-form"
+import Guide from "@/components/auth/Guide"
+import InitialSetupForm from "@/components/auth/InitialSetupForm"
 import { GUIDE_INFO, INITIAL_SETUP_INFO } from "@/constants/auth"
 import { useState } from "react"
 

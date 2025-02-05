@@ -1,6 +1,5 @@
 "use client"
 import { cn } from "@/utils/cn"
-import React from "react"
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant: keyof typeof buttonVariants

@@ -1,6 +1,6 @@
 "use client"
 
-import Guide from "@/components/auth/guide"
+import Guide from "@/components/auth/Guide"
 import { FIRST_PAGE, GUIDE_INFO } from "@/constants/auth"
 import { useState } from "react"
 

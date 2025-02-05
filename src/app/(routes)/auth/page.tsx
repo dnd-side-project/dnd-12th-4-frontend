@@ -1,6 +1,7 @@
 "use client"
-import Button from "@/components/auth/button"
-import CarouselItems from "@/components/auth/carousel-items"
+import Button from "@/components/auth/Button"
+import CarouselItems from "@/components/auth/CarouselItems"
+
 import { KakaoSymbol } from "@/icons/KakaoSymbol"
 import { signIn, useSession } from "next-auth/react"
 import { redirect } from "next/navigation"

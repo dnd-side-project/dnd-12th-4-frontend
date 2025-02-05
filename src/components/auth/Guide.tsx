@@ -1,7 +1,6 @@
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import React from "react"
-import Button from "../button"
+import Button from "@/components/auth/Button"
 
 interface GuideProps {
   guideInfo: { messages: string[]; buttonValue?: string; nextPageUrl?: string }

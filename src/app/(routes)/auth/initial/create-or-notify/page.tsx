@@ -1,7 +1,6 @@
-import InitialSetupForm from "@/components/auth/initial-setup-form"
+import InitialSetupForm from "@/components/auth/InitialSetupForm"
 import { INITIAL_SETUP_INFO } from "@/constants/auth"
-import rightIcon from "../../../../../../public/chevron-right.svg"
-import CardButton from "@/components/auth/card-button"
+import CardButton from "@/components/auth/CardButton"
 function Page() {
   return (
     <div>
@@ -10,13 +9,11 @@ function Page() {
           <CardButton
             title="채널 만들기"
             description="친구들과 소통할 채널을 만들어 보세요"
-            icon={rightIcon}
             nextUrl="/auth/initial/create-or-notify/create-channel"
           />
           <CardButton
             title="초대 코드 알려주기"
             description="전달받은 초대 코드로 채널에 참여해 보세요"
-            icon={rightIcon}
             nextUrl="/auth/initial/create-or-notify/notify-code"
           />
         </div>

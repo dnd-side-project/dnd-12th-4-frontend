@@ -1,18 +1,16 @@
 "use client"
-import React from "react"
-import Image, { StaticImageData } from "next/image"
+import { ChevronRight } from "lucide-react"
 import { useRouter } from "next/navigation"
 
 interface CardButtonProps {
   title: string
   description?: string
-  icon?: StaticImageData
   onClick?: () => void
   nextUrl: string
   className?: string
 }
 
-const CardButton = ({ title, description, icon, nextUrl, className = "" }: CardButtonProps) => {
+const CardButton = ({ title, description, nextUrl, className = "" }: CardButtonProps) => {
   const router = useRouter()
   const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -28,7 +26,7 @@ const CardButton = ({ title, description, icon, nextUrl, className = "" }: CardB
         <div className="text-[20px] font-semibold">{title}</div>
         {description && <div className="text-[14px] font-medium text-gray-600">{description}</div>}
       </div>
-      {icon && <Image src={icon} alt="선택하기" />}
+      <ChevronRight />
     </button>
   )
 }

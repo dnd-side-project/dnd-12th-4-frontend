@@ -1,6 +1,6 @@
 "use client"
 
-import InitialSetupForm from "@/components/auth/initial-setup-form"
+import InitialSetupForm from "@/components/auth/InitialSetupForm"
 import { INITIAL_SETUP_INFO } from "@/constants/auth"
 import { useState } from "react"
 
