@@ -15,12 +15,12 @@ export default function CarouselItems() {
   }, [])
 
   return (
-    <>
-      <div className="relative flex h-[346px] w-full justify-center overflow-hidden">
+    <div className="flex w-full flex-col items-center gap-[80px]">
+      <div className="relative flex h-[382px] w-full justify-center overflow-hidden">
         {AUTH_CAROUSEL_ITEMS.map((carouselItem, index) => (
           <div
             key={carouselItem.id}
-            className={`absolute inset-0 transition-opacity duration-1000 ${index === currentIndex ? "opacity-100" : "opacity-0"} flex flex-col items-center gap-10`}
+            className={`absolute inset-0 transition-opacity duration-1000 ${index === currentIndex ? "opacity-100" : "opacity-0"} flex flex-col items-center gap-[80px]`}
           >
             <div className="w-[300px] whitespace-pre-line text-center text-[24px] font-semibold leading-[1.6] text-[#191919]">
               {carouselItem.title}
@@ -39,6 +39,6 @@ export default function CarouselItems() {
           ></div>
         ))}
       </div>
-    </>
+    </div>
   )
 }

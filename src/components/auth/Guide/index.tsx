@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import React from "react"
+import Button from "../button"
 
 interface GuideProps {
   guideInfo: { messages: string[]; buttonValue?: string; nextPageUrl?: string }
@@ -10,7 +11,7 @@ interface GuideProps {
   // nextPage: number
 }
 
-function Guide({ guideInfo, onNext, nickname, isButton }: GuideProps) {
+function Guide({ guideInfo, onNext, nickname, isButton = true }: GuideProps) {
   const router = useRouter()
   const { messages, buttonValue, nextPageUrl } = guideInfo
   const handleButtonClick = () => {
@@ -33,12 +34,14 @@ function Guide({ guideInfo, onNext, nickname, isButton }: GuideProps) {
             {messages[1]}
           </div>
           {isButton && (
-            <button
+            <Button
+              variant="default"
+              size="default"
               onClick={handleButtonClick}
               className="h-[54px] w-full cursor-pointer rounded-xl bg-[#D7DFE7] font-medium"
             >
               {buttonValue}
-            </button>
+            </Button>
           )}
         </div>
       </div>
