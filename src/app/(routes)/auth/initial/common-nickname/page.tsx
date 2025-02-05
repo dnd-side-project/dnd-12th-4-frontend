@@ -1,8 +1,8 @@
 "use client"
-import Guide from "@/components/auth/Guide"
+import Guide from "@/components/auth/guide"
 import InitialSetupForm from "@/components/auth/initial-setup-form"
 import { FIRST_PAGE, GUIDE_INFO, INITIAL_SETUP_INFO, SECOND_PAGE } from "@/constants/auth"
-import React, { useState } from "react"
+import { useState } from "react"
 
 function Page() {
   const [page, setPage] = useState(FIRST_PAGE)
@@ -19,6 +19,7 @@ function Page() {
           initialSetupInfo={INITIAL_SETUP_INFO.COMMON_NICKNAME}
           onNext={onNext}
           setInput={setNickname}
+          showButton
         />
       )}
       {page === SECOND_PAGE && <Guide guideInfo={GUIDE_INFO.COMMON_NICKNAME} nickname={nickname} isButton />}

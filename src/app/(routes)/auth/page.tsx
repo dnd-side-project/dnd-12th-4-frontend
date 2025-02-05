@@ -1,20 +1,26 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/auth"
-import AuthButton from "@/components/auth/auth-button"
+"use client"
+import Button from "@/components/auth/button"
 import CarouselItems from "@/components/auth/carousel-items"
-import { getServerSession } from "next-auth"
+import { KakaoSymbol } from "@/icons/KakaoSymbol"
+import { signIn, useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
 
-export default async function Auth() {
-  const session = await getServerSession(authOptions)
-
-  if (session && session.user.isNewMember) {
+export default function Auth() {
+  const session = useSession()
+  if (session.data) {
     redirect("/auth/initial/")
   }
+
   return (
-    <div className="mb-6 mt-[58px] flex justify-center">
-      <section className="flex w-full flex-col items-center gap-[57px] px-4">
+    <div className="flex h-full justify-center pb-[12px] pt-[56px]">
+      <section className="flex w-full flex-col items-center justify-between gap-[57px] px-4">
         <CarouselItems />
-        <AuthButton />
+        <Button variant="kakao" size="kakao" onClick={() => signIn("kakao")}>
+          <div className="absolute left-[24px]">
+            <KakaoSymbol />
+          </div>
+          <span className="font-medium">카카오 로그인</span>
+        </Button>
       </section>
     </div>
   )
