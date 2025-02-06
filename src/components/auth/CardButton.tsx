@@ -20,7 +20,7 @@ const CardButton = ({ title, description, nextUrl, className = "" }: CardButtonP
   return (
     <button
       onClick={handleButtonClick}
-      className={`flex h-[100px] w-full items-center justify-between rounded-[12px] border border-[#9CAAB9] px-[20px] py-[24px] transition hover:bg-gray-100 ${className}`}
+      className={`flex h-[100px] w-full items-center justify-between rounded-[12px] bg-[#F5F8FA] px-[20px] py-[24px] transition hover:bg-gray-100 ${className}`}
     >
       <div className="flex flex-col items-start">
         <div className="text-[20px] font-semibold">{title}</div>
