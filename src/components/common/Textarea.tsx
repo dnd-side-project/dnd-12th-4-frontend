@@ -2,6 +2,7 @@
 
 import { cn } from "@/utils/cn"
 import type { TextareaHTMLAttributes } from "react"
+import Tag from "./Tag"
 
 interface Params extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   count?: number
@@ -14,9 +15,7 @@ export default function Textarea({ count, date, maxLength, ...props }: Params) {
     <section className="relative flex w-full flex-col items-center gap-[12px] rounded-[20px] bg-[#F5F8FA] p-[20px] font-semibold">
       {(count || date) && (
         <div className={cn("flex w-full items-center", count ? "justify-between" : "justify-end")}>
-          {count && (
-            <p className="rounded-[40px] bg-[#D7DFE7] px-[12px] py-[4px] text-[12px] text-black/60">000번째 시그널</p>
-          )}
+          {count && <Tag text={`${count}번째 시그널`} className="bg-[#D7DFE7]" />}
           {date && <p className="text-[12px] text-black/60">2025.00.00</p>}
         </div>
       )}

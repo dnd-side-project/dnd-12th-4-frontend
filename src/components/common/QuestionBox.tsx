@@ -1,6 +1,7 @@
 "use client"
 
 import { cn } from "@/utils/cn"
+import Tag from "./Tag"
 
 interface Params {
   count?: number
@@ -14,7 +15,7 @@ export default function QuestionBox({ count = 1, replyCount = 0, date, nickname 
   return (
     <section className="relative flex w-full flex-col gap-[12px] rounded-[20px] bg-[#F5F8FA] px-[20px] py-[24px] font-semibold">
       <div className={cn("flex w-full items-center")}>
-        <p className="rounded-[40px] bg-[#D7DFE7] px-[12px] py-[4px] text-[12px] text-black/60">{count}번째 시그널</p>
+        {<Tag text={`${count}번째 시그널`} className="bg-[#D7DFE7]" />}
       </div>
       <p className="text-[12px]">
         지금까지 <span className="text-[#9CAAB9]">{replyCount}</span>명이 응답했어요
