@@ -1,13 +1,17 @@
 "use client"
 import TitleWithMoreView from "@/components/root/TitleWithMoreView"
 import Image from "next/image"
+import { useParams, useRouter } from "next/navigation"
 import "swiper/css"
 import { Swiper, SwiperSlide } from "swiper/react"
 
 export default function FriendsSlider() {
+  const { id } = useParams()
+  const router = useRouter()
+
   return (
     <article className="flex flex-col gap-[12px]">
-      <TitleWithMoreView title={"참여 중인 친구 14명"} onClick={() => {}} />
+      <TitleWithMoreView title={"참여 중인 친구 14명"} onClick={() => router.push(`/${id}/friends`)} />
       <div className="mx-[-16px]">
         <Swiper slidesPerView="auto" spaceBetween={8} className="w-full" slidesOffsetAfter={16} slidesOffsetBefore={16}>
           {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((data) => (

@@ -67,7 +67,9 @@ export default function RecommendQuestionBottomSheet({ isOpen, setIsOpen }: Para
                 <p>{categoryData[selected]}</p>
               </article>
             </article>
-            <Button className="w-full">확인</Button>
+            <Button className="w-full" onClick={() => setIsOpen(false)}>
+              확인
+            </Button>
           </section>
         </Sheet.Content>
       </Sheet.Container>

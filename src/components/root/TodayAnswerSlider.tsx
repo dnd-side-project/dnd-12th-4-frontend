@@ -3,15 +3,23 @@ import TitleWithMoreView from "@/components/root/TitleWithMoreView"
 import "@/styles/todayAnswerSlider.css"
 import { MessageCircle } from "lucide-react"
 import Image from "next/image"
+import { useParams, useRouter } from "next/navigation"
 import "swiper/css"
 import "swiper/css/pagination"
 import { Pagination } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 
 export default function TodayAnswerSlider() {
+  const { id } = useParams()
+  const router = useRouter()
   return (
     <article className="flex flex-col gap-[12px]">
-      <TitleWithMoreView title={"오늘 응답 5개"} onClick={() => {}} />
+      <TitleWithMoreView
+        title={"오늘 응답 5개"}
+        onClick={() => {
+          router.push(`/${id}/questions`)
+        }}
+      />
       <div className="mx-[-16px]">
         <Swiper
           className="relative h-fit w-full"
