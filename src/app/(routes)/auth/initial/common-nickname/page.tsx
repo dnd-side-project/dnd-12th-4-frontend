@@ -13,17 +13,18 @@ function Page() {
   }
 
   return (
-    <div>
+    <>
       {page === FIRST_PAGE && (
         <InitialSetupForm
           initialSetupInfo={INITIAL_SETUP_INFO.COMMON_NICKNAME}
           onNext={onNext}
           setInput={setNickname}
+          inputValue={nickname}
           showButton
         />
       )}
       {page === SECOND_PAGE && <Guide guideInfo={GUIDE_INFO.COMMON_NICKNAME} nickname={nickname} isButton />}
-    </div>
+    </>
   )
 }
 
