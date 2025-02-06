@@ -11,7 +11,7 @@ export const GUIDE_INFO = {
   CHARACTER_INTRODUCE: [
     { messages: ["안녕하세요.", "저는 토끼에요."], buttonValue: "안녕!" },
     {
-      messages: ["저에게 간단한 정보를 주시면.", "친구와의 소통을 도와드릴게요!"],
+      messages: ["저에게 간단한 정보를 주시면", "친구와의 소통을 도와드릴게요!"],
       buttonValue: "알겠어!",
       nextPageUrl: "common-nickname"
     }

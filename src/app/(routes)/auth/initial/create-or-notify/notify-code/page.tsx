@@ -13,7 +13,7 @@ function Page() {
     setStepLevel((prev) => prev + 1)
   }
   return (
-    <div>
+    <>
       {steps[stepLevel] === "InvitationCode" && (
         <InitialSetupForm initialSetupInfo={INITIAL_SETUP_INFO.INVITATION_CODE} onNext={onNext} showButton />
       )}
@@ -23,7 +23,7 @@ function Page() {
       {steps[stepLevel] === "CreatedCode" && (
         <Guide guideInfo={GUIDE_INFO.CHANNEL_NICKNAME} onNext={onNext} isButton={false} />
       )}
-    </div>
+    </>
   )
 }
 

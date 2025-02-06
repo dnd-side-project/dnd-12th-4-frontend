@@ -6,11 +6,14 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: keyof typeof buttonSizes
   children: React.ReactNode
   className?: string
+  onNext?: () => void
 }
 
 const buttonVariants = {
-  default: "cursor-pointer rounded-xl font-medium bg-[#FDD835]",
-  kakao: "relative flex items-center justify-center rounded-xl bg-[#FEE500] hover:opacity-70 active:opacity-80"
+  default:
+    "cursor-pointer rounded-xl font-medium bg-[#FDD835] cursor-pointer hover:opacity-70 active:opacity-80 disabled:bg-[#ECF0F3] disabled:pointer-events-none",
+  kakao:
+    "mb-[12px] relative flex items-center justify-center rounded-xl bg-[#FEE500] hover:opacity-70 active:opacity-80 cursor-pointer"
 }
 
 const buttonSizes = {
@@ -18,9 +21,19 @@ const buttonSizes = {
   kakao: "h-[51.45px] w-full"
 }
 
-export default function Button({ variant, children, size, className, ...props }: ButtonProps) {
+export default function Button({ variant, children, size, className, onNext, ...props }: ButtonProps) {
+  const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    if (onNext) {
+      onNext()
+    }
+  }
   return (
-    <button className={cn(buttonVariants[variant], buttonSizes[size], className)} {...props}>
+    <button
+      className={cn(buttonVariants[variant], buttonSizes[size], className)}
+      onClick={handleButtonClick}
+      {...props}
+    >
       {children}
     </button>
   )
