@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import "../styles/globals.css"
 import "../styles/reset.css"
-import MobileViewLayout from "../components/layout/MobileViewLayout"
+import MobileViewLayout from "@/components/layout/MobileViewLayout"
 import { Pretendard } from "@/fonts"
 import { authOptions } from "./api/auth/[...nextauth]/auth"
 import { getServerSession } from "next-auth"
