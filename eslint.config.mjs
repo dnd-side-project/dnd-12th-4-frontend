@@ -18,7 +18,13 @@ const eslintConfig = [
   ),
   {
     rules: {
-      "@typescript-eslint/no-explicit-any": "off"
+      "@typescript-eslint/no-explicit-any": "off",
+      "prettier/prettier": [
+        "error",
+        {
+          endOfLine: "auto"
+        }
+      ]
     }
   }
 ]
