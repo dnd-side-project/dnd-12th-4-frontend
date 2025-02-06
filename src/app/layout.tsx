@@ -5,7 +5,8 @@ import MobileViewLayout from "@/components/layout/MobileViewLayout"
 import { Pretendard } from "@/fonts"
 import { authOptions } from "./api/auth/[...nextauth]/auth"
 import { getServerSession } from "next-auth"
-import { Providers } from "./providers"
+import { AuthProvider } from "../providers/AuthProvider"
+import ReactQueryProvider from "@/providers/ReactQueryProvider"
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,9 +22,11 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={Pretendard.variable}>
-        <Providers session={session}>
-          <MobileViewLayout>{children}</MobileViewLayout>
-        </Providers>
+        <ReactQueryProvider>
+          <AuthProvider session={session}>
+            <MobileViewLayout>{children}</MobileViewLayout>
+          </AuthProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   )
