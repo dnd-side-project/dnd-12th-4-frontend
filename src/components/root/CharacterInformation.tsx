@@ -18,7 +18,7 @@ export default function CharacterInformation() {
           <p data-tooltip-id="tooltip-message" data-tooltip-place="bottom-end">
             10/100
           </p>
-          <Tooltip id="tooltip-message" style={{ backgroundColor: "white", borderRadius: 8 }}>
+          <Tooltip id="tooltip-message" style={{ backgroundColor: "white", borderRadius: 8 }} openOnClick>
             <div className="flex flex-col items-end text-[12px]">
               <p className="text-black">번개 포인트로 토키를 성장시켜보세요!</p>
               <p className="text-black/70">시그널을 보내면 10P를 얻어요</p>

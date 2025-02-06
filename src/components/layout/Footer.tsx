@@ -10,11 +10,11 @@ export default function Footer() {
 
   return (
     <div className="fixed bottom-0 z-50 flex h-[80px] w-full max-w-screen-lg items-center justify-around bg-gray-500 px-[12px]">
-      <button className={navButtonClassName} onClick={() => router.push("/home")}>
+      <button className={navButtonClassName} onClick={() => router.push("/")}>
         <House size={24} />
         <p>홈</p>
       </button>
-      <button className={navButtonClassName} onClick={() => router.push("/lists")}>
+      <button className={navButtonClassName} onClick={() => router.push("/questions")}>
         <ScrollText size={24} />
         <p>리스트</p>
       </button>

@@ -5,12 +5,18 @@ import InviteButton from "@/components/root/InviteButton"
 import TitleSection from "@/components/root/TitleSection"
 import TodayAnswerSlider from "@/components/root/TodayAnswerSlider"
 import TodayAnswerSummary from "@/components/root/TodayAnswerSummary"
+import { notFound } from "next/navigation"
 
 type Params = Promise<{ id: string }>
 
 export default async function RootPage({ params }: { params: Params }) {
   const { id } = await params
-  console.log(id)
+  // id가 숫자가 아니면 404로 리디렉션
+  // Todo 아이디가 존재하는지 확인해야함
+  if (isNaN(Number(id))) {
+    notFound()
+  }
+
   return (
     <HeaderFooterWrapper footer>
       <section className="flex h-full flex-col bg-[#292D30]">
