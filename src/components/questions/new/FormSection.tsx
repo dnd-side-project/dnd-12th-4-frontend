@@ -7,8 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Info } from "lucide-react"
 import { useState } from "react"
 import { FieldValues, useForm } from "react-hook-form"
-import Textarea from "./Textarea"
-import Toggle from "./Toggle"
+import Textarea from "../../common/Textarea"
+import Toggle from "../../common/Toggle"
 import RecommendQuestionBottomSheet from "./RecommendQuestionBottomSheet"
 
 export default function FormSection() {
@@ -21,7 +21,7 @@ export default function FormSection() {
     resolver: zodResolver(questionSchema)
   })
 
-  const onSubmit = (data: FieldValues) => {
+  const onSubmit = async (data: FieldValues) => {
     console.log("data", data)
   }
 
