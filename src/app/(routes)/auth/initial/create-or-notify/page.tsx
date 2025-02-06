@@ -5,7 +5,7 @@ function Page() {
   return (
     <div>
       <InitialSetupForm initialSetupInfo={INITIAL_SETUP_INFO.INVITE_OR_JOIN} showInput={false} showButton={false}>
-        <div className="mt-[16px] flex flex-col gap-[8px]">
+        <div className="mt-[8px] flex flex-col gap-[8px]">
           <CardButton
             title="채널 만들기"
             description="친구들과 소통할 채널을 만들어 보세요"

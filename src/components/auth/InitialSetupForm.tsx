@@ -44,11 +44,13 @@ function InitialSetupForm({
 
   return (
     <form className="flex h-full flex-col justify-between">
-      <div className="flex h-full flex-col gap-[16px]">
-        <div className="flex flex-col gap-[8px]">
+      <div className="flex h-full flex-col gap-[24px]">
+        <div className="flex flex-col gap-[16px]">
           <Image src={imageUrl} width={60} height={60} alt="캐릭터 이미지" />
-          <div className="whitespace-pre-line text-[24px] font-semibold leading-[1.6]">{title}</div>
-          <div className="whitespace-pre-line leading-[1.6]">{description}</div>
+          <div className="flex flex-col gap-[8px]">
+            <div className="whitespace-pre-line text-[24px] font-semibold leading-[1.5]">{title}</div>
+            {description && <div className="whitespace-pre-line leading-[1.5]">{description}</div>}
+          </div>
         </div>
         {!showInput && children}
         {showInput && (
