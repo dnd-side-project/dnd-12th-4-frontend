@@ -2,11 +2,12 @@ import CountAndSortBox from "@/components/my-page/CountAndSortBox"
 import { ChannelCard } from "@/components/my-page/channel/ChannelCard"
 import { TabList } from "@/components/my-page/channel/TabList"
 
-export default async function ChannelProfilePage({ searchParams }: { searchParams: Promise<{ tab: string }> }) {
-  const { tab } = await searchParams
+export default async function ChannelProfilePage() {
   return (
     <>
-      <TabList tab={tab} />
+      <ul className="flex gap-[8px]">
+        <TabList />
+      </ul>
       <div className="flex flex-col">
         <CountAndSortBox type="채널" count={333} />
         <ChannelCard
