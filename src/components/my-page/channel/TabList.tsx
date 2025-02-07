@@ -3,8 +3,6 @@ import { cn } from "@/utils/cn"
 import Link from "next/link"
 
 export function TabList({ tab }: { tab: string }) {
-  console.log("tab", tab)
-
   return (
     <ul className="flex gap-[8px]">
       {TAB_MENUS.map((tabMenu) => (
