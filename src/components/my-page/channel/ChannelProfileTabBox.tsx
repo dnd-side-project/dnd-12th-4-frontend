@@ -1,16 +1,16 @@
 "use client"
 import Tab from "@/components/common/Tab"
-import { TAB_MENUS } from "@/constants/myPage"
+import { TAB_MENUS } from "@/constants/tab"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
-export function TabList() {
+export function ChannelProfileTabBox() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
   const tab = searchParams.get("tab")
   return (
-    <>
-      {TAB_MENUS.map((TAB_MENU) => (
+    <ul className="flex gap-[8px]">
+      {TAB_MENUS.CHANNEL.map((TAB_MENU) => (
         <Tab
           key={TAB_MENU.value}
           label={TAB_MENU.label}
@@ -18,6 +18,6 @@ export function TabList() {
           onClick={() => router.push(`${pathname}?tab=${TAB_MENU.value}`)}
         />
       ))}
-    </>
+    </ul>
   )
 }

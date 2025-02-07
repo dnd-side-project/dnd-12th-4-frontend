@@ -1,9 +1,3 @@
-export const TAB_MENUS = [
-  { label: "전체", value: "all" },
-  { label: "내 채널", value: "my-channel" },
-  { label: "초대된 채널", value: "invited-channel" }
-]
-
 export const MY_INFO_MENUS = [
   {
     href: "/my-page/channel-profile?tab=all",
