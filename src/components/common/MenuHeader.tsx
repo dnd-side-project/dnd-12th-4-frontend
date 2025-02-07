@@ -8,7 +8,7 @@ interface MenuHeader {
 
 export default function MenuHeader({ title, button, onClick }: MenuHeader) {
   return (
-    <div className="flex justify-between py-[13px]">
+    <div className="flex justify-between px-[16px] py-[13px]">
       <div className="text-[20px] font-bold">{title}</div>
       {button && (
         <button

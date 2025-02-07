@@ -7,8 +7,8 @@ import { MY_INFO_MENUS } from "@/constants/myPage"
 function MyPage() {
   return (
     <HeaderFooterWrapper footer>
+      <MenuHeader title="내정보" button />
       <div className="px-[16px]">
-        <MenuHeader title="내정보" />
         <div className="flex flex-col gap-[20px]">
           <ProfileCard />
           <div className="flex flex-col gap-[12px]">
