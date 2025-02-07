@@ -1,4 +1,4 @@
-import AnswerCardItem from "./AnswerCardItem"
+import AnswerCardItem from "@/components/my-page/answer/AnswerCardItem"
 
 export const ANSWER_INFO = [
   {

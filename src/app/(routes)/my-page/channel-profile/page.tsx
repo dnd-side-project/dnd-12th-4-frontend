@@ -1,4 +1,4 @@
-import { ChannelCard } from "@/components/my-page/ChannelCard"
+import { ChannelCard } from "@/components/my-page/channel/ChannelCard"
 import CountAndSortBox from "@/components/my-page/CountAndSortBox"
 
 export default async function ChannelProfilePage() {

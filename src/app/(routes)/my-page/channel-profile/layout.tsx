@@ -1,5 +1,5 @@
 import HeaderFooterWrapper from "@/components/layout/HeaderFooterWrapper"
-import { TabList } from "@/components/my-page/TabList"
+import { TabList } from "@/components/my-page/channel/TabList"
 
 export default function ChannelProfileLayout({ children }: { children: React.ReactNode }) {
   return (

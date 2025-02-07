@@ -1,5 +1,5 @@
 import HeaderFooterWrapper from "@/components/layout/HeaderFooterWrapper"
-import ModifyProfileForm from "@/components/my-page/ModifyProfileForm"
+import ModifyProfileForm from "@/components/my-page/profile/ModifyProfileForm"
 
 export default function CommonProfileModifyPage() {
   return (

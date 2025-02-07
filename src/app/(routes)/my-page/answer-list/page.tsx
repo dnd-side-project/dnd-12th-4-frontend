@@ -1,5 +1,5 @@
 import HeaderFooterWrapper from "@/components/layout/HeaderFooterWrapper"
-import AnswerCardList from "@/components/my-page/AnswerCardList"
+import AnswerCardList from "@/components/my-page/answer/AnswerCardList"
 import CountAndSortBox from "@/components/my-page/CountAndSortBox"
 
 export default async function AnswerListPage() {

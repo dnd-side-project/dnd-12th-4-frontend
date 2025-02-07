@@ -1,6 +1,6 @@
 import HeaderFooterWrapper from "@/components/layout/HeaderFooterWrapper"
-import MyInfoMenuCard from "@/components/my-page/MyInfoMenuCard"
-import ProfileCard from "@/components/my-page/ProfileCard"
+import MyInfoMenuCard from "@/components/my-page/my-info/MyInfoMenuCard"
+import ProfileCard from "@/components/my-page/profile/ProfileCard"
 import { MY_INFO_MENUS } from "@/constants/myPage"
 
 function MyPage() {
