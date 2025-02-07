@@ -1,3 +1,4 @@
+import MenuHeader from "@/components/common/MenuHeader"
 import HeaderFooterWrapper from "@/components/layout/HeaderFooterWrapper"
 import MyInfoMenuCard from "@/components/my-page/my-info/MyInfoMenuCard"
 import ProfileCard from "@/components/my-page/profile/ProfileCard"
@@ -7,7 +8,7 @@ function MyPage() {
   return (
     <HeaderFooterWrapper footer>
       <div className="px-[16px]">
-        <div className="py-[13px] text-[20px] font-bold">내 정보</div>
+        <MenuHeader title="내정보" />
         <div className="flex flex-col gap-[20px]">
           <ProfileCard />
           <div className="flex flex-col gap-[12px]">

@@ -1,12 +1,12 @@
-export const TABS = [
-  { label: "전체", href: "/my-page/channel-profile" },
-  { label: "내 채널", href: "/my-page/channel-profile/my-channel" },
-  { label: "초대된 채널", href: "/my-page/channel-profile/invited-channel" }
+export const TAB_MENUS = [
+  { label: "전체", href: "all" },
+  { label: "내 채널", href: "my-channel" },
+  { label: "초대된 채널", href: "invited-channel" }
 ]
 
 export const MY_INFO_MENUS = [
   {
-    href: "/my-page/channel-profile",
+    href: "/my-page/channel-profile?tab=all",
     imageSrc: "https://placehold.co/229x229.png",
     title: "채널 프로필"
   },
