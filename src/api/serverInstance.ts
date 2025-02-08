@@ -29,7 +29,7 @@ serverInstance.interceptors.response.use(
       console.log("error", error)
       // Todo implement refreshToken logic
 
-      return Promise.reject(refreshError)
+      return Promise.reject(error)
     } catch (refreshError) {
       return Promise.reject(refreshError)
     }
