@@ -1,5 +1,5 @@
 "use client"
-import { default as Axios } from "axios"
+import axios, { default as Axios, AxiosRequestConfig, AxiosResponse } from "axios"
 import { getSession } from "next-auth/react"
 
 export const clientInstance = Axios.create({
@@ -32,3 +32,16 @@ clientInstance.interceptors.response.use(
     }
   }
 )
+
+export const customInstance = async <T>(config: AxiosRequestConfig): Promise<T> => {
+  const source = axios.CancelToken.source()
+  const promise = clientInstance({ ...config, cancelToken: source.token }).then(({ data }: AxiosResponse<T>) => data)
+  // @ts-expect-error ...
+  promise.cancel = () => {
+    source.cancel("Query was cancelled")
+  }
+  return promise
+}
+
+export type ErrorType<Error> = Error
+export type BodyType<BodyData> = BodyData
