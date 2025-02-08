@@ -1,4 +1,4 @@
-import { getFindChannelByIdQueryKey } from "@/api/channel-controller/channel-controller"
+import { getFindChannelByIdQueryKey, getFindChannelMembersQueryKey } from "@/api/channel-controller/channel-controller"
 import { serverInstance } from "@/api/serverInstance"
 import HeaderFooterWrapper from "@/components/layout/HeaderFooterWrapper"
 import CharacterInformation from "@/components/root/CharacterInformation"
@@ -20,13 +20,22 @@ export default async function RootPage({ params }: { params: Params }) {
 
   try {
     // * prefetch 는 오류를 발생시키지 않으므로 유효한 id값인지 확인하기 위해 fetchQuery 사용
-    await queryClient.fetchQuery({
-      queryKey: getFindChannelByIdQueryKey(id),
-      queryFn: async () => {
-        const { data } = await serverInstance.get(`/api/channels/${id}`)
-        return data
-      }
-    })
+    await Promise.all([
+      queryClient.fetchQuery({
+        queryKey: getFindChannelByIdQueryKey(id),
+        queryFn: async () => {
+          const { data } = await serverInstance.get(`/api/channels/${id}`)
+          return data
+        }
+      }),
+      queryClient.fetchQuery({
+        queryKey: getFindChannelMembersQueryKey(id),
+        queryFn: async () => {
+          const { data } = await serverInstance.get(`/api/channels/${id}/members`)
+          return data
+        }
+      })
+    ])
   } catch {
     notFound()
   }
