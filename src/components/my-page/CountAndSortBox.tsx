@@ -1,7 +1,7 @@
 import { ChevronDown } from "lucide-react"
 
 interface CountAndSortBoxProps {
-  type: "채널" | "응답"
+  type: "채널" | "응답" | "시그널"
   count: number
 }
 export default function CountAndSortBox({ type, count }: CountAndSortBoxProps) {
