@@ -7,7 +7,7 @@ import { MY_INFO_MENUS } from "@/constants/myPage"
 function MyPage() {
   return (
     <HeaderFooterWrapper footer>
-      <MenuHeader title="내정보" button />
+      <MenuHeader title="내정보" />
       <div className="px-[16px]">
         <div className="flex flex-col gap-[20px]">
           <ProfileCard />
