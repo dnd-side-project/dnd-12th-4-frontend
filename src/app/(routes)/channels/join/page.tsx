@@ -1,9 +1,9 @@
 "use client"
 
 import Guide from "@/components/auth/Guide"
+import Header from "@/components/auth/Header"
 import ChannelNicknameSection from "@/components/auth/section/ChannelNicknameSection"
 import InviteCodeInputSection from "@/components/auth/section/InviteCodeInputSection"
-import { ArrowLeft } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
@@ -52,12 +52,8 @@ function Page() {
   }, [stepLevel, router])
 
   return (
-    <>
-      {steps[stepLevel] !== "CreatedCode" && (
-        <div className="absolute top-0 flex h-[56px] items-center">
-          <ArrowLeft onClick={onPrev} className="size-[24px] text-[#5F6368]" />
-        </div>
-      )}
+    <div className="relative h-full px-[16px] pb-[12px] pt-[56px]">
+      {steps[stepLevel] !== "CreatedCode" && <Header onPrev={onPrev} />}
       <FormProvider {...formMethods}>
         <form onSubmit={handleSubmit(onSubmit)} className="flex h-full flex-col justify-between">
           {steps[stepLevel] === "InvitationCode" && <InviteCodeInputSection onNext={onNext} />}
@@ -67,7 +63,7 @@ function Page() {
           )}
         </form>
       </FormProvider>
-    </>
+    </div>
   )
 }
 

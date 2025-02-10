@@ -1,10 +1,10 @@
 "use client"
 
 import Guide from "@/components/auth/Guide"
+import Header from "@/components/auth/Header"
 import ChannelNicknameSection from "@/components/auth/section/ChannelNicknameSection"
 import CreateChannelNameSection from "@/components/auth/section/CreateChannelNameSection"
 import CreatedCodeSection from "@/components/auth/section/CreatedCodeSection"
-import { ArrowLeft } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
@@ -53,12 +53,8 @@ function Page() {
   }, [stepLevel, router])
 
   return (
-    <>
-      {steps[stepLevel] !== "LaterInvitation" && (
-        <div className="absolute top-0 flex h-[56px] items-center">
-          <ArrowLeft onClick={onPrev} className="size-[24px] text-[#5F6368]" />
-        </div>
-      )}
+    <div className="relative h-full px-[16px] pb-[12px] pt-[56px]">
+      {steps[stepLevel] !== "LaterInvitation" && <Header onPrev={onPrev} />}
       <FormProvider {...formMethods}>
         <form onSubmit={handleSubmit(onSubmit)} className="flex h-full flex-col justify-between">
           {steps[stepLevel] === "CreateChannelName" && <CreateChannelNameSection onNext={onNext} />}
@@ -67,7 +63,7 @@ function Page() {
           {steps[stepLevel] === "LaterInvitation" && <Guide title={`그럼 채널로\n보내드릴게요!`} />}
         </form>{" "}
       </FormProvider>
-    </>
+    </div>
   )
 }
 

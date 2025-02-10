@@ -13,12 +13,12 @@ function Page() {
           <CardButton
             title="채널 만들기"
             description="친구들과 소통할 채널을 만들어 보세요"
-            nextUrl="create-or-notify/create-channel"
+            nextUrl="/channels/create"
           />
           <CardButton
             title="초대 코드 알려주기"
             description="전달받은 초대 코드로 채널에 참여해 보세요"
-            nextUrl="create-or-notify/notify-code"
+            nextUrl="/channels/join"
           />
         </div>
       </div>
