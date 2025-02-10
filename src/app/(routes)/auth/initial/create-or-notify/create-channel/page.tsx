@@ -3,7 +3,7 @@
 import Button from "@/components/auth/Button"
 import Guide from "@/components/auth/Guide"
 import InitialSetupForm from "@/components/auth/InitialSetupForm"
-import { GUIDE_INFO, INITIAL_SETUP_INFO } from "@/constants/auth"
+import { INITIAL_SETUP_INFO } from "@/constants/auth"
 import { useState } from "react"
 
 const steps = ["ChannelName", "ChannelNickname", "CreatedCode", "LaterInvitation"]
@@ -59,7 +59,7 @@ function Page() {
           </div>
         </InitialSetupForm>
       )}
-      {steps[stepLevel] === "LaterInvitation" && <Guide guideInfo={GUIDE_INFO.LATER_INVITATION} isButton={false} />}
+      {steps[stepLevel] === "LaterInvitation" && <Guide title={`그럼 채널로\n보내드릴게요!`} />}
     </>
   )
 }

@@ -2,7 +2,7 @@
 
 import Guide from "@/components/auth/Guide"
 import InitialSetupForm from "@/components/auth/InitialSetupForm"
-import { GUIDE_INFO, INITIAL_SETUP_INFO } from "@/constants/auth"
+import { INITIAL_SETUP_INFO } from "@/constants/auth"
 import { useState } from "react"
 
 const steps = ["InvitationCode", "ChannelNickname", "CreatedCode"]
@@ -21,7 +21,7 @@ function Page() {
         <InitialSetupForm initialSetupInfo={INITIAL_SETUP_INFO.INVITE_CHANNEL_NICKNAME} onNext={onNext} showButton />
       )}
       {steps[stepLevel] === "CreatedCode" && (
-        <Guide guideInfo={GUIDE_INFO.CHANNEL_NICKNAME} onNext={onNext} isButton={false} />
+        <Guide title={`이제 친구와 소통하도록\n주파수를 맞춰볼게요.`} onNext={onNext} />
       )}
     </>
   )
