@@ -13,7 +13,11 @@ import { notFound } from "next/navigation"
 type Params = Promise<{ id: string }>
 
 export default async function RootPage({ params }: { params: Params }) {
-  // a6374266-1b20-458d-bf3d-eef4ae54705a
+  // channelId: b6ccac10-cdbc-428f-a619-820428ad5a11
+  // questionId: 1
+
+  // channelId: 15c6650b-6b9c-473f-bdf5-3739cb991660
+  // questionId: 2
   const { id } = await params
 
   const queryClient = new QueryClient()
