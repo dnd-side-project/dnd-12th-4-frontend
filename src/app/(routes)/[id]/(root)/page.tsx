@@ -18,6 +18,7 @@ export default async function RootPage({ params }: { params: Params }) {
 
   // channelId: 15c6650b-6b9c-473f-bdf5-3739cb991660
   // questionId: 2
+
   const { id } = await params
 
   const queryClient = new QueryClient()
