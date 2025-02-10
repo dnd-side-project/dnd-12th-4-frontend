@@ -10,6 +10,6 @@ interface ProvidersProps extends PropsWithChildren {
   queryClient?: QueryClient
 }
 
-export const Providers = ({ session, children }: ProvidersProps) => {
+export const AuthProvider = ({ session, children }: ProvidersProps) => {
   return <SessionProvider session={session}>{children}</SessionProvider>
 }

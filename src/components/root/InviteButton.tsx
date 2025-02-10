@@ -1,18 +1,23 @@
 "use client"
+import { useFindChannelById } from "@/api/channel-controller/channel-controller"
 import "@/styles/bottomSheet.css"
 import { share, ShareAPIRequest } from "@/utils/share"
 import { ChevronRight, Share2 } from "lucide-react"
 import Image from "next/image"
+import { useParams } from "next/navigation"
 import { useState } from "react"
 import { Sheet } from "react-modal-sheet"
 
 export default function InviteButton() {
+  const { id } = useParams()
+  const { data } = useFindChannelById(id as string)
+
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const handleShare = async () => {
     const shareData: ShareAPIRequest = {
+      title: `피키토키 채널에 초대합니다`,
+      text: `${data?.body?.channelRoomName} 채널에서 친구가 기다리고 있어요!`,
       // Todo 데이터 알맞게 수정
-      title: "DND",
-      text: "DND-12-4팀",
       url: "https://dnd.ac"
     }
     share(shareData)
@@ -50,7 +55,7 @@ export default function InviteButton() {
                 className="mt-[12px] flex items-center justify-between rounded-[12px] border-2 border-[#637180] px-[20px] py-[16px]"
                 onClick={handleShare}
               >
-                <p>12345678</p>
+                <p>{data?.body?.channelRoomName ?? "공유하기"}</p>
                 <Share2 size={24} />
               </button>
             </section>
