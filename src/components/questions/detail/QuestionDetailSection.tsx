@@ -1,4 +1,4 @@
-import QuestionOrAnswerDetailBox from "@/components/questions/list/QuestionOrAnswerDetailBox"
+import QuestionOrAnswerDetailBox from "@/components/questions/detail/QuestionOrAnswerDetailBox"
 import MyAnswerStatusBox from "@/components/questions/detail/MyAnswerStatusBox"
 
 export default function QuestionDetailSection() {

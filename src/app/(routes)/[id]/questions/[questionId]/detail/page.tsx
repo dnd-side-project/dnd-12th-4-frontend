@@ -1,6 +1,6 @@
 import HeaderFooterWrapper from "@/components/layout/HeaderFooterWrapper"
 import QuestionDetailSection from "@/components/questions/detail/QuestionDetailSection"
-import AnswerListSection from "@/components/questions/list/AnswerListSection"
+import AnswerListSection from "@/components/questions/detail/AnswerListSection"
 
 export default function QuestionDetailPage() {
   return (
