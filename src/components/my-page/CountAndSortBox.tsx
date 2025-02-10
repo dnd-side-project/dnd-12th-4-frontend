@@ -18,7 +18,7 @@ export default function CountAndSortBox({ type, count }: CountAndSortBoxProps) {
       </div>
       <button className="flex items-center gap-[2px]" onClick={() => setIsOpenFilterSheet(true)}>
         <div className="text-[14px] font-medium">최신순</div>
-        <ChevronDown className="w-[12px]" />
+        <ChevronDown size={12} />
       </button>
       <FilterBottomSheet isOpen={isOpenFilterSheet} setIsOpen={setIsOpenFilterSheet} />
     </div>
