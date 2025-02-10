@@ -11,15 +11,20 @@ export default function QuestionsPage() {
       <div className="px-[16px]">
         <QuestionListTabBox />
         <CountAndSortBox type="시그널" count={333} />
-        <div className="flex flex-col gap-[12px]">
-          <QuestionBox
-            count={12}
-            nickname={"무전기"}
-            time={3}
-            text="이번 주 7시에 다 같이 모여서 저녁 먹자 이번 주 7시에 다 같이 모여서 저녁 먹자이번 주 7시에 다 같이 모여서 저녁
+        <QuestionBox
+          count={12}
+          nickname={"무전기"}
+          time={3}
+          text="이번 주 7시에 다 같이 모여서 저녁 먹자 이번 주 7시에 다 같이 모여서 저녁 먹자이번 주 7시에 다 같이 모여서 저녁
         먹자이번 주 7시에 다 같이 모여서 저녁 먹자이번 주 7시에 다 같이 모여서 저녁 먹자"
-          />
-        </div>
+        />
+        <QuestionBox
+          count={12}
+          nickname={"무전기"}
+          time={3}
+          text="이번 주 7시에 다 같이 모여서 저녁 먹자 이번 주 7시에 다 같이 모여서 저녁 먹자이번 주 7시에 다 같이 모여서 저녁
+        먹자이번 주 7시에 다 같이 모여서 저녁 먹자이번 주 7시에 다 같이 모여서 저녁 먹자"
+        />
       </div>
     </HeaderFooterWrapper>
   )
