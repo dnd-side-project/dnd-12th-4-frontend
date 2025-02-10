@@ -12,10 +12,7 @@ export default function MenuHeader({ title, button, onClick, buttonTitle }: Menu
     <div className="flex justify-between px-[16px] py-[13px]">
       <div className="text-[20px] font-bold">{title}</div>
       {button && (
-        <button
-          className="h-[25px] w-[45px] rounded-[4px] bg-[#ECF0F3] px-[12px] py-[4px] text-[12px]"
-          onClick={onClick}
-        >
+        <button className="rounded-[4px] bg-[#ECF0F3] px-[12px] py-[4px] text-[12px]" onClick={onClick}>
           {buttonTitle}
         </button>
       )}
