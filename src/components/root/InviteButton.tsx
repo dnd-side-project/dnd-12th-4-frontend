@@ -1,27 +1,16 @@
 "use client"
 import { useFindChannelById } from "@/api/channel-controller/channel-controller"
-import "@/styles/bottomSheet.css"
-import { share, ShareAPIRequest } from "@/utils/share"
-import { ChevronRight, Share2 } from "lucide-react"
+import InviteBottomSheet from "@/components/root/InviteBottomSheet"
+import { ChevronRight } from "lucide-react"
 import Image from "next/image"
 import { useParams } from "next/navigation"
 import { useState } from "react"
-import { Sheet } from "react-modal-sheet"
 
 export default function InviteButton() {
   const { id } = useParams()
   const { data } = useFindChannelById(id as string)
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const handleShare = async () => {
-    const shareData: ShareAPIRequest = {
-      title: `피키토키 채널에 초대합니다`,
-      text: `${data?.body?.channelRoomName} 채널에서 친구가 기다리고 있어요!`,
-      // Todo 데이터 알맞게 수정
-      url: "https://dnd.ac"
-    }
-    share(shareData)
-  }
 
   return (
     <>
@@ -40,29 +29,7 @@ export default function InviteButton() {
           <ChevronRight size={24} />
         </article>
       </button>
-      <Sheet isOpen={isOpen} onClose={() => setIsOpen(false)} snapPoints={[400]} className="">
-        <Sheet.Container>
-          <Sheet.Content>
-            <section className="flex flex-col gap-[12px] px-[16px] py-[24px] pt-[32px] text-black">
-              <Image src={"/favicon.ico"} width={60} height={60} alt="logo" />
-              <p className="text-[20px] font-semibold">
-                초대 코드를 전송하고
-                <br />
-                친구와 소통을 시작해보세요
-              </p>
-              <p>초대 코드는 언제든지 보낼 수 있어요.</p>
-              <button
-                className="mt-[12px] flex items-center justify-between rounded-[12px] border-2 border-[#637180] px-[20px] py-[16px]"
-                onClick={handleShare}
-              >
-                <p>{data?.body?.channelRoomName ?? "공유하기"}</p>
-                <Share2 size={24} />
-              </button>
-            </section>
-          </Sheet.Content>
-        </Sheet.Container>
-        <Sheet.Backdrop onTap={() => setIsOpen(false)} />
-      </Sheet>
+      <InviteBottomSheet isOpen={isOpen} setIsOpen={setIsOpen} channelRoomName={data?.body?.channelRoomName} />
     </>
   )
 }

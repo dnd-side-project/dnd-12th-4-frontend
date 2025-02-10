@@ -10,8 +10,8 @@ function MyPage() {
   const { id } = useParams()
   return (
     <HeaderFooterWrapper footer>
-      <MenuHeader title="내정보" />
       <div className="px-[16px]">
+        <MenuHeader title="내정보" />
         <div className="flex flex-col gap-[20px]">
           <ProfileCard />
           <div className="flex flex-col gap-[12px]">
