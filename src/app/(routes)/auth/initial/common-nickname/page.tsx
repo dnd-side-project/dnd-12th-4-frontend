@@ -1,34 +1,41 @@
 "use client"
 import Guide from "@/components/auth/Guide"
-import InitialSetupForm from "@/components/auth/InitialSetupForm"
-import { FIRST_PAGE, INITIAL_SETUP_INFO } from "@/constants/auth"
+import CommonNicknameSection from "@/components/auth/section/CommonNicknameSection"
+import { FIRST_PAGE } from "@/constants/auth"
 import { useState } from "react"
+import { FormProvider, useForm } from "react-hook-form"
 
 function Page() {
   const steps = ["CommonNickname", "GoodNickname"]
 
-  const [page, setPage] = useState(FIRST_PAGE)
-  const [nickname, setNickname] = useState("")
-  // const { url, title, description, isLastPage } = INITIAL_SETUP_INFO.COMMON_NICKNAME
+  const [stepLevel, setStepLevel] = useState(FIRST_PAGE)
   const onNext = () => {
-    setPage((prev) => prev + 1)
+    setStepLevel((prev) => prev + 1)
+  }
+
+  const formMethods = useForm({
+    defaultValues: {
+      nickname: ""
+    }
+  })
+
+  const { watch, handleSubmit } = formMethods
+  const nickname = watch("nickname")
+  const onSubmit = (data: any) => {
+    console.log("폼 데이터:", data)
+    //api 요청 성공하면 onNext 실행
+    onNext()
   }
 
   return (
-    <>
-      {steps[page] === "CommonNickname" && (
-        <InitialSetupForm
-          initialSetupInfo={INITIAL_SETUP_INFO.COMMON_NICKNAME}
-          onNext={onNext}
-          setInput={setNickname}
-          inputValue={nickname}
-          showButton
-        />
-      )}
-      {steps[page] === "GoodNickname" && (
-        <Guide title={`${nickname}!\n멋진 이름이네요.`} buttonValue="고마워" nextPageUrl="create-or-notify" />
-      )}
-    </>
+    <FormProvider {...formMethods}>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex h-full flex-col justify-between">
+        {steps[stepLevel] === "CommonNickname" && <CommonNicknameSection onNext={onNext} />}
+        {steps[stepLevel] === "GoodNickname" && (
+          <Guide title={`${nickname}!\n멋진 이름이네요.`} buttonValue="고마워" nextPageUrl="create-or-notify" />
+        )}
+      </form>
+    </FormProvider>
   )
 }
 

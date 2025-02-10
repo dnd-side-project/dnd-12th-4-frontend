@@ -1,10 +1,14 @@
-import InitialSetupForm from "@/components/auth/InitialSetupForm"
-import { INITIAL_SETUP_INFO } from "@/constants/auth"
 import CardButton from "@/components/auth/CardButton"
+import TitleAndDescriptionBox from "@/components/auth/TitleAndDescriptionBox"
+import Image from "next/image"
 function Page() {
   return (
-    <div>
-      <InitialSetupForm initialSetupInfo={INITIAL_SETUP_INFO.INVITE_OR_JOIN} showInput={false} showButton={false}>
+    <div className="flex h-full flex-col justify-between">
+      <div className="flex h-full flex-col gap-[24px]">
+        <div className="flex flex-col gap-[16px]">
+          <Image src={"https://placehold.co/229x229.png"} width={60} height={60} alt="캐릭터 이미지" />
+          <TitleAndDescriptionBox title={`이제 채널을 만들거나\n초대 코드를 저에게 알려주세요!`} />
+        </div>
         <div className="mt-[8px] flex flex-col gap-[8px]">
           <CardButton
             title="채널 만들기"
@@ -17,7 +21,7 @@ function Page() {
             nextUrl="create-or-notify/notify-code"
           />
         </div>
-      </InitialSetupForm>
+      </div>
     </div>
   )
 }
