@@ -13,7 +13,7 @@ export default function AnswerListSection() {
           <span>응답 </span>
           <span className="text-[#9CAAB9]">{answerCount}</span>
         </p>
-        <div className="flex items-center gap-[6px] text-[14px]">
+        <div className="flex items-center gap-[8px] text-[14px]">
           <div>최신순</div> {answerCount >= 1 && <ChevronDown className="size-[8px]" />}
         </div>
       </div>
