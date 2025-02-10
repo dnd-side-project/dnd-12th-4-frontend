@@ -8,7 +8,7 @@ export default function QuestionListTabBox() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
-  const tab = searchParams.get("tab")
+  const tab = searchParams.get("tab") || "all"
   return (
     <ul className="flex gap-[8px]">
       {TAB_MENUS.QUESTION.map((TAB_MENU) => (
