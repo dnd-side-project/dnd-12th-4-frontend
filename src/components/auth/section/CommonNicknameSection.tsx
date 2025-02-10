@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect } from "react"
 import Button from "../Button"
 import TitleAndDescriptionBox from "../TitleAndDescriptionBox"
 import Image from "next/image"
@@ -9,8 +10,13 @@ interface CommonNicknameSectionProps {
   onNext: () => void
 }
 export default function CommonNicknameSection({ onNext }: CommonNicknameSectionProps) {
-  const { register, watch } = useFormContext()
+  const { register, watch, setFocus } = useFormContext()
   const nickname = watch("nickname")
+
+  useEffect(() => {
+    setFocus("nickname")
+  }, [setFocus])
+
   return (
     <>
       <div className="flex h-full flex-col gap-[24px]">

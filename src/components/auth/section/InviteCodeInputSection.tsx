@@ -4,14 +4,19 @@ import TitleAndDescriptionBox from "@/components/auth/TitleAndDescriptionBox"
 import Button from "@/components/auth/Button"
 import Image from "next/image"
 import { useFormContext } from "react-hook-form"
+import { useEffect } from "react"
 
 interface InviteCodeInputSectionProps {
   onNext: () => void
 }
 
 export default function InviteCodeInputSection({ onNext }: InviteCodeInputSectionProps) {
-  const { register, watch } = useFormContext()
+  const { register, watch, setFocus } = useFormContext()
   const inviteCode = watch("inviteCode")
+
+  useEffect(() => {
+    setFocus("inviteCode")
+  }, [setFocus])
 
   return (
     <>

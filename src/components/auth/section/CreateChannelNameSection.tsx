@@ -3,14 +3,19 @@
 import TitleAndDescriptionBox from "../TitleAndDescriptionBox"
 import Button from "@/components/auth/Button"
 import Image from "next/image"
+import { useEffect } from "react"
 import { useFormContext } from "react-hook-form"
 
 interface CreateChannelNameSectionProps {
   onNext: () => void
 }
 export default function CreateChannelNameSection({ onNext }: CreateChannelNameSectionProps) {
-  const { register, watch } = useFormContext()
+  const { register, watch, setFocus } = useFormContext()
   const channelName = watch("channelName")
+
+  useEffect(() => {
+    setFocus("channelName")
+  }, [setFocus])
 
   return (
     <>

@@ -3,6 +3,7 @@
 import TitleAndDescriptionBox from "../TitleAndDescriptionBox"
 import Button from "@/components/auth/Button"
 import Image from "next/image"
+import { useEffect } from "react"
 import { useFormContext } from "react-hook-form"
 
 interface ChannelNicknameSectionProps {
@@ -10,8 +11,12 @@ interface ChannelNicknameSectionProps {
   type: "create" | "invite"
 }
 export default function ChannelNicknameSection({ onNext, type }: ChannelNicknameSectionProps) {
-  const { register, watch } = useFormContext()
+  const { register, watch, setFocus } = useFormContext()
   const channelNickname = watch("channelNickname")
+
+  useEffect(() => {
+    setFocus("channelNickname")
+  }, [setFocus])
 
   return (
     <div className="flex h-full flex-col justify-between">
