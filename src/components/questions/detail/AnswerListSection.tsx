@@ -4,7 +4,8 @@ import { cn } from "@/utils/cn"
 import { ChevronDown } from "lucide-react"
 
 export default function AnswerListSection() {
-  const answerCount = 3
+  const answerCount = 2
+  const hasAnswers = answerCount > 0
   return (
     <section className={cn("flex flex-col", answerCount < 1 ? "gap-[60px]" : "gap-[12px]")}>
       <div className="flex items-center justify-between">
@@ -16,13 +17,13 @@ export default function AnswerListSection() {
           <div>최신순</div> {answerCount >= 1 && <ChevronDown className="size-[8px]" />}
         </div>
       </div>
-      {answerCount < 1 && (
+      {!hasAnswers && (
         <div className="flex flex-col items-center justify-center gap-[12px]">
           <Image src={"https://placehold.co/230x230.png"} width={60} height={60} alt="아이콘" />
           <p className="text-black/60">아직 아무도 응답하지 않았어요</p>
         </div>
       )}
-      {answerCount >= 1 && (
+      {hasAnswers && (
         <>
           <QuestionOrAnswerDetailBox
             imageSrc="https://placehold.co/230x230.png"
