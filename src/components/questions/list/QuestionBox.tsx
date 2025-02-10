@@ -15,7 +15,7 @@ export default function QuestionBox({ count, nickname, time, text }: QuestionBox
   const router = useRouter()
 
   const handleBoxClick = () => {
-    router.push(`questions/detail/${2}`)
+    router.push(`questions/${2}/detail`)
   }
 
   return (
