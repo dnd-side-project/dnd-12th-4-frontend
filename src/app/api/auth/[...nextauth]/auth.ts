@@ -15,7 +15,7 @@ const authOptions: AuthOptions = {
       if (account) {
         token.accessToken = account.access_token
         try {
-          const { data: tokenData } = await axios.get(`${process.env.BACKEND_URL}/auth/kakao/exchange`, {
+          const { data: tokenData } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/kakao/exchange`, {
             headers: {
               Authorization: `Bearer ${account.access_token}`,
               "Content-Type": "application/json"

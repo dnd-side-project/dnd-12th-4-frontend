@@ -25,9 +25,9 @@ export default function TodayAnswerSlider() {
           className="relative h-fit w-full"
           slidesPerView="auto"
           modules={[Pagination]}
-          slidesOffsetBefore={16}
+          // spaceBetween={8}
+          // slidesOffsetBefore={16}
           slidesOffsetAfter={16}
-          spaceBetween={8}
           pagination={{
             el: `#today-answer-slider`,
             clickable: true,
@@ -37,7 +37,7 @@ export default function TodayAnswerSlider() {
           }}
         >
           {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((data) => (
-            <SwiperSlide key={data} className="!w-fit">
+            <SwiperSlide key={data} className="ms-[8px] !w-fit first:ms-[16px]">
               <article className="flex w-[360px] max-w-[90vw] flex-col gap-[12px] rounded-[20px] bg-white p-[20px]">
                 <div className="flex items-center gap-[8px]">
                   <Image src={"/favicon.ico"} width={32} height={32} alt="profile-image" />
@@ -59,7 +59,7 @@ export default function TodayAnswerSlider() {
           ))}
         </Swiper>
       </div>
-      <section id="today-answer-slider" className="flex w-full justify-center gap-[4px]" />
+      <section id="today-answer-slider" className="flex h-[12px] w-full justify-center gap-[4px]" />
     </article>
   )
 }
