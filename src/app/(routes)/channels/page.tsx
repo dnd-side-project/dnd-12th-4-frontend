@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import { getFindAllChannelsQueryKey } from "@/api/channel-controller/channel-controller"
 import { serverInstance } from "@/api/serverInstance"
 import ChannelsPageClient from "@/components/channels/ChannelsPageClient"
