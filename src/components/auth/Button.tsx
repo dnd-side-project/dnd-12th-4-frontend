@@ -7,6 +7,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode
   className?: string
   onNext?: () => void
+  isSubmit?: boolean
 }
 
 const buttonVariants = {
@@ -21,15 +22,16 @@ const buttonSizes = {
   kakao: "h-[51.45px] w-full"
 }
 
-export default function Button({ variant, children, size, className, onNext, ...props }: ButtonProps) {
-  const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-    if (onNext) {
+export default function Button({ variant, children, size, className, onNext, isSubmit, ...props }: ButtonProps) {
+  console.log(isSubmit)
+  const handleButtonClick = () => {
+    if (!isSubmit && onNext) {
       onNext()
     }
   }
   return (
     <button
+      type={isSubmit ? "submit" : "button"}
       className={cn(buttonVariants[variant], buttonSizes[size], className)}
       onClick={handleButtonClick}
       {...props}
