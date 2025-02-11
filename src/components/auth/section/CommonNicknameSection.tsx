@@ -1,6 +1,5 @@
 "use client"
 
-import { useEffect } from "react"
 import Button from "../Button"
 import TitleAndDescriptionBox from "../TitleAndDescriptionBox"
 import Image from "next/image"
@@ -10,12 +9,8 @@ interface CommonNicknameSectionProps {
   onNext: () => void
 }
 export default function CommonNicknameSection({ onNext }: CommonNicknameSectionProps) {
-  const { register, watch, setFocus } = useFormContext()
+  const { register, watch } = useFormContext()
   const nickname = watch("nickname")
-
-  useEffect(() => {
-    setFocus("nickname")
-  }, [setFocus])
 
   return (
     <>
@@ -31,6 +26,7 @@ export default function CommonNicknameSection({ onNext }: CommonNicknameSectionP
           {...register("nickname", { required: "닉네임을 입력해주세요." })}
           className="h-[54px] rounded-[12px] border border-[#637180] px-[20px] py-[16px] focus:outline-none"
           placeholder="코드명을 작성해주세요."
+          autoFocus
         />
       </div>
       <Button variant="default" size="default" onNext={onNext} disabled={!nickname?.trim().length} isSubmit>
