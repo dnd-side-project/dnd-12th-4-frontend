@@ -1,12 +1,13 @@
 "use client"
 import FilterBottomSheet from "@/components/channels/FilterBottomSheet"
 import { ChevronDown } from "lucide-react"
-import { useState } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
 
 interface Params {
   count: number
+  setEditMode: Dispatch<SetStateAction<boolean>>
 }
-export default function ListHeader({ count }: Params) {
+export default function ListHeader({ count, setEditMode }: Params) {
   const [isOpenFilterSheet, setIsOpenFilterSheet] = useState(false)
 
   return (
@@ -16,7 +17,7 @@ export default function ListHeader({ count }: Params) {
         <p className="text-[#9CAAB9]">{count}</p>
       </article>
       <article className="flex items-center gap-[12px]">
-        <button onClick={() => {}}>
+        <button onClick={() => setEditMode(true)}>
           <p className="text-[14px] font-medium">편집</p>
         </button>
         <div className="flex h-[12px] items-center justify-center">
