@@ -12,7 +12,7 @@ export default function MenuHeader({ title, button, onClick, buttonTitle }: Menu
     <div className="flex justify-between py-[12px]">
       <div className="text-[20px] font-bold">{title}</div>
       {button && (
-        <button className="rounded-[4px] bg-[#ECF0F3] px-[12px] py-[4px] text-[12px]" onClick={onClick}>
+        <button className="rounded-[4px] bg-[#ECF0F3] px-[12px] py-[4px] text-[12px]" type="button" onClick={onClick}>
           {buttonTitle}
         </button>
       )}

@@ -1,7 +1,6 @@
 "use client"
 
-import Button from "@/components/common/Button"
-import ModalWrapper from "@/components/common/ModalWrapper"
+import ConfirmModal from "@/components/common/ConfirmModal"
 import Tag from "@/components/common/Tag"
 import { cn } from "@/utils/cn"
 import { replyEditSchema } from "@/validations/replySchema"
@@ -76,22 +75,11 @@ export default function AnswerCardItem({ message, channelName }: AnswerCardItemP
         </div>
       </form>
       {isDeleteModal && (
-        <ModalWrapper>
-          <section className="flex w-[340px] flex-col items-center gap-[20px] rounded-[24px] bg-white px-[20px] pb-[20px] pt-[40px]">
-            <article className="flex flex-col gap-[8px]">
-              <p className="text-[20px] font-semibold">채널을 나가시겠어요?</p>
-              <p>초대 코드로 재참여가 가능해요.</p>
-            </article>
-            <article className="flex gap-[12px]">
-              <Button className="h-[52px]" onClick={() => setIsDeleteModal((prev) => !prev)}>
-                취소하기
-              </Button>
-              <Button className="h-[52px]" onClick={() => console.log("delete")}>
-                삭제하기
-              </Button>
-            </article>
-          </section>
-        </ModalWrapper>
+        <ConfirmModal
+          title="삭제 하시겠습니까?"
+          onCancel={() => setIsDeleteModal((prev) => !prev)}
+          onClick={() => console.log("delete 요청")}
+        />
       )}
     </>
   )

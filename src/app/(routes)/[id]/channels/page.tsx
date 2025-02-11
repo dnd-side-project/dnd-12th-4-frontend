@@ -1,33 +1,33 @@
-"use client"
-import ChannelBottomSheet from "@/components/channels/ChannelBottomSheet"
-import ChannelBox from "@/components/channels/ChannelBox"
-import ListHeader from "@/components/channels/ListHeader"
-import MenuHeader from "@/components/common/MenuHeader"
+import { getFindAllChannelsQueryKey } from "@/api/channel-controller/channel-controller"
+import { serverInstance } from "@/api/serverInstance"
+import ChannelsPageClient from "@/components/channels/ChannelsPageClient"
 import HeaderFooterWrapper from "@/components/layout/HeaderFooterWrapper"
-import { cn } from "@/utils/cn"
-import dynamic from "next/dynamic"
-import { useState } from "react"
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query"
+import { notFound } from "next/navigation"
 
-const ListEditHeader = dynamic(() => import("@/components/channels/ListEditHeader"))
-const ChannelEditHeader = dynamic(() => import("@/components/channels/ChannelEditHeader"))
+export default async function ChannelsPage() {
+  const queryClient = new QueryClient()
 
-export default function ChannelsPage() {
-  const [isOpenChannelSheet, setIsOpenChannelSheet] = useState(false)
-  const [editMode, setEditMode] = useState(false)
+  try {
+    // * prefetch 는 오류를 발생시키지 않으므로 유효한 id값인지 확인하기 위해 fetchQuery 사용
+    await Promise.all([
+      queryClient.fetchQuery({
+        queryKey: getFindAllChannelsQueryKey(),
+        queryFn: async () => {
+          const { data } = await serverInstance.get(`/api/channels/all`)
+          return data
+        }
+      })
+    ])
+  } catch {
+    notFound()
+  }
+
   return (
     <HeaderFooterWrapper footer>
-      {editMode && <ChannelEditHeader onBackClick={() => setEditMode(false)} />}
-      <section className={cn("flex flex-col px-[16px]", editMode && "pt-[40px]")}>
-        {!editMode && <MenuHeader button title="채널" buttonTitle="추가" onClick={() => setIsOpenChannelSheet(true)} />}
-        {editMode && <ListEditHeader count={33} />}
-        {!editMode && <ListHeader count={1} setEditMode={setEditMode} />}
-        <section className="flex flex-col gap-[20px]">
-          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((data) => (
-            <ChannelBox key={data} count={1} name="0000999" memberCount={5} owner="CODECODE" />
-          ))}
-        </section>
-      </section>
-      <ChannelBottomSheet isOpen={isOpenChannelSheet} setIsOpen={setIsOpenChannelSheet} />
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <ChannelsPageClient />
+      </HydrationBoundary>
     </HeaderFooterWrapper>
   )
 }
