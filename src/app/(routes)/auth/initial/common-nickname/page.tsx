@@ -32,7 +32,7 @@ function Page() {
       <form onSubmit={handleSubmit(onSubmit)} className="flex h-full flex-col justify-between">
         {steps[stepLevel] === "CommonNickname" && <CommonNicknameSection onNext={onNext} />}
         {steps[stepLevel] === "GoodNickname" && (
-          <Guide title={`${nickname}!\n멋진 이름이네요.`} buttonValue="고마워" nextPageUrl="create-or-notify" />
+          <Guide title={`${nickname}!\n멋진 이름이네요.`} buttonValue="고마워" nextPageUrl="create-or-join" />
         )}
       </form>
     </FormProvider>
