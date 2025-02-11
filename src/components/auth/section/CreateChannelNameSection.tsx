@@ -3,19 +3,14 @@
 import TitleAndDescriptionBox from "../TitleAndDescriptionBox"
 import Button from "@/components/auth/Button"
 import Image from "next/image"
-import { useEffect } from "react"
 import { useFormContext } from "react-hook-form"
 
 interface CreateChannelNameSectionProps {
   onNext: () => void
 }
 export default function CreateChannelNameSection({ onNext }: CreateChannelNameSectionProps) {
-  const { register, watch, setFocus } = useFormContext()
+  const { register, watch } = useFormContext()
   const channelName = watch("channelName")
-
-  useEffect(() => {
-    setFocus("channelName")
-  }, [setFocus])
 
   return (
     <>
@@ -31,6 +26,7 @@ export default function CreateChannelNameSection({ onNext }: CreateChannelNameSe
           {...register("channelName", { required: "채널명을 입력해주세요." })}
           className="h-[54px] rounded-[12px] border border-[#637180] px-[20px] py-[16px] focus:outline-none"
           placeholder="채널명을 작성해 주세요"
+          autoFocus
         />
       </div>
       <Button variant="default" size="default" onNext={onNext} disabled={!channelName?.trim().length}>

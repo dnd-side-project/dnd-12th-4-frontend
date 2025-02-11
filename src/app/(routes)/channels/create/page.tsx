@@ -61,7 +61,7 @@ function Page() {
           {steps[stepLevel] === "ChannelNickname" && <ChannelNicknameSection type="create" onNext={onNext} />}
           {steps[stepLevel] === "CreatedCode" && <CreatedCodeSection onNext={onNext} />}
           {steps[stepLevel] === "LaterInvitation" && <Guide title={`그럼 채널로\n보내드릴게요!`} />}
-        </form>{" "}
+        </form>
       </FormProvider>
     </div>
   )
