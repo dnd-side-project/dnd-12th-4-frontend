@@ -1,18 +1,32 @@
-import ChannelBox from "@/components/channels/ChannelBox"
-import Button from "@/components/common/Button"
+import { getFindAllChannelsQueryKey } from "@/api/channel-controller/channel-controller"
+import { serverInstance } from "@/api/serverInstance"
+import ChannelsPageClient from "@/components/channels/ChannelsPageClient"
+import HeaderFooterWrapper from "@/components/layout/HeaderFooterWrapper"
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query"
+import { notFound } from "next/navigation"
 
-export default function ChannelsPage() {
+export default async function ChannelsPage() {
+  const queryClient = new QueryClient()
+
+  try {
+    await Promise.all([
+      queryClient.fetchQuery({
+        queryKey: getFindAllChannelsQueryKey(),
+        queryFn: async () => {
+          const { data } = await serverInstance.get(`/api/channels/all`)
+          return data
+        }
+      })
+    ])
+  } catch {
+    notFound()
+  }
+
   return (
-    <section className="flex flex-col px-[16px]">
-      <section className="flex justify-between px-[16px] py-[12px]">
-        <p className="text-[20px] font-bold">채널</p>
-        <Button className="rounded-[4px] bg-[#ECF0F3] px-[12px] py-[4px] text-black/60">추가</Button>
-      </section>
-      <section className="flex flex-col gap-[20px]">
-        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((data) => (
-          <ChannelBox key={data} count={1} name="0000999" memberCount={5} owner="CODECODE" />
-        ))}
-      </section>
-    </section>
+    <HeaderFooterWrapper>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <ChannelsPageClient />
+      </HydrationBoundary>
+    </HeaderFooterWrapper>
   )
 }

@@ -11,6 +11,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import dynamic from "next/dynamic"
 import { useState } from "react"
 import { FieldValues, FormProvider, useForm } from "react-hook-form"
+import Tab from "@/components/common/Tab"
+import { TAB_MENUS } from "@/constants/tab"
+import { useRouter, useSearchParams } from "next/navigation"
 
 const ListEditHeader = dynamic(() => import("@/components/channels/ListEditHeader"))
 const ChannelEditHeader = dynamic(() => import("@/components/channels/ChannelEditHeader"))
@@ -18,6 +21,9 @@ const ChannelEditHeader = dynamic(() => import("@/components/channels/ChannelEdi
 export default function ChannelsPageClient() {
   const [isOpenChannelSheet, setIsOpenChannelSheet] = useState(false)
   const [editMode, setEditMode] = useState(false)
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const tab = searchParams.get("tab") || "all"
 
   const { data } = useFindAllChannels()
 
@@ -42,8 +48,19 @@ export default function ChannelsPageClient() {
           {!editMode && (
             <MenuHeader button title="채널" buttonTitle="추가" onClick={() => setIsOpenChannelSheet(true)} />
           )}
+          <ul className="flex gap-[8px]">
+            {TAB_MENUS.CHANNEL.map((TAB_MENU) => (
+              <Tab
+                key={TAB_MENU.value}
+                label={TAB_MENU.label}
+                isActive={tab === TAB_MENU.value}
+                onClick={() => router.push(`?tab=${TAB_MENU.value}`)}
+              />
+            ))}
+          </ul>
           {editMode && <ListEditHeader count={watch("channelIds").length} />}
           {!editMode && <ListHeader count={data?.body?.length ?? 0} setEditMode={setEditMode} />}
+
           <section className="flex flex-col gap-[20px]">
             {data?.body?.map((data) => (
               <ChannelBox
