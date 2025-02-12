@@ -1,5 +1,3 @@
-import LogoutTestButton from "@/components/auth/TestButton"
-
 export default async function Home() {
-  return <LogoutTestButton />
+  return <p>홈화면</p>
 }
