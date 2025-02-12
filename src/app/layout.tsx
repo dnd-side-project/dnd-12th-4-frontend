@@ -7,6 +7,7 @@ import { authOptions } from "./api/auth/[...nextauth]/auth"
 import { getServerSession } from "next-auth"
 import { AuthProvider } from "../providers/AuthProvider"
 import ReactQueryProvider from "@/providers/ReactQueryProvider"
+import { Toaster } from "@/components/common/sonner"
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,6 +25,7 @@ export default async function RootLayout({
       <body className={Pretendard.variable}>
         <ReactQueryProvider>
           <AuthProvider session={session}>
+            <Toaster />
             <div id="modal" />
             <MobileViewLayout>{children}</MobileViewLayout>
           </AuthProvider>
