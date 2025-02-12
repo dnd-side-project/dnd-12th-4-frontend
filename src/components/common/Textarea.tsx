@@ -2,7 +2,7 @@
 
 import { cn } from "@/utils/cn"
 import type { TextareaHTMLAttributes } from "react"
-import Tag from "./Tag"
+import Tag from "@/components/common/Tag"
 
 interface Params extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   count?: number

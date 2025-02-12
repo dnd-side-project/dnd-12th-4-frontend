@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image"
-import Button from "./Button"
+import Button from "@/components/auth/Button"
 import { useEffect, useState } from "react"
 
 interface InitialSetupInfo {

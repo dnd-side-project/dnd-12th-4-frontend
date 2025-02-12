@@ -1,5 +1,5 @@
 import Image from "next/image"
-import QuestionOrAnswerDetailBox from "./QuestionOrAnswerDetailBox"
+import QuestionOrAnswerDetailBox from "@/components/questions/detail/QuestionOrAnswerDetailBox"
 import { cn } from "@/utils/cn"
 import { ChevronDown } from "lucide-react"
 

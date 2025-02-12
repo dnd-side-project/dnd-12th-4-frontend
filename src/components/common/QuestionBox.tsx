@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "@/utils/cn"
-import Tag from "./Tag"
+import Tag from "@/components/common/Tag"
 
 interface Params {
   count?: number
