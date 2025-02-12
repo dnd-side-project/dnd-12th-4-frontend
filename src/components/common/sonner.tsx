@@ -5,7 +5,7 @@ type ToasterProps = React.ComponentProps<typeof Sonner>
 const Toaster = ({ ...props }: ToasterProps) => {
   return (
     <Sonner
-      style={{ fontFamily: "var(--font-pretendard" }}
+      style={{ fontFamily: "var(--font-pretendard)" }}
       className="toaster group"
       toastOptions={{
         classNames: {
