@@ -1,7 +1,7 @@
 "use client"
 import { handleDeleteButton, handleImageChange } from "@/utils/changeImage"
 import { useState } from "react"
-import { ImageInput } from "./ImageInput"
+import { ImageInput } from "@/components/my-page/profile/ImageInput"
 import Button from "@/components/auth/Button"
 
 export default function ModifyProfileForm() {
