@@ -11,15 +11,13 @@ export default async function ChannelsPage() {
   const queryClient = new QueryClient()
 
   try {
-    await Promise.all([
-      queryClient.fetchQuery({
-        queryKey: getFindAllChannelsQueryKey(),
-        queryFn: async () => {
-          const { data } = await serverInstance.get(`/api/channels/all`)
-          return data
-        }
-      })
-    ])
+    queryClient.fetchQuery({
+      queryKey: getFindAllChannelsQueryKey(),
+      queryFn: async () => {
+        const { data } = await serverInstance.get(`/api/channels/all`)
+        return data
+      }
+    })
   } catch {
     notFound()
   }

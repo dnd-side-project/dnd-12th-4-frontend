@@ -10,15 +10,13 @@ export default async function ChannelsPage() {
 
   try {
     // * prefetch 는 오류를 발생시키지 않으므로 유효한 id값인지 확인하기 위해 fetchQuery 사용
-    await Promise.all([
-      queryClient.fetchQuery({
-        queryKey: getFindAllChannelsQueryKey(),
-        queryFn: async () => {
-          const { data } = await serverInstance.get(`/api/channels/all`)
-          return data
-        }
-      })
-    ])
+    queryClient.fetchQuery({
+      queryKey: getFindAllChannelsQueryKey(),
+      queryFn: async () => {
+        const { data } = await serverInstance.get(`/api/channels/all`)
+        return data
+      }
+    })
   } catch {
     notFound()
   }
