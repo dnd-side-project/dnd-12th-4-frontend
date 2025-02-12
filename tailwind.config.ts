@@ -35,7 +35,8 @@ export default {
       md: "16px",
       lg: "20px",
       xl: "24px",
-      "2xl": "28px"
+      "2xl": "28px",
+      full: "9999px"
     },
     extend: {
       colors: {
