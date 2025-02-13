@@ -7,6 +7,7 @@
 import type { ChannelMemberDto } from "./channelMemberDto"
 
 export interface ChannelMemberResponse {
+  channelName?: string
   memberCount?: number
   channelMembers?: ChannelMemberDto[]
 }
