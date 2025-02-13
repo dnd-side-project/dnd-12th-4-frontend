@@ -7,9 +7,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Info } from "lucide-react"
 import { useState } from "react"
 import { FieldValues, useForm } from "react-hook-form"
-import Textarea from "../../common/Textarea"
-import Toggle from "../../common/Toggle"
-import RecommendQuestionBottomSheet from "./RecommendQuestionBottomSheet"
+import Textarea from "@/components/common/Textarea"
+import Toggle from "@/components/common/Toggle"
+import RecommendQuestionBottomSheet from "@/components/questions/new/RecommendQuestionBottomSheet"
 
 export default function FormSection() {
   const [isOpen, setIsOpen] = useState<boolean>(false)

@@ -1,10 +1,13 @@
+"use client"
 import Image from "next/image"
 import Link from "next/link"
+import { useParams } from "next/navigation"
 
 export default function ProfileCard() {
+  const { id } = useParams()
   return (
     <Link
-      href="/my-page/modify/common-profile"
+      href={`/${id}/my-page/modify/common-profile`}
       className="flex h-[113px] items-center gap-[12px] rounded-[20px] bg-[#F5F8FA] p-[20px]"
     >
       <Image
