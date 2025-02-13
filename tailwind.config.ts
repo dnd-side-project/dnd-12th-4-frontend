@@ -13,7 +13,8 @@ export default {
       lg: "460px"
     },
     fontFamily: {
-      pretendard: ["var(--font-pretendard)"]
+      pretendard: ["var(--font-pretendard)"],
+      pixel: ["var(--font-pixel)"]
     },
     fontSize: {
       "headline-01": ["24px", { fontWeight: 700, lineHeight: "1.5", letterSpacing: "-2" }],
@@ -27,7 +28,10 @@ export default {
       "body-03": ["14px", { fontWeight: 500, lineHeight: "1.4", letterSpacing: "-0.2" }],
       "body-04": ["14px", { fontWeight: 400, lineHeight: "1.4", letterSpacing: "-0.2" }],
       "caption-01": ["12px", { fontWeight: 500, lineHeight: "1.4", letterSpacing: "-0.2" }],
-      "caption-02": ["12px", { fontWeight: 400, lineHeight: "1.4", letterSpacing: "-0.2" }]
+      "caption-02": ["12px", { fontWeight: 400, lineHeight: "1.4", letterSpacing: "-0.2" }],
+      "pixel-headline": ["16px", { fontWeight: 400, lineHeight: "1.4", letterSpacing: "-0.5" }],
+      "pixel-body": ["14px", { fontWeight: 400, lineHeight: "1.4", letterSpacing: "-0.5" }],
+      "pixel-caption": ["12px", { fontWeight: 400, lineHeight: "1.4", letterSpacing: "-0.5" }]
     },
     borderRadius: {
       xsm: "8px",
