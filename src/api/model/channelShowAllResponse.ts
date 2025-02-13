@@ -11,4 +11,6 @@ export interface ChannelShowAllResponse {
   channelOwnerName?: string
   countPerson?: number
   signalCount?: number
+  inviteCode?: string
+  createdAt?: string
 }

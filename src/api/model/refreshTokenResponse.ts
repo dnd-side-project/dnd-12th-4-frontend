@@ -5,9 +5,7 @@
  * OpenAPI spec version: 1.0
  */
 
-export interface UserResponse {
+export interface RefreshTokenResponse {
   accessToken?: string
-  refreshToken?: string
   expiredAccessToken?: number
-  userName?: string
 }

@@ -6,12 +6,12 @@
  */
 import { useMutation } from "@tanstack/react-query"
 import type { MutationFunction, UseMutationOptions, UseMutationResult } from "@tanstack/react-query"
-import type { RefreshAccessToken200 } from ".././model"
+import type { ApiRefreshTokenResponse } from ".././model"
 import { customInstance } from ".././clientInstance"
 import type { ErrorType } from ".././clientInstance"
 
 export const refreshAccessToken = (signal?: AbortSignal) => {
-  return customInstance<RefreshAccessToken200>({ url: `/auth/refresh`, method: "POST", signal })
+  return customInstance<ApiRefreshTokenResponse>({ url: `/auth/refresh`, method: "POST", signal })
 }
 
 export const getRefreshAccessTokenMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
