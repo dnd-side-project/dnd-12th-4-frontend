@@ -55,11 +55,9 @@ const authOptions: AuthOptions = {
       return token
     },
     session: async ({ session, token }: { session: Session; token: JWT }) => {
-      console.log("token", token)
       session.user.accessToken = token.accessToken
       session.user.refreshToken = token.refreshToken
       session.user.userName = token.userName as string | null
-      console.log("session", session)
       return session
     }
   },
