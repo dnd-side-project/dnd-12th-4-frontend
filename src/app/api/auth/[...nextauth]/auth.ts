@@ -21,20 +21,45 @@ const authOptions: AuthOptions = {
               "Content-Type": "application/json"
             }
           })
-          token.accessToken = tokenData.body.token
-          token.isNewMember = tokenData.body.newMember
+          token.expiredAccessToken = tokenData.body.expiredAccessToken
+          token.accessToken = tokenData.body.accessToken
+          token.refreshToken = tokenData.body.refreshToken
+          token.userName = tokenData.body.userName
         } catch (error) {
           console.error("카카오 또는 DB 요청 실패:", error)
+        }
+      }
+
+      if (token.accessToken) {
+        const currentTime = Math.floor(Date.now() / 1000)
+        const tokenExpirationTime = Number(token.expiredAccessToken)
+        if (currentTime > tokenExpirationTime - 1300) {
+          try {
+            const { data: refreshTokenData } = await axios.post(
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/refresh`,
+              null,
+              {
+                headers: {
+                  Authorization: `Bearer ${token.refreshToken}`,
+                  "Content-Type": "application/json"
+                }
+              }
+            )
+            token.accessToken = refreshTokenData.body.accessToken
+            token.expiredAccessToken = refreshTokenData.body.expiredAccessToken
+          } catch (error) {
+            console.error("refreshToken 요청 실패:", error)
+          }
         }
       }
       return token
     },
     session: async ({ session, token }: { session: Session; token: JWT }) => {
-      if (token) {
-        session.user.accessToken = token.accessToken
-        session.user.isNewMember = token.isNewMember as boolean
-      }
-
+      console.log("token", token)
+      session.user.accessToken = token.accessToken
+      session.user.refreshToken = token.refreshToken
+      session.user.userName = token.userName as string | null
+      console.log("session", session)
       return session
     }
   },
