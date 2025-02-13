@@ -24,6 +24,7 @@ export default async function RootLayout({
       <body className={Pretendard.variable}>
         <ReactQueryProvider>
           <AuthProvider session={session}>
+            <div id="modal" />
             <MobileViewLayout>{children}</MobileViewLayout>
           </AuthProvider>
         </ReactQueryProvider>

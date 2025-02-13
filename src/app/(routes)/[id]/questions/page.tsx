@@ -7,8 +7,8 @@ import QuestionBox from "@/components/questions/list/QuestionBox"
 export default function QuestionsPage() {
   return (
     <HeaderFooterWrapper footer>
-      <MenuHeader title="리스트" />
       <div className="px-[16px]">
+        <MenuHeader title="리스트" />
         <QuestionListTabBox />
         <CountAndSortBox type="시그널" count={333} />
         <QuestionBox
