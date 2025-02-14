@@ -20,7 +20,7 @@ export default function ChannelBox({
   count,
   name,
   memberCount,
-  owner,
+  // owner, // Todo 추 후 필요없는게 확실해지면 props 제거
   editMode = false,
   selected = false
 }: Params) {
@@ -52,7 +52,7 @@ export default function ChannelBox({
   return (
     <section
       className={cn(
-        "flex flex-col gap-[12px] rounded-[20px] border bg-[#F5F8FA] p-[20px]",
+        "flex flex-col gap-[12px] rounded-[24px] border bg-gray-01 p-[20px]",
         editMode && selected ? "border-[#3C4754]" : "border-transparent"
       )}
       onClick={() => {
@@ -64,18 +64,22 @@ export default function ChannelBox({
       }}
     >
       <article className="flex justify-between">
-        <Tag text={`${count}번째 시그널`} className="bg-[#D7DFE7]" />
+        <Tag text={`${count}번째 시그널`} className="bg-secondary-0 text-secondary-300" />
         <button type="button" onClick={handleShare}>
           <Share2 size={24} />
         </button>
       </article>
       <article>
-        <p className="text-[18px] font-semibold">채널명 {name}</p>
-        <p className="text-[16px]">누군가 시그널을 보냈어요</p>
+        <p className="text-subtitle-02 font-semibold text-emphasis-high">채널명 {name}</p>
+        <p className="text-body-04 text-emphasis-medium">누군가 시그널을 보냈어요</p>
       </article>
       <article className="flex justify-between text-[12px] text-black/60">
-        <p>{memberCount}명과 소통 중이에요.</p>
-        <p>채널장 : {owner}</p>
+        {/* <p>{memberCount}명과 소통 중이에요.</p> */}
+        {/* <p>채널장 : {owner}</p> */}
+        <p className="text-caption-02 text-emphasis-medium">응답을 기다리는 중..</p>
+        <p className="text-caption-01 text-emphasis-medium">
+          <span className="text-secondary-300">{memberCount}명</span>과 소통 중이에요.
+        </p>
       </article>
     </section>
   )
