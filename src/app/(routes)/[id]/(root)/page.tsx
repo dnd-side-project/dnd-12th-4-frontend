@@ -1,4 +1,5 @@
-import { getFindChannelByIdQueryKey, getFindChannelMembersQueryKey } from "@/api/channel-controller/channel-controller"
+import { getFindChannelByIdQueryKey } from "@/api/channel-controller/channel-controller"
+import { getFindChannelMembersQueryKey } from "@/api/channel-member-controller/channel-member-controller"
 import { serverInstance } from "@/api/serverInstance"
 import HeaderFooterWrapper from "@/components/layout/HeaderFooterWrapper"
 import CharacterInformation from "@/components/root/CharacterInformation"

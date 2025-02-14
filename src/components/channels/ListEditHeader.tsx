@@ -1,6 +1,6 @@
 "use client"
 
-import { useFindAllChannels } from "@/api/channel-controller/channel-controller"
+import { useFindChannelsByRole } from "@/api/channel-controller/channel-controller"
 import { DeleteChannelType } from "@/validations/channelSchema"
 import { useFormContext } from "react-hook-form"
 
@@ -8,7 +8,7 @@ interface Params {
   count: number
 }
 export default function ListEditHeader({ count }: Params) {
-  const { data } = useFindAllChannels()
+  const { data } = useFindChannelsByRole({ tab: "all" })
 
   const { setValue } = useFormContext<DeleteChannelType>()
 

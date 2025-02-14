@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic"
 
-import { getFindAllChannelsQueryKey } from "@/api/channel-controller/channel-controller"
+import { getFindChannelsByRoleQueryKey } from "@/api/channel-controller/channel-controller"
 import { serverInstance } from "@/api/serverInstance"
 import ChannelsPageClient from "@/components/channels/ChannelsPageClient"
 import HeaderFooterWrapper from "@/components/layout/HeaderFooterWrapper"
@@ -12,9 +12,9 @@ export default async function ChannelsPage() {
 
   try {
     queryClient.fetchQuery({
-      queryKey: getFindAllChannelsQueryKey(),
+      queryKey: getFindChannelsByRoleQueryKey({ tab: "all" }),
       queryFn: async () => {
-        const { data } = await serverInstance.get(`/api/channels/all`)
+        const { data } = await serverInstance.get(`/api/channels/channel-profile?tab=all`)
         return data
       }
     })
