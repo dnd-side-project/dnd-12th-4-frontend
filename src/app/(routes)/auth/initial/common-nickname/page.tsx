@@ -1,4 +1,5 @@
 "use client"
+import { useRegisterName } from "@/api/member-controller/member-controller"
 import Guide from "@/components/auth/Guide"
 import CommonNicknameSection from "@/components/auth/section/CommonNicknameSection"
 import { FIRST_PAGE } from "@/constants/auth"
@@ -21,10 +22,17 @@ function Page() {
 
   const { watch, handleSubmit } = formMethods
   const nickname = watch("nickname")
-  const onSubmit = (data: any) => {
-    console.log("폼 데이터:", data)
-    //api 요청 성공하면 onNext 실행
-    onNext()
+
+  const registerCommonNameMutation = useRegisterName()
+  const onSubmit = async (data: any) => {
+    try {
+      console.log("폼 데이터:", data)
+      await registerCommonNameMutation.mutateAsync({ params: { name: nickname } })
+      //api 요청 성공하면 onNext 실행
+      onNext()
+    } catch (error) {
+      console.error("닉네임 등록 실패:", error)
+    }
   }
 
   return (
