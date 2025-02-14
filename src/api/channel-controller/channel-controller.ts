@@ -19,18 +19,15 @@ import type {
   UseQueryResult
 } from "@tanstack/react-query"
 import type {
-  ApiChannelJoinResponse,
-  ApiChannelMemberResponse,
   ApiChannelSpecificResponse,
+  ApiChannelStatusResponse,
   ApiListChannelShowAllResponse,
-  ApiMemberCodeNameResponse,
   ChannelCreateRequest,
   ChannelResponse,
   FindChannelByNameParams,
-  GetChannelInviteCodeParams,
-  InviteCodeDto,
-  InviteRequest,
-  UpdateMemberCodeNameParams
+  FindChannelInviteCodeParams,
+  FindChannelsByRoleParams,
+  InviteCodeDto
 } from ".././model"
 import { customInstance } from ".././clientInstance"
 import type { ErrorType, BodyType } from ".././clientInstance"
@@ -188,130 +185,6 @@ export const useMakeChannel = <TError = ErrorType<unknown>, TContext = unknown>(
 
   return useMutation(mutationOptions)
 }
-export const joinMemberToChannel = (inviteRequest: BodyType<InviteRequest>, signal?: AbortSignal) => {
-  return customInstance<ApiChannelJoinResponse>({
-    url: `/api/channels/join`,
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    data: inviteRequest,
-    signal
-  })
-}
-
-export const getJoinMemberToChannelMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof joinMemberToChannel>>,
-    TError,
-    { data: BodyType<InviteRequest> },
-    TContext
-  >
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof joinMemberToChannel>>,
-  TError,
-  { data: BodyType<InviteRequest> },
-  TContext
-> => {
-  const mutationKey = ["joinMemberToChannel"]
-  const { mutation: mutationOptions } = options
-    ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } }
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof joinMemberToChannel>>,
-    { data: BodyType<InviteRequest> }
-  > = (props) => {
-    const { data } = props ?? {}
-
-    return joinMemberToChannel(data)
-  }
-
-  return { mutationFn, ...mutationOptions }
-}
-
-export type JoinMemberToChannelMutationResult = NonNullable<Awaited<ReturnType<typeof joinMemberToChannel>>>
-export type JoinMemberToChannelMutationBody = BodyType<InviteRequest>
-export type JoinMemberToChannelMutationError = ErrorType<unknown>
-
-export const useJoinMemberToChannel = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof joinMemberToChannel>>,
-    TError,
-    { data: BodyType<InviteRequest> },
-    TContext
-  >
-}): UseMutationResult<
-  Awaited<ReturnType<typeof joinMemberToChannel>>,
-  TError,
-  { data: BodyType<InviteRequest> },
-  TContext
-> => {
-  const mutationOptions = getJoinMemberToChannelMutationOptions(options)
-
-  return useMutation(mutationOptions)
-}
-export const updateMemberCodeName = (channelId: string, params: UpdateMemberCodeNameParams) => {
-  return customInstance<ApiMemberCodeNameResponse>({
-    url: `/api/channels/${channelId}/codeName`,
-    method: "PATCH",
-    params
-  })
-}
-
-export const getUpdateMemberCodeNameMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof updateMemberCodeName>>,
-    TError,
-    { channelId: string; params: UpdateMemberCodeNameParams },
-    TContext
-  >
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof updateMemberCodeName>>,
-  TError,
-  { channelId: string; params: UpdateMemberCodeNameParams },
-  TContext
-> => {
-  const mutationKey = ["updateMemberCodeName"]
-  const { mutation: mutationOptions } = options
-    ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } }
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof updateMemberCodeName>>,
-    { channelId: string; params: UpdateMemberCodeNameParams }
-  > = (props) => {
-    const { channelId, params } = props ?? {}
-
-    return updateMemberCodeName(channelId, params)
-  }
-
-  return { mutationFn, ...mutationOptions }
-}
-
-export type UpdateMemberCodeNameMutationResult = NonNullable<Awaited<ReturnType<typeof updateMemberCodeName>>>
-
-export type UpdateMemberCodeNameMutationError = ErrorType<unknown>
-
-export const useUpdateMemberCodeName = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof updateMemberCodeName>>,
-    TError,
-    { channelId: string; params: UpdateMemberCodeNameParams },
-    TContext
-  >
-}): UseMutationResult<
-  Awaited<ReturnType<typeof updateMemberCodeName>>,
-  TError,
-  { channelId: string; params: UpdateMemberCodeNameParams },
-  TContext
-> => {
-  const mutationOptions = getUpdateMemberCodeNameMutationOptions(options)
-
-  return useMutation(mutationOptions)
-}
 export const findChannelById = (channelId: string, signal?: AbortSignal) => {
   return customInstance<ApiChannelSpecificResponse>({ url: `/api/channels/${channelId}`, method: "GET", signal })
 }
@@ -390,88 +263,122 @@ export function useFindChannelById<TData = Awaited<ReturnType<typeof findChannel
   return query
 }
 
-export const findChannelMembers = (channelId: string, signal?: AbortSignal) => {
-  return customInstance<ApiChannelMemberResponse>({ url: `/api/channels/${channelId}/members`, method: "GET", signal })
+export const deleteChannel = (channelId: string) => {
+  return customInstance<string>({ url: `/api/channels/${channelId}`, method: "DELETE" })
 }
 
-export const getFindChannelMembersQueryKey = (channelId: string) => {
-  return [`/api/channels/${channelId}/members`] as const
+export const getDeleteChannelMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+  mutation?: UseMutationOptions<Awaited<ReturnType<typeof deleteChannel>>, TError, { channelId: string }, TContext>
+}): UseMutationOptions<Awaited<ReturnType<typeof deleteChannel>>, TError, { channelId: string }, TContext> => {
+  const mutationKey = ["deleteChannel"]
+  const { mutation: mutationOptions } = options
+    ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey } }
+
+  const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteChannel>>, { channelId: string }> = (props) => {
+    const { channelId } = props ?? {}
+
+    return deleteChannel(channelId)
+  }
+
+  return { mutationFn, ...mutationOptions }
 }
 
-export const getFindChannelMembersQueryOptions = <
-  TData = Awaited<ReturnType<typeof findChannelMembers>>,
+export type DeleteChannelMutationResult = NonNullable<Awaited<ReturnType<typeof deleteChannel>>>
+
+export type DeleteChannelMutationError = ErrorType<unknown>
+
+export const useDeleteChannel = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+  mutation?: UseMutationOptions<Awaited<ReturnType<typeof deleteChannel>>, TError, { channelId: string }, TContext>
+}): UseMutationResult<Awaited<ReturnType<typeof deleteChannel>>, TError, { channelId: string }, TContext> => {
+  const mutationOptions = getDeleteChannelMutationOptions(options)
+
+  return useMutation(mutationOptions)
+}
+export const findChannelStatus = (channelId: string, signal?: AbortSignal) => {
+  return customInstance<ApiChannelStatusResponse>({ url: `/api/channels/${channelId}/status`, method: "GET", signal })
+}
+
+export const getFindChannelStatusQueryKey = (channelId: string) => {
+  return [`/api/channels/${channelId}/status`] as const
+}
+
+export const getFindChannelStatusQueryOptions = <
+  TData = Awaited<ReturnType<typeof findChannelStatus>>,
   TError = ErrorType<unknown>
 >(
   channelId: string,
-  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelMembers>>, TError, TData>> }
+  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelStatus>>, TError, TData>> }
 ) => {
   const { query: queryOptions } = options ?? {}
 
-  const queryKey = queryOptions?.queryKey ?? getFindChannelMembersQueryKey(channelId)
+  const queryKey = queryOptions?.queryKey ?? getFindChannelStatusQueryKey(channelId)
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof findChannelMembers>>> = ({ signal }) =>
-    findChannelMembers(channelId, signal)
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof findChannelStatus>>> = ({ signal }) =>
+    findChannelStatus(channelId, signal)
 
   return { queryKey, queryFn, enabled: !!channelId, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof findChannelMembers>>,
+    Awaited<ReturnType<typeof findChannelStatus>>,
     TError,
     TData
   > & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type FindChannelMembersQueryResult = NonNullable<Awaited<ReturnType<typeof findChannelMembers>>>
-export type FindChannelMembersQueryError = ErrorType<unknown>
+export type FindChannelStatusQueryResult = NonNullable<Awaited<ReturnType<typeof findChannelStatus>>>
+export type FindChannelStatusQueryError = ErrorType<unknown>
 
-export function useFindChannelMembers<
-  TData = Awaited<ReturnType<typeof findChannelMembers>>,
+export function useFindChannelStatus<
+  TData = Awaited<ReturnType<typeof findChannelStatus>>,
   TError = ErrorType<unknown>
 >(
   channelId: string,
   options: {
-    query: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelMembers>>, TError, TData>> &
+    query: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelStatus>>, TError, TData>> &
       Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof findChannelMembers>>,
+          Awaited<ReturnType<typeof findChannelStatus>>,
           TError,
-          Awaited<ReturnType<typeof findChannelMembers>>
+          Awaited<ReturnType<typeof findChannelStatus>>
         >,
         "initialData"
       >
   }
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFindChannelMembers<
-  TData = Awaited<ReturnType<typeof findChannelMembers>>,
+export function useFindChannelStatus<
+  TData = Awaited<ReturnType<typeof findChannelStatus>>,
   TError = ErrorType<unknown>
 >(
   channelId: string,
   options?: {
-    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelMembers>>, TError, TData>> &
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelStatus>>, TError, TData>> &
       Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof findChannelMembers>>,
+          Awaited<ReturnType<typeof findChannelStatus>>,
           TError,
-          Awaited<ReturnType<typeof findChannelMembers>>
+          Awaited<ReturnType<typeof findChannelStatus>>
         >,
         "initialData"
       >
   }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFindChannelMembers<
-  TData = Awaited<ReturnType<typeof findChannelMembers>>,
+export function useFindChannelStatus<
+  TData = Awaited<ReturnType<typeof findChannelStatus>>,
   TError = ErrorType<unknown>
 >(
   channelId: string,
-  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelMembers>>, TError, TData>> }
+  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelStatus>>, TError, TData>> }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useFindChannelMembers<
-  TData = Awaited<ReturnType<typeof findChannelMembers>>,
+export function useFindChannelStatus<
+  TData = Awaited<ReturnType<typeof findChannelStatus>>,
   TError = ErrorType<unknown>
 >(
   channelId: string,
-  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelMembers>>, TError, TData>> }
+  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelStatus>>, TError, TData>> }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-  const queryOptions = getFindChannelMembersQueryOptions(channelId, options)
+  const queryOptions = getFindChannelStatusQueryOptions(channelId, options)
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
@@ -480,250 +387,88 @@ export function useFindChannelMembers<
   return query
 }
 
-export const findAllOwnChannels = (signal?: AbortSignal) => {
-  return customInstance<ApiListChannelShowAllResponse>({ url: `/api/channels/own`, method: "GET", signal })
-}
-
-export const getFindAllOwnChannelsQueryKey = () => {
-  return [`/api/channels/own`] as const
-}
-
-export const getFindAllOwnChannelsQueryOptions = <
-  TData = Awaited<ReturnType<typeof findAllOwnChannels>>,
-  TError = ErrorType<unknown>
->(options?: {
-  query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findAllOwnChannels>>, TError, TData>>
-}) => {
-  const { query: queryOptions } = options ?? {}
-
-  const queryKey = queryOptions?.queryKey ?? getFindAllOwnChannelsQueryKey()
-
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof findAllOwnChannels>>> = ({ signal }) =>
-    findAllOwnChannels(signal)
-
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof findAllOwnChannels>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type FindAllOwnChannelsQueryResult = NonNullable<Awaited<ReturnType<typeof findAllOwnChannels>>>
-export type FindAllOwnChannelsQueryError = ErrorType<unknown>
-
-export function useFindAllOwnChannels<
-  TData = Awaited<ReturnType<typeof findAllOwnChannels>>,
-  TError = ErrorType<unknown>
->(options: {
-  query: Partial<UseQueryOptions<Awaited<ReturnType<typeof findAllOwnChannels>>, TError, TData>> &
-    Pick<
-      DefinedInitialDataOptions<
-        Awaited<ReturnType<typeof findAllOwnChannels>>,
-        TError,
-        Awaited<ReturnType<typeof findAllOwnChannels>>
-      >,
-      "initialData"
-    >
-}): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFindAllOwnChannels<
-  TData = Awaited<ReturnType<typeof findAllOwnChannels>>,
-  TError = ErrorType<unknown>
->(options?: {
-  query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findAllOwnChannels>>, TError, TData>> &
-    Pick<
-      UndefinedInitialDataOptions<
-        Awaited<ReturnType<typeof findAllOwnChannels>>,
-        TError,
-        Awaited<ReturnType<typeof findAllOwnChannels>>
-      >,
-      "initialData"
-    >
-}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFindAllOwnChannels<
-  TData = Awaited<ReturnType<typeof findAllOwnChannels>>,
-  TError = ErrorType<unknown>
->(options?: {
-  query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findAllOwnChannels>>, TError, TData>>
-}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-
-export function useFindAllOwnChannels<
-  TData = Awaited<ReturnType<typeof findAllOwnChannels>>,
-  TError = ErrorType<unknown>
->(options?: {
-  query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findAllOwnChannels>>, TError, TData>>
-}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-  const queryOptions = getFindAllOwnChannelsQueryOptions(options)
-
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-
-  query.queryKey = queryOptions.queryKey
-
-  return query
-}
-
-export const findAllInvitedChannels = (signal?: AbortSignal) => {
-  return customInstance<ApiListChannelShowAllResponse>({ url: `/api/channels/invited`, method: "GET", signal })
-}
-
-export const getFindAllInvitedChannelsQueryKey = () => {
-  return [`/api/channels/invited`] as const
-}
-
-export const getFindAllInvitedChannelsQueryOptions = <
-  TData = Awaited<ReturnType<typeof findAllInvitedChannels>>,
-  TError = ErrorType<unknown>
->(options?: {
-  query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findAllInvitedChannels>>, TError, TData>>
-}) => {
-  const { query: queryOptions } = options ?? {}
-
-  const queryKey = queryOptions?.queryKey ?? getFindAllInvitedChannelsQueryKey()
-
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof findAllInvitedChannels>>> = ({ signal }) =>
-    findAllInvitedChannels(signal)
-
-  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof findAllInvitedChannels>>,
-    TError,
-    TData
-  > & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type FindAllInvitedChannelsQueryResult = NonNullable<Awaited<ReturnType<typeof findAllInvitedChannels>>>
-export type FindAllInvitedChannelsQueryError = ErrorType<unknown>
-
-export function useFindAllInvitedChannels<
-  TData = Awaited<ReturnType<typeof findAllInvitedChannels>>,
-  TError = ErrorType<unknown>
->(options: {
-  query: Partial<UseQueryOptions<Awaited<ReturnType<typeof findAllInvitedChannels>>, TError, TData>> &
-    Pick<
-      DefinedInitialDataOptions<
-        Awaited<ReturnType<typeof findAllInvitedChannels>>,
-        TError,
-        Awaited<ReturnType<typeof findAllInvitedChannels>>
-      >,
-      "initialData"
-    >
-}): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFindAllInvitedChannels<
-  TData = Awaited<ReturnType<typeof findAllInvitedChannels>>,
-  TError = ErrorType<unknown>
->(options?: {
-  query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findAllInvitedChannels>>, TError, TData>> &
-    Pick<
-      UndefinedInitialDataOptions<
-        Awaited<ReturnType<typeof findAllInvitedChannels>>,
-        TError,
-        Awaited<ReturnType<typeof findAllInvitedChannels>>
-      >,
-      "initialData"
-    >
-}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFindAllInvitedChannels<
-  TData = Awaited<ReturnType<typeof findAllInvitedChannels>>,
-  TError = ErrorType<unknown>
->(options?: {
-  query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findAllInvitedChannels>>, TError, TData>>
-}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-
-export function useFindAllInvitedChannels<
-  TData = Awaited<ReturnType<typeof findAllInvitedChannels>>,
-  TError = ErrorType<unknown>
->(options?: {
-  query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findAllInvitedChannels>>, TError, TData>>
-}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-  const queryOptions = getFindAllInvitedChannelsQueryOptions(options)
-
-  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-
-  query.queryKey = queryOptions.queryKey
-
-  return query
-}
-
-export const getChannelInviteCode = (params: GetChannelInviteCodeParams, signal?: AbortSignal) => {
+export const findChannelInviteCode = (params: FindChannelInviteCodeParams, signal?: AbortSignal) => {
   return customInstance<InviteCodeDto>({ url: `/api/channels/inviteCode`, method: "GET", params, signal })
 }
 
-export const getGetChannelInviteCodeQueryKey = (params: GetChannelInviteCodeParams) => {
+export const getFindChannelInviteCodeQueryKey = (params: FindChannelInviteCodeParams) => {
   return [`/api/channels/inviteCode`, ...(params ? [params] : [])] as const
 }
 
-export const getGetChannelInviteCodeQueryOptions = <
-  TData = Awaited<ReturnType<typeof getChannelInviteCode>>,
+export const getFindChannelInviteCodeQueryOptions = <
+  TData = Awaited<ReturnType<typeof findChannelInviteCode>>,
   TError = ErrorType<unknown>
 >(
-  params: GetChannelInviteCodeParams,
-  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getChannelInviteCode>>, TError, TData>> }
+  params: FindChannelInviteCodeParams,
+  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelInviteCode>>, TError, TData>> }
 ) => {
   const { query: queryOptions } = options ?? {}
 
-  const queryKey = queryOptions?.queryKey ?? getGetChannelInviteCodeQueryKey(params)
+  const queryKey = queryOptions?.queryKey ?? getFindChannelInviteCodeQueryKey(params)
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof getChannelInviteCode>>> = ({ signal }) =>
-    getChannelInviteCode(params, signal)
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof findChannelInviteCode>>> = ({ signal }) =>
+    findChannelInviteCode(params, signal)
 
   return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof getChannelInviteCode>>,
+    Awaited<ReturnType<typeof findChannelInviteCode>>,
     TError,
     TData
   > & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type GetChannelInviteCodeQueryResult = NonNullable<Awaited<ReturnType<typeof getChannelInviteCode>>>
-export type GetChannelInviteCodeQueryError = ErrorType<unknown>
+export type FindChannelInviteCodeQueryResult = NonNullable<Awaited<ReturnType<typeof findChannelInviteCode>>>
+export type FindChannelInviteCodeQueryError = ErrorType<unknown>
 
-export function useGetChannelInviteCode<
-  TData = Awaited<ReturnType<typeof getChannelInviteCode>>,
+export function useFindChannelInviteCode<
+  TData = Awaited<ReturnType<typeof findChannelInviteCode>>,
   TError = ErrorType<unknown>
 >(
-  params: GetChannelInviteCodeParams,
+  params: FindChannelInviteCodeParams,
   options: {
-    query: Partial<UseQueryOptions<Awaited<ReturnType<typeof getChannelInviteCode>>, TError, TData>> &
+    query: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelInviteCode>>, TError, TData>> &
       Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getChannelInviteCode>>,
+          Awaited<ReturnType<typeof findChannelInviteCode>>,
           TError,
-          Awaited<ReturnType<typeof getChannelInviteCode>>
+          Awaited<ReturnType<typeof findChannelInviteCode>>
         >,
         "initialData"
       >
   }
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetChannelInviteCode<
-  TData = Awaited<ReturnType<typeof getChannelInviteCode>>,
+export function useFindChannelInviteCode<
+  TData = Awaited<ReturnType<typeof findChannelInviteCode>>,
   TError = ErrorType<unknown>
 >(
-  params: GetChannelInviteCodeParams,
+  params: FindChannelInviteCodeParams,
   options?: {
-    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getChannelInviteCode>>, TError, TData>> &
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelInviteCode>>, TError, TData>> &
       Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getChannelInviteCode>>,
+          Awaited<ReturnType<typeof findChannelInviteCode>>,
           TError,
-          Awaited<ReturnType<typeof getChannelInviteCode>>
+          Awaited<ReturnType<typeof findChannelInviteCode>>
         >,
         "initialData"
       >
   }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetChannelInviteCode<
-  TData = Awaited<ReturnType<typeof getChannelInviteCode>>,
+export function useFindChannelInviteCode<
+  TData = Awaited<ReturnType<typeof findChannelInviteCode>>,
   TError = ErrorType<unknown>
 >(
-  params: GetChannelInviteCodeParams,
-  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getChannelInviteCode>>, TError, TData>> }
+  params: FindChannelInviteCodeParams,
+  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelInviteCode>>, TError, TData>> }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useGetChannelInviteCode<
-  TData = Awaited<ReturnType<typeof getChannelInviteCode>>,
+export function useFindChannelInviteCode<
+  TData = Awaited<ReturnType<typeof findChannelInviteCode>>,
   TError = ErrorType<unknown>
 >(
-  params: GetChannelInviteCodeParams,
-  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getChannelInviteCode>>, TError, TData>> }
+  params: FindChannelInviteCodeParams,
+  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelInviteCode>>, TError, TData>> }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-  const queryOptions = getGetChannelInviteCodeQueryOptions(params, options)
+  const queryOptions = getFindChannelInviteCodeQueryOptions(params, options)
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
@@ -732,78 +477,93 @@ export function useGetChannelInviteCode<
   return query
 }
 
-export const findAllChannels = (signal?: AbortSignal) => {
-  return customInstance<ApiListChannelShowAllResponse>({ url: `/api/channels/all`, method: "GET", signal })
+export const findChannelsByRole = (params: FindChannelsByRoleParams, signal?: AbortSignal) => {
+  return customInstance<ApiListChannelShowAllResponse>({
+    url: `/api/channels/channel-profile`,
+    method: "GET",
+    params,
+    signal
+  })
 }
 
-export const getFindAllChannelsQueryKey = () => {
-  return [`/api/channels/all`] as const
+export const getFindChannelsByRoleQueryKey = (params: FindChannelsByRoleParams) => {
+  return [`/api/channels/channel-profile`, ...(params ? [params] : [])] as const
 }
 
-export const getFindAllChannelsQueryOptions = <
-  TData = Awaited<ReturnType<typeof findAllChannels>>,
+export const getFindChannelsByRoleQueryOptions = <
+  TData = Awaited<ReturnType<typeof findChannelsByRole>>,
   TError = ErrorType<unknown>
->(options?: {
-  query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findAllChannels>>, TError, TData>>
-}) => {
+>(
+  params: FindChannelsByRoleParams,
+  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelsByRole>>, TError, TData>> }
+) => {
   const { query: queryOptions } = options ?? {}
 
-  const queryKey = queryOptions?.queryKey ?? getFindAllChannelsQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getFindChannelsByRoleQueryKey(params)
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof findAllChannels>>> = ({ signal }) => findAllChannels(signal)
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof findChannelsByRole>>> = ({ signal }) =>
+    findChannelsByRole(params, signal)
 
   return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof findAllChannels>>,
+    Awaited<ReturnType<typeof findChannelsByRole>>,
     TError,
     TData
   > & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type FindAllChannelsQueryResult = NonNullable<Awaited<ReturnType<typeof findAllChannels>>>
-export type FindAllChannelsQueryError = ErrorType<unknown>
+export type FindChannelsByRoleQueryResult = NonNullable<Awaited<ReturnType<typeof findChannelsByRole>>>
+export type FindChannelsByRoleQueryError = ErrorType<unknown>
 
-export function useFindAllChannels<
-  TData = Awaited<ReturnType<typeof findAllChannels>>,
+export function useFindChannelsByRole<
+  TData = Awaited<ReturnType<typeof findChannelsByRole>>,
   TError = ErrorType<unknown>
->(options: {
-  query: Partial<UseQueryOptions<Awaited<ReturnType<typeof findAllChannels>>, TError, TData>> &
-    Pick<
-      DefinedInitialDataOptions<
-        Awaited<ReturnType<typeof findAllChannels>>,
-        TError,
-        Awaited<ReturnType<typeof findAllChannels>>
-      >,
-      "initialData"
-    >
-}): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFindAllChannels<
-  TData = Awaited<ReturnType<typeof findAllChannels>>,
+>(
+  params: FindChannelsByRoleParams,
+  options: {
+    query: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelsByRole>>, TError, TData>> &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof findChannelsByRole>>,
+          TError,
+          Awaited<ReturnType<typeof findChannelsByRole>>
+        >,
+        "initialData"
+      >
+  }
+): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useFindChannelsByRole<
+  TData = Awaited<ReturnType<typeof findChannelsByRole>>,
   TError = ErrorType<unknown>
->(options?: {
-  query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findAllChannels>>, TError, TData>> &
-    Pick<
-      UndefinedInitialDataOptions<
-        Awaited<ReturnType<typeof findAllChannels>>,
-        TError,
-        Awaited<ReturnType<typeof findAllChannels>>
-      >,
-      "initialData"
-    >
-}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFindAllChannels<
-  TData = Awaited<ReturnType<typeof findAllChannels>>,
+>(
+  params: FindChannelsByRoleParams,
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelsByRole>>, TError, TData>> &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof findChannelsByRole>>,
+          TError,
+          Awaited<ReturnType<typeof findChannelsByRole>>
+        >,
+        "initialData"
+      >
+  }
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useFindChannelsByRole<
+  TData = Awaited<ReturnType<typeof findChannelsByRole>>,
   TError = ErrorType<unknown>
->(options?: {
-  query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findAllChannels>>, TError, TData>>
-}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+>(
+  params: FindChannelsByRoleParams,
+  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelsByRole>>, TError, TData>> }
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useFindAllChannels<
-  TData = Awaited<ReturnType<typeof findAllChannels>>,
+export function useFindChannelsByRole<
+  TData = Awaited<ReturnType<typeof findChannelsByRole>>,
   TError = ErrorType<unknown>
->(options?: {
-  query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findAllChannels>>, TError, TData>>
-}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-  const queryOptions = getFindAllChannelsQueryOptions(options)
+>(
+  params: FindChannelsByRoleParams,
+  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelsByRole>>, TError, TData>> }
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+  const queryOptions = getFindChannelsByRoleQueryOptions(params, options)
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 

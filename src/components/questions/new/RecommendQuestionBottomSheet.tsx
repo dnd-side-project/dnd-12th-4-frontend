@@ -53,10 +53,10 @@ export default function RecommendQuestionBottomSheet({ isOpen, setIsOpen }: Para
                       {label}
                     </Button>
                   ))}
-                  <div className="absolute bottom-0 left-0 right-0 h-[3px] rounded-full bg-black/20">
+                  <div className="absolute bottom-0 left-0 right-0 h-[4px] rounded-full bg-black/20">
                     <AnimatePresence>
                       <motion.span
-                        className="absolute bottom-0 h-[3px] rounded-full bg-black"
+                        className="absolute bottom-0 h-[4px] rounded-full bg-black"
                         initial={{ left: indicatorLeft, width: indicatorWidth }}
                         animate={{ left: indicatorLeft, width: indicatorWidth }}
                         transition={{ duration: 0.3 }}
