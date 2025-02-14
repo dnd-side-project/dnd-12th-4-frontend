@@ -6,16 +6,23 @@ import { redirect } from "next/navigation"
 
 export default async function Auth() {
   const session = await getServerSession(authOptions)
-  // const { data: channelData } = await serverInstance.get(`/api/channels/channel-profile?tab=all`)
-  // console.log(channelData)
-  console.log(session)
+  console.log("session", session)
+  const { channelId, channelCount, userName } = session?.user || { channelId: "", channelCount: 0, userName: null }
+  console.log(channelId, channelCount, userName)
 
-  if (session && !session.user.userName) {
-    redirect("/auth/initial")
-  }
-
-  if (session && session.user.userName) {
-    redirect("/channels")
+  if (session) {
+    if (!userName) {
+      redirect("/auth/initial")
+    }
+    if (channelCount > 1) {
+      redirect("/channels")
+    }
+    if (channelCount === 1) {
+      redirect(`/${channelId}`)
+    }
+    if (channelCount === 0) {
+      redirect("/create-or-join")
+    }
   }
 
   return (
