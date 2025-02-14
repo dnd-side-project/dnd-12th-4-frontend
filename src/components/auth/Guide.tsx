@@ -3,6 +3,7 @@
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import Button from "@/components/auth/Button"
+import { toast } from "sonner"
 
 interface GuideProps {
   // guideInfo: { messages: string[]; buttonValue?: string; nextPageUrl?: string }
@@ -19,6 +20,7 @@ function Guide({ title, onNext, nextPageUrl, buttonValue }: GuideProps) {
   const handleButtonClick = () => {
     if (!nextPageUrl && onNext) {
       onNext()
+      toast("알겠어!")
     }
     if (nextPageUrl) {
       router.push(`/auth/initial/${nextPageUrl}`)
