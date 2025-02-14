@@ -1,6 +1,6 @@
 "use client"
 import axios, { default as Axios, AxiosRequestConfig, AxiosResponse } from "axios"
-import { getSession } from "next-auth/react"
+import { getSession, signOut } from "next-auth/react"
 
 export const clientInstance = Axios.create({
   baseURL: process.env.NEXT_PUBLIC_BACKEND_URL
@@ -23,10 +23,33 @@ clientInstance.interceptors.request.use(
 
 clientInstance.interceptors.response.use(
   (response) => response,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async (error) => {
     try {
       // Todo implement refreshToken logic
+      if (error.response?.status === 401) {
+        const session = await getSession()
+
+        if (!session || !session.user.refreshToken) {
+          await signOut()
+          return Promise.reject(error)
+        }
+
+        const refreshToken = session.user.refreshToken
+
+        const { data: refreshTokenData } = await Axios.post(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/refresh`,
+          null,
+          {
+            headers: {
+              Authorization: `Bearer ${refreshToken}`,
+              "Content-Type": "application/json"
+            }
+          }
+        )
+        error.config.headers.Authorization = `Bearer ${refreshTokenData.body.accessToken}`
+        return clientInstance(error.config)
+      }
+      return Promise.reject(error)
     } catch (refreshError) {
       return Promise.reject(refreshError)
     }
