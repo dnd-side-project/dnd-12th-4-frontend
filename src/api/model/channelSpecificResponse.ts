@@ -11,4 +11,5 @@ export interface ChannelSpecificResponse {
   channelOwnerName?: string
   countPerson?: number
   signalCount?: number
+  inviteCode?: string
 }

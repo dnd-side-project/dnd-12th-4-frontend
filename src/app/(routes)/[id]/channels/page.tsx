@@ -1,4 +1,4 @@
-import { getFindAllChannelsQueryKey } from "@/api/channel-controller/channel-controller"
+import { getFindChannelsByRoleQueryKey } from "@/api/channel-controller/channel-controller"
 import { serverInstance } from "@/api/serverInstance"
 import ChannelsPageClient from "@/components/channels/ChannelsPageClient"
 import HeaderFooterWrapper from "@/components/layout/HeaderFooterWrapper"
@@ -11,9 +11,9 @@ export default async function ChannelsPage() {
   try {
     // * prefetch 는 오류를 발생시키지 않으므로 유효한 id값인지 확인하기 위해 fetchQuery 사용
     queryClient.fetchQuery({
-      queryKey: getFindAllChannelsQueryKey(),
+      queryKey: getFindChannelsByRoleQueryKey({ tab: "all" }),
       queryFn: async () => {
-        const { data } = await serverInstance.get(`/api/channels/all`)
+        const { data } = await serverInstance.get(`/api/channels/channel-profile?tab=all`)
         return data
       }
     })

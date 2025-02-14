@@ -1,5 +1,5 @@
 "use client"
-import { useFindChannelMembers } from "@/api/channel-controller/channel-controller"
+import { useFindChannelMembers } from "@/api/channel-member-controller/channel-member-controller"
 import TitleWithMoreView from "@/components/root/TitleWithMoreView"
 import Image from "next/image"
 import { useParams, useRouter } from "next/navigation"
