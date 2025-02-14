@@ -5,10 +5,10 @@ export default function QuestionDetail() {
   return (
     <section className="flex h-full flex-col items-center gap-[24px] px-[16px] pb-[12px] pt-[80px]">
       <div className="flex flex-col items-center gap-[24px]">
-        <p className="text-[24px] font-semibold">
+        <p className="text-center text-headline-01 font-semibold text-gray-09">
           치직...치치직...
           <br />
-          CODE000!
+          시그널이 도착했어요!
         </p>
         <QuestionBox
           count={1}
@@ -19,8 +19,8 @@ export default function QuestionDetail() {
         />
       </div>
       <div className="flex h-full w-full items-end justify-center gap-[12px]">
-        <Button className="w-full bg-white">홈으로 돌아가기</Button>
-        <Button className="w-full bg-[#D7DFE7]">응답하기</Button>
+        <Button className="w-full bg-gray-03">홈으로 돌아가기</Button>
+        <Button className="w-full bg-primary-200">응답하기</Button>
       </div>
     </section>
   )
