@@ -14,7 +14,8 @@ export default function FriendsSlider() {
   return (
     <article className="flex flex-col gap-[12px]">
       <TitleWithMoreView
-        title={`참여 중인 친구 ${data?.body?.memberCount ?? "0"}명`}
+        title="참여 중인 친구"
+        countTitle={` ${data?.body?.memberCount ?? "0"}명`}
         onClick={() => router.push(`/${id}/friends`)}
       />
       <div className="mx-[-16px]">
@@ -28,7 +29,7 @@ export default function FriendsSlider() {
           {data?.body?.channelMembers?.map((member) => (
             <SwiperSlide
               key={member.channelMemberId}
-              className="ms-[8px] !w-fit rounded-[12px] bg-white first:ms-[16px]"
+              className="ms-[8px] !w-fit rounded-[12px] bg-gray-01 first:ms-[16px]"
             >
               <div className="flex w-[106px] max-w-[50vw] flex-col items-center gap-[8px] p-[20px]">
                 <Image

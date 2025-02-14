@@ -21,7 +21,7 @@ const authOptions: AuthOptions = {
               "Content-Type": "application/json"
             }
           })
-          token.accessToken = tokenData.body.token
+          token.accessToken = tokenData.body.accessToken
           token.isNewMember = tokenData.body.newMember
         } catch (error) {
           console.error("카카오 또는 DB 요청 실패:", error)

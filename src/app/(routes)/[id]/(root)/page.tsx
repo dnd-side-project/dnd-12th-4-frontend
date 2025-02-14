@@ -4,6 +4,7 @@ import { serverInstance } from "@/api/serverInstance"
 import HeaderFooterWrapper from "@/components/layout/HeaderFooterWrapper"
 import CharacterInformation from "@/components/root/CharacterInformation"
 import FriendsSlider from "@/components/root/FriendsSlider"
+import InformationBox from "@/components/root/InformationBox"
 import InviteButton from "@/components/root/InviteButton"
 import TitleSection from "@/components/root/TitleSection"
 import TodayAnswerSlider from "@/components/root/TodayAnswerSlider"
@@ -14,7 +15,7 @@ import { notFound } from "next/navigation"
 type Params = Promise<{ id: string }>
 
 export default async function RootPage({ params }: { params: Params }) {
-  // channelId: f6c40ff5-38e7-451b-81ea-391d77cabd65
+  // channelId: d4c98bce-9499-4809-bafa-0c75704f8f87
 
   const { id } = await params
 
@@ -48,7 +49,8 @@ export default async function RootPage({ params }: { params: Params }) {
         <HydrationBoundary state={dehydrate(queryClient)}>
           <TitleSection />
           <CharacterInformation />
-          <section className="flex h-full flex-col gap-[40px] rounded-t-[20px] bg-[#EFF3F7] p-[16px]">
+          <InformationBox />
+          <section className="flex h-full flex-col gap-[40px] rounded-t-[20px] bg-background p-[16px]">
             <TodayAnswerSummary />
             <TodayAnswerSlider />
             <InviteButton />

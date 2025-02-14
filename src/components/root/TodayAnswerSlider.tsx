@@ -15,7 +15,8 @@ export default function TodayAnswerSlider() {
   return (
     <article className="flex flex-col gap-[12px]">
       <TitleWithMoreView
-        title={"오늘 응답 5개"}
+        title="오늘 응답"
+        countTitle="5개"
         onClick={() => {
           router.push(`/${id}/questions`)
         }}
@@ -38,7 +39,7 @@ export default function TodayAnswerSlider() {
         >
           {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((data) => (
             <SwiperSlide key={data} className="ms-[8px] !w-fit first:ms-[16px]">
-              <article className="flex w-[360px] max-w-[90vw] flex-col gap-[12px] rounded-[20px] bg-white p-[20px]">
+              <article className="flex w-[360px] max-w-[90vw] flex-col gap-[12px] rounded-[20px] bg-gray-01 p-[20px]">
                 <div className="flex items-center gap-[8px]">
                   <Image src={"/favicon.ico"} width={32} height={32} alt="profile-image" />
                   <div className="flex flex-col text-black/60">

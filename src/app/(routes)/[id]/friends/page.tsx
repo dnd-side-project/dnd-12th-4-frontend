@@ -11,10 +11,12 @@ export default async function FriendsPage({ params }: { params: Params }) {
   const { data } = await serverInstance.get<ApiChannelMemberResponse>(`/api/channels/${id}/members`)
 
   return (
-    <HeaderFooterWrapper header headerTitle="참여 중인 친구">
-      {data.body?.channelMembers?.map((member) => (
-        <FriendInformation key={member.channelMemberId} nickname={member.nickName} url={member.profileImageUrl} />
-      ))}
+    <HeaderFooterWrapper header headerTitle="내친구">
+      <section className="flex flex-col gap-[12px] px-[16px]">
+        {data.body?.channelMembers?.map((member) => (
+          <FriendInformation key={member.channelMemberId} nickname={member.nickName} url={member.profileImageUrl} />
+        ))}
+      </section>
     </HeaderFooterWrapper>
   )
 }
