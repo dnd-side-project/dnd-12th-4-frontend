@@ -10,7 +10,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font-pretendard), sans-serif;
+  font-family: var(--font-pretendard), var(--font-pixel), sans-serif;
 }
 
 .toaster {

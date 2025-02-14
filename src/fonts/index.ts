@@ -6,3 +6,10 @@ export const Pretendard = localFont({
   weight: "400 500 600 700",
   display: "swap"
 })
+
+export const Pixel = localFont({
+  src: "../fonts/Pixel.woff2",
+  variable: "--font-pixel",
+  weight: "400",
+  display: "swap"
+})
