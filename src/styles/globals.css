@@ -12,3 +12,7 @@ body {
   background: var(--background);
   font-family: var(--font-pretendard), sans-serif;
 }
+
+.toaster {
+  font-family: var(--font-pretendard), sans-serif;
+}
