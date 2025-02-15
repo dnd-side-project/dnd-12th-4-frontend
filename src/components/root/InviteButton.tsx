@@ -29,7 +29,12 @@ export default function InviteButton() {
           <ChevronRight size={24} />
         </article>
       </button>
-      <InviteBottomSheet isOpen={isOpen} setIsOpen={setIsOpen} channelRoomName={data?.body?.channelRoomName} />
+      <InviteBottomSheet
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        channelRoomName={data?.body?.channelRoomName}
+        inviteCode={data?.body?.inviteCode}
+      />
     </>
   )
 }

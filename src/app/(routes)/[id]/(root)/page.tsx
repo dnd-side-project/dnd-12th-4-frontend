@@ -1,4 +1,5 @@
-import { getFindChannelByIdQueryKey } from "@/api/channel-controller/channel-controller"
+import { getShowAnswersQueryKey } from "@/api/answer-controller/answer-controller"
+import { getFindChannelByIdQueryKey, getFindChannelStatusQueryKey } from "@/api/channel-controller/channel-controller"
 import {
   getFindChannelMembersQueryKey,
   getFindTodayQuestionerProfileQueryKey
@@ -10,12 +11,11 @@ import CharacterInformation from "@/components/root/CharacterInformation"
 import FriendsSlider from "@/components/root/FriendsSlider"
 import InformationBox from "@/components/root/InformationBox"
 import InviteButton from "@/components/root/InviteButton"
-import TitleSection from "@/components/root/TitleSection"
 import MissionBox from "@/components/root/MissionBox"
+import TitleSection from "@/components/root/TitleSection"
+import TodayAnswer from "@/components/root/TodayAnswer"
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query"
 import { notFound } from "next/navigation"
-import { getShowAnswersQueryKey } from "@/api/answer-controller/answer-controller"
-import TodayAnswer from "@/components/root/TodayAnswer"
 
 type Params = Promise<{ id: string }>
 
@@ -68,6 +68,13 @@ export default async function RootPage({ params }: { params: Params }) {
         queryKey: getFindTodayQuestionerProfileQueryKey(id),
         queryFn: async () => {
           const { data } = await serverInstance.get(`/api/channels/${id}/members/today-questioner`)
+          return data
+        }
+      }),
+      queryClient.fetchQuery({
+        queryKey: getFindChannelStatusQueryKey(id),
+        queryFn: async () => {
+          const { data } = await serverInstance.get(`/api/channels/${id}/status`)
           return data
         }
       }),
