@@ -52,6 +52,7 @@ export default function RecommendQuestionBottomSheet({ isOpen, setIsOpen }: Para
                         ref={(el) => {
                           buttonsRef.current[index] = el
                         }}
+                        type="button"
                         className="flex-1 bg-white text-body-03"
                         onClick={() => {
                           setSelectedKey(objectKey as keyof typeof category)
