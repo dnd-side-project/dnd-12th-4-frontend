@@ -1,5 +1,6 @@
 "use client"
 import Button from "@/components/common/Button"
+import { category } from "@/dummy/categoryData"
 import { AnimatePresence, motion } from "motion/react"
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react"
 import { Sheet } from "react-modal-sheet"
@@ -9,17 +10,16 @@ interface Params {
   setIsOpen: Dispatch<SetStateAction<boolean>>
 }
 
-const categoryData = ["친구 카테고리 내용", "연인 카테고리 내용", "연인2 카테고리 내용", "가족 카테고리 내용"]
-
 export default function RecommendQuestionBottomSheet({ isOpen, setIsOpen }: Params) {
-  const [selected, setSelected] = useState<number>(0)
+  const [selectedIndex, setSelectedIndex] = useState<number>(0)
+  const [selectedKey, setSelectedKey] = useState<keyof typeof category>("interest")
   const [indicatorLeft, setIndicatorLeft] = useState(0)
   const [indicatorWidth, setIndicatorWidth] = useState(76)
   const buttonsRef = useRef<(HTMLButtonElement | null)[]>([])
 
   useEffect(() => {
-    if (buttonsRef.current[selected]) {
-      const button = buttonsRef.current[selected]
+    if (buttonsRef.current[selectedIndex]) {
+      const button = buttonsRef.current[selectedIndex]
       const container = button?.parentElement
 
       if (button && container) {
@@ -30,49 +30,56 @@ export default function RecommendQuestionBottomSheet({ isOpen, setIsOpen }: Para
         setIndicatorWidth(buttonRect.width)
       }
     }
-  }, [selected])
+  }, [selectedIndex])
 
   return (
-    <Sheet isOpen={isOpen} onClose={() => setIsOpen(false)} detent="content-height" className="">
+    <Sheet isOpen={isOpen} onClose={() => setIsOpen(false)} snapPoints={[400]} detent="content-height">
       <Sheet.Container>
         <Sheet.Content>
-          <section className="flex h-full flex-col justify-between p-[16px] text-black">
-            <article className="flex flex-col items-center">
-              <p className="text-[20px] font-semibold">추천 시그널</p>
-              <article className="mt-[8px] flex flex-col">
-                <div className="relative flex whitespace-nowrap">
-                  {["친구", "연인", "연인2", "가족"].map((label, index) => (
-                    <Button
-                      key={index}
-                      ref={(el) => {
-                        buttonsRef.current[index] = el
-                      }}
-                      className="flex-1 bg-white"
-                      onClick={() => setSelected(index)}
-                    >
-                      {label}
-                    </Button>
-                  ))}
-                  <div className="absolute bottom-0 left-0 right-0 h-[4px] rounded-full bg-black/20">
-                    <AnimatePresence>
-                      <motion.span
-                        className="absolute bottom-0 h-[4px] rounded-full bg-black"
-                        initial={{ left: indicatorLeft, width: indicatorWidth }}
-                        animate={{ left: indicatorLeft, width: indicatorWidth }}
-                        transition={{ duration: 0.3 }}
-                      />
-                    </AnimatePresence>
+          <Sheet.Scroller>
+            <section className="flex h-full flex-col justify-between overflow-hidden px-[20px] pb-[80px] pt-[16px] text-black">
+              <article className="flex flex-col items-center">
+                <p className="text-[20px] font-semibold">추천 시그널</p>
+                <article className="mt-[8px] flex w-full flex-col">
+                  <div className="relative flex whitespace-nowrap">
+                    {Object.keys(category).map((objectKey, index) => (
+                      <Button
+                        key={index}
+                        ref={(el) => {
+                          buttonsRef.current[index] = el
+                        }}
+                        className="flex-1 bg-white"
+                        onClick={() => {
+                          setSelectedKey(objectKey as keyof typeof category)
+                          setSelectedIndex(index)
+                        }}
+                      >
+                        {category[objectKey as keyof typeof category].label}
+                      </Button>
+                    ))}
+                    <div className="absolute bottom-0 left-0 right-0 h-[4px] rounded-full bg-black/20">
+                      <AnimatePresence>
+                        <motion.span
+                          className="absolute bottom-0 h-[4px] rounded-full bg-black"
+                          initial={{ left: indicatorLeft, width: indicatorWidth }}
+                          animate={{ left: indicatorLeft, width: indicatorWidth }}
+                          transition={{ duration: 0.3 }}
+                        />
+                      </AnimatePresence>
+                    </div>
                   </div>
-                </div>
-                <article className="w-full py-[20px]">
-                  <p>{categoryData[selected]}</p>
+                  <article className="flex w-full flex-col gap-[8px] py-[20px]">
+                    {category[selectedKey]?.items.map((data, i) => <p key={i}>{data}</p>)}
+                  </article>
                 </article>
               </article>
-            </article>
-            <Button className="w-full" onClick={() => setIsOpen(false)}>
-              확인
-            </Button>
-          </section>
+              <article className="absolute bottom-0 left-[0px] right-[0px] h-[80px] w-full content-center bg-white px-[16px]">
+                <Button className="w-full" type="button" onClick={() => setIsOpen(false)}>
+                  확인
+                </Button>
+              </article>
+            </section>
+          </Sheet.Scroller>
         </Sheet.Content>
       </Sheet.Container>
       <Sheet.Backdrop onTap={() => setIsOpen(false)} />
