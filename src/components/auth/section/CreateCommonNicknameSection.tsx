@@ -7,10 +7,10 @@ import { useFormContext } from "react-hook-form"
 import Character from "../../../../public/character-front.svg"
 import { cn } from "@/utils/cn"
 
-interface CommonNicknameSectionProps {
+interface CreateCommonNicknameSectionProps {
   onNext: () => void
 }
-export default function CommonNicknameSection({ onNext }: CommonNicknameSectionProps) {
+export default function CreateCommonNicknameSection({ onNext }: CreateCommonNicknameSectionProps) {
   const {
     register,
     watch,

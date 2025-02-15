@@ -2,9 +2,9 @@
 
 import Guide from "@/components/auth/Guide"
 import Header from "@/components/auth/Header"
-import ChannelNicknameSection from "@/components/auth/section/ChannelNicknameSection"
+import ChannelNicknameSection from "@/components/auth/section/CreateChannelNicknameSection"
 import InviteCodeInputSection from "@/components/auth/section/InviteCodeInputSection"
-import { createChannelNameSchema } from "@/validations/channelSchema"
+import { inviteCodeSchema } from "@/validations/joinSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -31,7 +31,7 @@ function Page() {
       inviteCode: "",
       channelNickname: ""
     },
-    resolver: zodResolver(createChannelNameSchema),
+    resolver: zodResolver(inviteCodeSchema),
     mode: "onChange"
   })
 

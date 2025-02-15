@@ -1,8 +1,8 @@
 "use client"
 import Guide from "@/components/auth/Guide"
-import CommonNicknameSection from "@/components/auth/section/CommonNicknameSection"
+import CreateCommonNicknameSection from "@/components/auth/section/CreateCommonNicknameSection"
 import { FIRST_PAGE } from "@/constants/auth"
-import { nicknameSchema } from "@/validations/nicknameSchema"
+import { createCommonNicknameSchema } from "@/validations/nicknameSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
@@ -19,7 +19,7 @@ function Page() {
     defaultValues: {
       nickname: ""
     },
-    resolver: zodResolver(nicknameSchema),
+    resolver: zodResolver(createCommonNicknameSchema),
     mode: "onChange"
   })
 
@@ -34,7 +34,7 @@ function Page() {
   return (
     <FormProvider {...formMethods}>
       <form onSubmit={handleSubmit(onSubmit)} className="flex h-full flex-col justify-between">
-        {steps[stepLevel] === "CommonNickname" && <CommonNicknameSection onNext={onNext} />}
+        {steps[stepLevel] === "CommonNickname" && <CreateCommonNicknameSection onNext={onNext} />}
         {steps[stepLevel] === "GoodNickname" && (
           <Guide
             title={`${nickname}!\n멋진 이름이네요.`}

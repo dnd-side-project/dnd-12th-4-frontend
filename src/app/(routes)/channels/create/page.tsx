@@ -2,16 +2,16 @@
 
 import Guide from "@/components/auth/Guide"
 import Header from "@/components/auth/Header"
-import ChannelNicknameSection from "@/components/auth/section/ChannelNicknameSection"
 import CreateChannelNameSection from "@/components/auth/section/CreateChannelNameSection"
 import CreatedCodeSection from "@/components/auth/section/CreatedCodeSection"
-import { createChannelNameSchema } from "@/validations/channelSchema"
+import { createChannelSchema } from "@/validations/channelSchema"
 // import { nicknameSchema } from "@/validations/nicknameSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 // import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
+import CreateChannelNicknameSection from "@/components/auth/section/CreateChannelNicknameSection"
 
 const steps = ["CreateChannelName", "ChannelNickname", "CreatedCode", "LaterInvitation"]
 
@@ -36,7 +36,7 @@ function Page() {
       channelName: "",
       channelNickname: ""
     },
-    resolver: zodResolver(createChannelNameSchema),
+    resolver: zodResolver(createChannelSchema),
     mode: "onChange"
   })
 
@@ -65,7 +65,7 @@ function Page() {
       <FormProvider {...formMethods}>
         <form onSubmit={handleSubmit(onSubmit)} className="flex h-full flex-col justify-between">
           {steps[stepLevel] === "CreateChannelName" && <CreateChannelNameSection onNext={onNext} />}
-          {steps[stepLevel] === "ChannelNickname" && <ChannelNicknameSection type="create" onNext={onNext} />}
+          {steps[stepLevel] === "ChannelNickname" && <CreateChannelNicknameSection type="create" onNext={onNext} />}
           {steps[stepLevel] === "CreatedCode" && <CreatedCodeSection onNext={onNext} />}
           {steps[stepLevel] === "LaterInvitation" && (
             <Guide title={`그럼 채널로\n보내드릴게요!`} imageUrl="https://placehold.co/229x229.png" />
