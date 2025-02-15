@@ -25,7 +25,6 @@ clientInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     try {
-      // Todo implement refreshToken logic
       if (error.response?.status === 401) {
         const session = await getSession()
 
