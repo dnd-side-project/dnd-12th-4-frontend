@@ -7,6 +7,6 @@
 
 export interface ChannelMemberDto {
   channelMemberId?: number
-  nickName?: string
+  codeName?: string
   profileImageUrl?: string
 }

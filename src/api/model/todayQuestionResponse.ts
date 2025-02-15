@@ -11,4 +11,7 @@ export interface TodayQuestionResponse {
   content?: string
   writer?: string
   time?: string
+  answerCount?: number
+  questionId?: number
+  hasRespond?: boolean
 }

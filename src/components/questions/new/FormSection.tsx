@@ -1,28 +1,38 @@
 "use client"
 
+import { QuestionCreateRequest } from "@/api/model/questionCreateRequest"
+import { useCreateQuestion } from "@/api/question-controller/question-controller"
 import Button from "@/components/common/Button"
-import "@/styles/bottomSheet.css"
-import { questionSchema } from "@/validations/questionSchema"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Info } from "lucide-react"
-import { useState } from "react"
-import { FieldValues, useForm } from "react-hook-form"
 import Textarea from "@/components/common/Textarea"
 import Toggle from "@/components/common/Toggle"
 import RecommendQuestionBottomSheet from "@/components/questions/new/RecommendQuestionBottomSheet"
+import "@/styles/bottomSheet.css"
+import { questionSchema } from "@/validations/questionSchema"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useParams } from "next/navigation"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
 
 export default function FormSection() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const { handleSubmit, setValue, watch } = useForm({
+  const { id } = useParams()
+  const { mutateAsync } = useCreateQuestion()
+
+  const {
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { isSubmitting }
+  } = useForm<QuestionCreateRequest>({
     defaultValues: {
-      question: "",
+      content: "",
       isAnonymous: false
     },
     resolver: zodResolver(questionSchema)
   })
 
-  const onSubmit = async (data: FieldValues) => {
-    console.log("data", data)
+  const onSubmit = async (data: QuestionCreateRequest) => {
+    await mutateAsync({ channelId: id as string, data })
   }
 
   return (
@@ -33,13 +43,18 @@ export default function FormSection() {
             count={2}
             date={new Date()}
             maxLength={100}
-            value={watch("question")}
-            onChange={(e) => setValue("question", e.target.value, { shouldValidate: true })}
+            value={watch("content")}
+            onChange={(e) => setValue("content", e.target.value, { shouldValidate: true })}
           />
           <section className="flex justify-between">
-            <button className="flex items-center gap-[4px]" onClick={() => setIsOpen(true)}>
-              <p className="text-[14px] text-black/60">추천 시그널</p>
-              <Info size={16} />
+            <button
+              className="flex items-center gap-[4px] rounded-xsm bg-gray-03 px-[16px] py-[8px]"
+              type="button"
+              onClick={() => setIsOpen(true)}
+            >
+              {/* <p className="text-[14px] text-black/60">추천 시그널</p>
+              <Info size={16} /> */}
+              <p className="text-caption-01 text-emphasis-high">추천 시그널</p>
             </button>
             <article className="flex items-center gap-[8px]">
               <Toggle
@@ -50,7 +65,7 @@ export default function FormSection() {
             </article>
           </section>
           <div className="flex h-full items-end justify-center">
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
               보내기
             </Button>
           </div>

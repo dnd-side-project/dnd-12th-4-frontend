@@ -5,7 +5,6 @@
  * OpenAPI spec version: 1.0
  */
 
-export type FindQuestionsByChannelParams = {
-  questionId?: number
+export type FindChannelMembersParams = {
   sort?: string
 }

@@ -6,6 +6,6 @@
  */
 
 export interface PageParamRequest {
-  page: number
-  size: number
+  page?: number
+  size?: number
 }

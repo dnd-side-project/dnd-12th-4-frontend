@@ -9,9 +9,11 @@ export default function TitleSection() {
   return (
     <section className="flex items-center justify-between p-[16px]">
       <Image src={"/favicon.ico"} alt="타이틀" width={40} height={40} />
-      <div className="flex flex-col items-end text-white">
-        <p>{data?.body?.channelRoomName ?? ""}</p>
-        <p>{data?.body?.countPerson}명이 참여 중</p>
+      <div className="flex flex-col items-end font-pixel text-pixel-headline text-gray-01">
+        <p className="01">{data?.body?.channelRoomName ?? ""}</p>
+        <p>
+          <span className="text-primary-200">{data?.body?.countPerson}</span>명이 참여 중
+        </p>
       </div>
     </section>
   )

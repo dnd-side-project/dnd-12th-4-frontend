@@ -5,11 +5,9 @@
  * OpenAPI spec version: 1.0
  */
 
-export interface MyChannelMemberResponse {
+export interface ChannelMemberProfileResponse {
   channelMemberId?: number
-  channelId?: string
   codeName?: string
-  channelName?: string
-  profileImage?: string
-  countPerson?: number
+  profileImageUrl?: string
+  isTodayQuestioner?: boolean
 }
