@@ -18,7 +18,10 @@ import { FieldValues, FormProvider, useForm } from "react-hook-form"
 const ListEditHeader = dynamic(() => import("@/components/channels/ListEditHeader"))
 const ChannelEditHeader = dynamic(() => import("@/components/channels/ChannelEditHeader"))
 
-export default function ChannelsPageClient() {
+interface Params {
+  isFooter?: boolean
+}
+export default function ChannelsPageClient({ isFooter = false }: Params) {
   const [isOpenChannelSheet, setIsOpenChannelSheet] = useState(false)
   const [editMode, setEditMode] = useState(false)
   const router = useRouter()
@@ -44,7 +47,7 @@ export default function ChannelsPageClient() {
     <FormProvider {...formMethods}>
       <form className={cn("relative", editMode && "pb-[96px]")} onSubmit={handleSubmit(onSubmit)}>
         {editMode && <ChannelEditHeader onBackClick={() => setEditMode(false)} />}
-        <section className={cn("flex flex-col px-[16px]", editMode && "pt-[40px]")}>
+        <section className={cn("flex flex-col px-[16px]", editMode && "pt-[56px]")}>
           {!editMode && (
             <MenuHeader button title="채널" buttonTitle="추가" onClick={() => setIsOpenChannelSheet(true)} />
           )}
@@ -78,7 +81,12 @@ export default function ChannelsPageClient() {
         </section>
         <ChannelBottomSheet isOpen={isOpenChannelSheet} setIsOpen={setIsOpenChannelSheet} />
         {editMode && (
-          <section className="fixed bottom-[80px] flex h-[96px] w-full max-w-screen-lg items-center justify-center bg-white p-[20px]">
+          <section
+            className={cn(
+              "fixed flex h-[96px] w-full max-w-screen-lg items-center justify-center bg-white p-[20px]",
+              isFooter ? "bottom-[80px]" : "bottom-0"
+            )}
+          >
             <Button type="submit" className="w-full">
               삭제하기
             </Button>

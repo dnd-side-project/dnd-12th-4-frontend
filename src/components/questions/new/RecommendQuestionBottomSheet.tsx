@@ -34,11 +34,11 @@ export default function RecommendQuestionBottomSheet({ isOpen, setIsOpen }: Para
   }, [selectedIndex])
 
   return (
-    <Sheet isOpen={isOpen} onClose={() => setIsOpen(false)} snapPoints={[400]} detent="content-height">
+    <Sheet isOpen={isOpen} onClose={() => setIsOpen(false)} snapPoints={[500]} detent="content-height">
       <Sheet.Container>
         <Sheet.Content>
           <Sheet.Scroller>
-            <section className="flex h-full min-h-[400px] flex-col justify-between overflow-hidden px-[20px] pb-[80px] pt-[16px] text-black">
+            <section className="flex h-full min-h-[500px] flex-col justify-between overflow-hidden px-[20px] pb-[80px] pt-[16px] text-black">
               <article className="flex flex-col items-center">
                 <article className="flex w-full justify-between">
                   <p className="text-subtitle-02 font-semibold text-emphasis-high">추천 시그널</p>
