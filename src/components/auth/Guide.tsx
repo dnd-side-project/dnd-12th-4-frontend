@@ -5,17 +5,14 @@ import { useRouter } from "next/navigation"
 import Button from "@/components/auth/Button"
 
 interface GuideProps {
-  // guideInfo: { messages: string[]; buttonValue?: string; nextPageUrl?: string }
   title: string
   buttonValue?: string
   nextPageUrl?: string
   onNext?: () => void
-  nickname?: string
 }
 
 function Guide({ title, onNext, nextPageUrl, buttonValue }: GuideProps) {
   const router = useRouter()
-  // const { messages, buttonValue, nextPageUrl } = guideInfo
   const handleButtonClick = () => {
     if (!nextPageUrl && onNext) {
       onNext()
