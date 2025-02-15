@@ -19,9 +19,9 @@ import type {
   UseQueryResult
 } from "@tanstack/react-query"
 import type {
+  ApiChannelShowAllResponse,
   ApiChannelSpecificResponse,
   ApiChannelStatusResponse,
-  ApiListChannelShowAllResponse,
   ChannelCreateRequest,
   ChannelResponse,
   FindChannelByNameParams,
@@ -478,7 +478,7 @@ export function useFindChannelInviteCode<
 }
 
 export const findChannelsByRole = (params: FindChannelsByRoleParams, signal?: AbortSignal) => {
-  return customInstance<ApiListChannelShowAllResponse>({
+  return customInstance<ApiChannelShowAllResponse>({
     url: `/api/channels/channel-profile`,
     method: "GET",
     params,

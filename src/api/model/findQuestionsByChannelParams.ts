@@ -6,6 +6,6 @@
  */
 
 export type FindQuestionsByChannelParams = {
-  questionId: number
+  questionId?: number
   sort?: string
 }

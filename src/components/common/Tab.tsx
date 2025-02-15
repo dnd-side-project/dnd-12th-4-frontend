@@ -9,8 +9,8 @@ export default function Tab({ label, isActive, onClick }: TabProps) {
   return (
     <section
       className={cn(
-        "cursor-pointer rounded-[100px] bg-[#F5F8FA] px-[12px] py-[6px] text-[14px]",
-        isActive && "bg-[#637180] text-white"
+        "cursor-pointer rounded-[100px] bg-gray-01 px-[12px] py-[6px] text-[14px] text-body-04 text-emphasis-medium",
+        isActive && "bg-gray-08 text-white"
       )}
       onClick={onClick}
     >

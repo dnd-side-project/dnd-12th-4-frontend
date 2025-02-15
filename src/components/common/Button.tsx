@@ -13,7 +13,7 @@ const Button = forwardRef(function Button({ children, ...buttonProps }: Params, 
     <button
       {...buttonProps}
       ref={ref}
-      className={cn("w-fit rounded-[12px] bg-[#D7DFE7] px-[24px] py-[16px]", buttonProps.className)}
+      className={cn("w-fit rounded-[12px] bg-primary px-[24px] py-[16px]", buttonProps.className)}
     >
       {children}
     </button>

@@ -126,11 +126,11 @@ export const useDeleteAnswer = <TError = ErrorType<unknown>, TContext = unknown>
 
   return useMutation(mutationOptions)
 }
-export const showAnswers = (questionId: number, params: ShowAnswersParams, signal?: AbortSignal) => {
+export const showAnswers = (questionId: number, params?: ShowAnswersParams, signal?: AbortSignal) => {
   return customInstance<ApiAnswerShowAllResponse>({ url: `/api/answer/${questionId}`, method: "GET", params, signal })
 }
 
-export const getShowAnswersQueryKey = (questionId: number, params: ShowAnswersParams) => {
+export const getShowAnswersQueryKey = (questionId: number, params?: ShowAnswersParams) => {
   return [`/api/answer/${questionId}`, ...(params ? [params] : [])] as const
 }
 
@@ -139,7 +139,7 @@ export const getShowAnswersQueryOptions = <
   TError = ErrorType<unknown>
 >(
   questionId: number,
-  params: ShowAnswersParams,
+  params?: ShowAnswersParams,
   options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof showAnswers>>, TError, TData>> }
 ) => {
   const { query: queryOptions } = options ?? {}
@@ -161,7 +161,7 @@ export type ShowAnswersQueryError = ErrorType<unknown>
 
 export function useShowAnswers<TData = Awaited<ReturnType<typeof showAnswers>>, TError = ErrorType<unknown>>(
   questionId: number,
-  params: ShowAnswersParams,
+  params: undefined | ShowAnswersParams,
   options: {
     query: Partial<UseQueryOptions<Awaited<ReturnType<typeof showAnswers>>, TError, TData>> &
       Pick<
@@ -176,7 +176,7 @@ export function useShowAnswers<TData = Awaited<ReturnType<typeof showAnswers>>, 
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useShowAnswers<TData = Awaited<ReturnType<typeof showAnswers>>, TError = ErrorType<unknown>>(
   questionId: number,
-  params: ShowAnswersParams,
+  params?: ShowAnswersParams,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof showAnswers>>, TError, TData>> &
       Pick<
@@ -191,13 +191,13 @@ export function useShowAnswers<TData = Awaited<ReturnType<typeof showAnswers>>, 
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useShowAnswers<TData = Awaited<ReturnType<typeof showAnswers>>, TError = ErrorType<unknown>>(
   questionId: number,
-  params: ShowAnswersParams,
+  params?: ShowAnswersParams,
   options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof showAnswers>>, TError, TData>> }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
 export function useShowAnswers<TData = Awaited<ReturnType<typeof showAnswers>>, TError = ErrorType<unknown>>(
   questionId: number,
-  params: ShowAnswersParams,
+  params?: ShowAnswersParams,
   options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof showAnswers>>, TError, TData>> }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
   const queryOptions = getShowAnswersQueryOptions(questionId, params, options)

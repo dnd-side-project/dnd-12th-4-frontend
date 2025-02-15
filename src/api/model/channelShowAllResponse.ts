@@ -4,13 +4,10 @@
  * PickiTalki API
  * OpenAPI spec version: 1.0
  */
+import type { ChannelShowResponse } from "./channelShowResponse"
+import type { PageParamResponse } from "./pageParamResponse"
 
 export interface ChannelShowAllResponse {
-  channelId?: string
-  channelRoomName?: string
-  channelOwnerName?: string
-  countPerson?: number
-  signalCount?: number
-  inviteCode?: string
-  createdAt?: string
+  channelShowResponse?: ChannelShowResponse[]
+  pageParamResponse?: PageParamResponse
 }

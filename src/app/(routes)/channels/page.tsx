@@ -7,14 +7,21 @@ import HeaderFooterWrapper from "@/components/layout/HeaderFooterWrapper"
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query"
 import { notFound } from "next/navigation"
 
-export default async function ChannelsPage() {
+interface Params {
+  searchParams: Promise<{
+    tab?: string
+  }>
+}
+
+export default async function ChannelsPage({ searchParams }: Params) {
   const queryClient = new QueryClient()
+  const { tab } = await searchParams
 
   try {
-    queryClient.fetchQuery({
-      queryKey: getFindChannelsByRoleQueryKey({ tab: "all" }),
+    await queryClient.fetchQuery({
+      queryKey: getFindChannelsByRoleQueryKey({ tab: tab ?? "all" }),
       queryFn: async () => {
-        const { data } = await serverInstance.get(`/api/channels/channel-profile?tab=all`)
+        const { data } = await serverInstance.get(`/api/channels/channel-profile?tab=${tab ?? "all"}`)
         return data
       }
     })

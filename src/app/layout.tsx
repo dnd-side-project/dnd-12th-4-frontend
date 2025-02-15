@@ -7,6 +7,7 @@ import { authOptions } from "./api/auth/[...nextauth]/auth"
 import { getServerSession } from "next-auth"
 import { AuthProvider } from "@/providers/AuthProvider"
 import ReactQueryProvider from "@/providers/ReactQueryProvider"
+import { Toaster } from "@/components/common/sonner"
 import { cn } from "@/utils/cn"
 
 export const metadata: Metadata = {
@@ -25,6 +26,7 @@ export default async function RootLayout({
       <body className={cn(Pretendard.variable, Pixel.variable)}>
         <ReactQueryProvider>
           <AuthProvider session={session}>
+            <Toaster />
             <div id="modal" />
             <MobileViewLayout>{children}</MobileViewLayout>
           </AuthProvider>

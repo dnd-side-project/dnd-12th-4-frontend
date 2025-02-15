@@ -16,10 +16,10 @@ export default function ConfirmModal({ title, description, onCancel, onClick }: 
           {description && <p>{description}</p>}
         </article>
         <article className="flex gap-[12px]">
-          <Button className="h-[52px]" onClick={onCancel}>
+          <Button className="h-[52px] bg-gray-300" onClick={onCancel}>
             취소하기
           </Button>
-          <Button className="h-[52px]" onClick={onClick}>
+          <Button className="h-[52px] bg-primary-200" onClick={onClick}>
             삭제하기
           </Button>
         </article>

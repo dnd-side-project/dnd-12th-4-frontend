@@ -13,7 +13,7 @@ export default async function FriendListPage({ params }: { params: Params }) {
     <HeaderFooterWrapper header footer headerTitle="내친구">
       <div className="flex flex-col gap-[12px]">
         {data.body?.channelMembers?.map((member) => (
-          <FriendInformation key={member.channelMemberId} nickname={member.nickName} url={member.profileImageUrl} />
+          <FriendInformation key={member.channelMemberId} nickname={member.codeName} url={member.profileImageUrl} />
         ))}
       </div>
     </HeaderFooterWrapper>
