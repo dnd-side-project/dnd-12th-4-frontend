@@ -1,19 +1,19 @@
 "use client"
+import { useFindChannelsByRole } from "@/api/channel-controller/channel-controller"
 import ChannelBottomSheet from "@/components/channels/ChannelBottomSheet"
 import ChannelBox from "@/components/channels/ChannelBox"
 import ListHeader from "@/components/channels/ListHeader"
 import Button from "@/components/common/Button"
 import MenuHeader from "@/components/common/MenuHeader"
+import Tab from "@/components/common/Tab"
+import { TAB_MENUS } from "@/constants/tab"
 import { cn } from "@/utils/cn"
 import { deleteChannelSchema, DeleteChannelType } from "@/validations/channelSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import dynamic from "next/dynamic"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useState } from "react"
 import { FieldValues, FormProvider, useForm } from "react-hook-form"
-import Tab from "@/components/common/Tab"
-import { TAB_MENUS } from "@/constants/tab"
-import { useRouter, useSearchParams } from "next/navigation"
-import { useFindChannelsByRole } from "@/api/channel-controller/channel-controller"
 
 const ListEditHeader = dynamic(() => import("@/components/channels/ListEditHeader"))
 const ChannelEditHeader = dynamic(() => import("@/components/channels/ChannelEditHeader"))
@@ -25,7 +25,7 @@ export default function ChannelsPageClient() {
   const searchParams = useSearchParams()
   const tab = searchParams.get("tab") || "all"
 
-  const { data } = useFindChannelsByRole({ tab: "all" })
+  const { data } = useFindChannelsByRole({ tab })
 
   const formMethods = useForm<DeleteChannelType>({
     defaultValues: {
