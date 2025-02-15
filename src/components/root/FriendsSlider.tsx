@@ -39,7 +39,7 @@ export default function FriendsSlider() {
                   alt="profile-image"
                   className="rounded-full"
                 />
-                <p className="text-[14px] font-semibold text-black/60">{member.nickName}</p>
+                <p className="text-[14px] font-semibold text-black/60">{member.codeName}</p>
               </div>
             </SwiperSlide>
           ))}

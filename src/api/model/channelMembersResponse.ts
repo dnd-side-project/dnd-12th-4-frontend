@@ -4,10 +4,12 @@
  * PickiTalki API
  * OpenAPI spec version: 1.0
  */
-import type { ChannelShowResponse } from "./channelShowResponse"
+import type { ChannelMemberDto } from "./channelMemberDto"
 import type { PageParamResponse } from "./pageParamResponse"
 
-export interface ChannelShowAllResponse {
-  channelShowResponse?: ChannelShowResponse[]
+export interface ChannelMembersResponse {
+  channelName?: string
+  memberCount?: number
+  channelMembers?: ChannelMemberDto[]
   pageParamResponse?: PageParamResponse
 }

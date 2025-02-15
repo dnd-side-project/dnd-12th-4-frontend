@@ -5,7 +5,4 @@
  * OpenAPI spec version: 1.0
  */
 
-export type FindQuestionsByChannelParams = {
-  questionId?: number
-  sort?: string
-}
+export type FindQuestionsByChannel200 = { [key: string]: unknown }

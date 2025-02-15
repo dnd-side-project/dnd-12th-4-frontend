@@ -59,10 +59,10 @@ export default function ChannelsPageClient() {
             ))}
           </ul>
           {editMode && <ListEditHeader count={watch("channelIds").length} />}
-          {!editMode && <ListHeader count={data?.body?.length ?? 0} setEditMode={setEditMode} />}
+          {!editMode && <ListHeader count={data?.body?.channelShowResponse?.length ?? 0} setEditMode={setEditMode} />}
 
           <section className="flex flex-col gap-[20px]">
-            {data?.body?.map((data) => (
+            {data?.body?.channelShowResponse?.map((data) => (
               <ChannelBox
                 key={data.channelId}
                 channelId={data.channelId as string}

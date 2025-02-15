@@ -13,7 +13,9 @@ export default function ListEditHeader({ count }: Params) {
   const { setValue } = useFormContext<DeleteChannelType>()
 
   const selectAll = () => {
-    const allIds = data?.body?.map((data) => data.channelId).filter((id): id is string => id !== undefined)
+    const allIds = data?.body?.channelShowResponse
+      ?.map((data) => data.channelId)
+      .filter((id): id is string => id !== undefined)
     if (allIds?.length === count) {
       console.log("1")
       setValue("channelIds", [], { shouldValidate: true })

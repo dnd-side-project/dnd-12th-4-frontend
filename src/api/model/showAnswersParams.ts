@@ -4,8 +4,7 @@
  * PickiTalki API
  * OpenAPI spec version: 1.0
  */
-import type { PageParamRequest } from "./pageParamRequest"
 
 export type ShowAnswersParams = {
-  pageParamRequest: PageParamRequest
+  sort?: string
 }

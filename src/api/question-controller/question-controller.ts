@@ -19,11 +19,13 @@ import type {
   UseQueryResult
 } from "@tanstack/react-query"
 import type {
+  FindQuestionsByChannel200,
   FindQuestionsByChannelParams,
   FindQuestionsByMemberParams,
   QuestionCreateRequest,
   QuestionCreateResponse,
   QuestionResponse,
+  QuestionShowAllResponse,
   QuestionUpdateRequest,
   QuestionUpdateResponse,
   TodayQuestionResponse
@@ -255,10 +257,10 @@ export const useDeleteQuestion = <TError = ErrorType<unknown>, TContext = unknow
 }
 export const findQuestionsByChannel = (
   channelId: string,
-  params: FindQuestionsByChannelParams,
+  params?: FindQuestionsByChannelParams,
   signal?: AbortSignal
 ) => {
-  return customInstance<QuestionResponse[]>({
+  return customInstance<FindQuestionsByChannel200>({
     url: `/api/channels/${channelId}/questions`,
     method: "GET",
     params,
@@ -266,7 +268,7 @@ export const findQuestionsByChannel = (
   })
 }
 
-export const getFindQuestionsByChannelQueryKey = (channelId: string, params: FindQuestionsByChannelParams) => {
+export const getFindQuestionsByChannelQueryKey = (channelId: string, params?: FindQuestionsByChannelParams) => {
   return [`/api/channels/${channelId}/questions`, ...(params ? [params] : [])] as const
 }
 
@@ -275,7 +277,7 @@ export const getFindQuestionsByChannelQueryOptions = <
   TError = ErrorType<unknown>
 >(
   channelId: string,
-  params: FindQuestionsByChannelParams,
+  params?: FindQuestionsByChannelParams,
   options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByChannel>>, TError, TData>> }
 ) => {
   const { query: queryOptions } = options ?? {}
@@ -300,7 +302,7 @@ export function useFindQuestionsByChannel<
   TError = ErrorType<unknown>
 >(
   channelId: string,
-  params: FindQuestionsByChannelParams,
+  params: undefined | FindQuestionsByChannelParams,
   options: {
     query: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByChannel>>, TError, TData>> &
       Pick<
@@ -318,7 +320,7 @@ export function useFindQuestionsByChannel<
   TError = ErrorType<unknown>
 >(
   channelId: string,
-  params: FindQuestionsByChannelParams,
+  params?: FindQuestionsByChannelParams,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByChannel>>, TError, TData>> &
       Pick<
@@ -336,7 +338,7 @@ export function useFindQuestionsByChannel<
   TError = ErrorType<unknown>
 >(
   channelId: string,
-  params: FindQuestionsByChannelParams,
+  params?: FindQuestionsByChannelParams,
   options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByChannel>>, TError, TData>> }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
@@ -345,7 +347,7 @@ export function useFindQuestionsByChannel<
   TError = ErrorType<unknown>
 >(
   channelId: string,
-  params: FindQuestionsByChannelParams,
+  params?: FindQuestionsByChannelParams,
   options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByChannel>>, TError, TData>> }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
   const queryOptions = getFindQuestionsByChannelQueryOptions(channelId, params, options)
@@ -518,11 +520,11 @@ export function useFindTodayQuestionByChannel<
   return query
 }
 
-export const findQuestionsByMember = (params?: FindQuestionsByMemberParams, signal?: AbortSignal) => {
-  return customInstance<QuestionResponse[]>({ url: `/api/channels/questions`, method: "GET", params, signal })
+export const findQuestionsByMember = (params: FindQuestionsByMemberParams, signal?: AbortSignal) => {
+  return customInstance<QuestionShowAllResponse>({ url: `/api/channels/questions`, method: "GET", params, signal })
 }
 
-export const getFindQuestionsByMemberQueryKey = (params?: FindQuestionsByMemberParams) => {
+export const getFindQuestionsByMemberQueryKey = (params: FindQuestionsByMemberParams) => {
   return [`/api/channels/questions`, ...(params ? [params] : [])] as const
 }
 
@@ -530,7 +532,7 @@ export const getFindQuestionsByMemberQueryOptions = <
   TData = Awaited<ReturnType<typeof findQuestionsByMember>>,
   TError = ErrorType<unknown>
 >(
-  params?: FindQuestionsByMemberParams,
+  params: FindQuestionsByMemberParams,
   options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByMember>>, TError, TData>> }
 ) => {
   const { query: queryOptions } = options ?? {}
@@ -554,7 +556,7 @@ export function useFindQuestionsByMember<
   TData = Awaited<ReturnType<typeof findQuestionsByMember>>,
   TError = ErrorType<unknown>
 >(
-  params: undefined | FindQuestionsByMemberParams,
+  params: FindQuestionsByMemberParams,
   options: {
     query: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByMember>>, TError, TData>> &
       Pick<
@@ -571,7 +573,7 @@ export function useFindQuestionsByMember<
   TData = Awaited<ReturnType<typeof findQuestionsByMember>>,
   TError = ErrorType<unknown>
 >(
-  params?: FindQuestionsByMemberParams,
+  params: FindQuestionsByMemberParams,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByMember>>, TError, TData>> &
       Pick<
@@ -588,7 +590,7 @@ export function useFindQuestionsByMember<
   TData = Awaited<ReturnType<typeof findQuestionsByMember>>,
   TError = ErrorType<unknown>
 >(
-  params?: FindQuestionsByMemberParams,
+  params: FindQuestionsByMemberParams,
   options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByMember>>, TError, TData>> }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
@@ -596,7 +598,7 @@ export function useFindQuestionsByMember<
   TData = Awaited<ReturnType<typeof findQuestionsByMember>>,
   TError = ErrorType<unknown>
 >(
-  params?: FindQuestionsByMemberParams,
+  params: FindQuestionsByMemberParams,
   options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByMember>>, TError, TData>> }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
   const queryOptions = getFindQuestionsByMemberQueryOptions(params, options)

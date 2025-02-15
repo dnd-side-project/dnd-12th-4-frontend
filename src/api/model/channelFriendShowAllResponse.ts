@@ -4,10 +4,10 @@
  * PickiTalki API
  * OpenAPI spec version: 1.0
  */
-import type { ChannelShowResponse } from "./channelShowResponse"
+import type { ChannelFriendResponse } from "./channelFriendResponse"
 import type { PageParamResponse } from "./pageParamResponse"
 
-export interface ChannelShowAllResponse {
-  channelShowResponse?: ChannelShowResponse[]
+export interface ChannelFriendShowAllResponse {
+  channelFriendResponseList?: ChannelFriendResponse[]
   pageParamResponse?: PageParamResponse
 }

@@ -19,11 +19,12 @@ import type {
   UseQueryResult
 } from "@tanstack/react-query"
 import type {
-  ApiListChannelFriendResponse,
-  ApiListMyChannelMemberResponse,
+  ApiChannelFriendShowAllResponse,
   ApiMemberResponse,
+  ApiMyChannelMemberShowAllResponse,
   ApiString,
   FindMyChannelMemberInfoParams,
+  FindMyFriendsParams,
   RegisterNameParams
 } from ".././model"
 import { customInstance } from ".././clientInstance"
@@ -155,25 +156,27 @@ export function useFindMemberInfo<
   return query
 }
 
-export const findMyFriends = (signal?: AbortSignal) => {
-  return customInstance<ApiListChannelFriendResponse>({ url: `/api/members/friends`, method: "GET", signal })
+export const findMyFriends = (params?: FindMyFriendsParams, signal?: AbortSignal) => {
+  return customInstance<ApiChannelFriendShowAllResponse>({ url: `/api/members/friends`, method: "GET", params, signal })
 }
 
-export const getFindMyFriendsQueryKey = () => {
-  return [`/api/members/friends`] as const
+export const getFindMyFriendsQueryKey = (params?: FindMyFriendsParams) => {
+  return [`/api/members/friends`, ...(params ? [params] : [])] as const
 }
 
 export const getFindMyFriendsQueryOptions = <
   TData = Awaited<ReturnType<typeof findMyFriends>>,
   TError = ErrorType<unknown>
->(options?: {
-  query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findMyFriends>>, TError, TData>>
-}) => {
+>(
+  params?: FindMyFriendsParams,
+  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findMyFriends>>, TError, TData>> }
+) => {
   const { query: queryOptions } = options ?? {}
 
-  const queryKey = queryOptions?.queryKey ?? getFindMyFriendsQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getFindMyFriendsQueryKey(params)
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof findMyFriends>>> = ({ signal }) => findMyFriends(signal)
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof findMyFriends>>> = ({ signal }) =>
+    findMyFriends(params, signal)
 
   return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof findMyFriends>>,
@@ -185,48 +188,44 @@ export const getFindMyFriendsQueryOptions = <
 export type FindMyFriendsQueryResult = NonNullable<Awaited<ReturnType<typeof findMyFriends>>>
 export type FindMyFriendsQueryError = ErrorType<unknown>
 
-export function useFindMyFriends<
-  TData = Awaited<ReturnType<typeof findMyFriends>>,
-  TError = ErrorType<unknown>
->(options: {
-  query: Partial<UseQueryOptions<Awaited<ReturnType<typeof findMyFriends>>, TError, TData>> &
-    Pick<
-      DefinedInitialDataOptions<
-        Awaited<ReturnType<typeof findMyFriends>>,
-        TError,
-        Awaited<ReturnType<typeof findMyFriends>>
-      >,
-      "initialData"
-    >
-}): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFindMyFriends<
-  TData = Awaited<ReturnType<typeof findMyFriends>>,
-  TError = ErrorType<unknown>
->(options?: {
-  query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findMyFriends>>, TError, TData>> &
-    Pick<
-      UndefinedInitialDataOptions<
-        Awaited<ReturnType<typeof findMyFriends>>,
-        TError,
-        Awaited<ReturnType<typeof findMyFriends>>
-      >,
-      "initialData"
-    >
-}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFindMyFriends<
-  TData = Awaited<ReturnType<typeof findMyFriends>>,
-  TError = ErrorType<unknown>
->(options?: {
-  query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findMyFriends>>, TError, TData>>
-}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useFindMyFriends<TData = Awaited<ReturnType<typeof findMyFriends>>, TError = ErrorType<unknown>>(
+  params: undefined | FindMyFriendsParams,
+  options: {
+    query: Partial<UseQueryOptions<Awaited<ReturnType<typeof findMyFriends>>, TError, TData>> &
+      Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof findMyFriends>>,
+          TError,
+          Awaited<ReturnType<typeof findMyFriends>>
+        >,
+        "initialData"
+      >
+  }
+): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useFindMyFriends<TData = Awaited<ReturnType<typeof findMyFriends>>, TError = ErrorType<unknown>>(
+  params?: FindMyFriendsParams,
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findMyFriends>>, TError, TData>> &
+      Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof findMyFriends>>,
+          TError,
+          Awaited<ReturnType<typeof findMyFriends>>
+        >,
+        "initialData"
+      >
+  }
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useFindMyFriends<TData = Awaited<ReturnType<typeof findMyFriends>>, TError = ErrorType<unknown>>(
+  params?: FindMyFriendsParams,
+  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findMyFriends>>, TError, TData>> }
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useFindMyFriends<
-  TData = Awaited<ReturnType<typeof findMyFriends>>,
-  TError = ErrorType<unknown>
->(options?: {
-  query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findMyFriends>>, TError, TData>>
-}): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-  const queryOptions = getFindMyFriendsQueryOptions(options)
+export function useFindMyFriends<TData = Awaited<ReturnType<typeof findMyFriends>>, TError = ErrorType<unknown>>(
+  params?: FindMyFriendsParams,
+  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findMyFriends>>, TError, TData>> }
+): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+  const queryOptions = getFindMyFriendsQueryOptions(params, options)
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
@@ -236,7 +235,7 @@ export function useFindMyFriends<
 }
 
 export const findMyChannelMemberInfo = (params: FindMyChannelMemberInfoParams, signal?: AbortSignal) => {
-  return customInstance<ApiListMyChannelMemberResponse>({
+  return customInstance<ApiMyChannelMemberShowAllResponse>({
     url: `/api/members/channel-members`,
     method: "GET",
     params,
