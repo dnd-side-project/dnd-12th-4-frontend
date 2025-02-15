@@ -520,11 +520,11 @@ export function useFindTodayQuestionByChannel<
   return query
 }
 
-export const findQuestionsByMember = (params: FindQuestionsByMemberParams, signal?: AbortSignal) => {
+export const findQuestionsByMember = (params?: FindQuestionsByMemberParams, signal?: AbortSignal) => {
   return customInstance<QuestionShowAllResponse>({ url: `/api/channels/questions`, method: "GET", params, signal })
 }
 
-export const getFindQuestionsByMemberQueryKey = (params: FindQuestionsByMemberParams) => {
+export const getFindQuestionsByMemberQueryKey = (params?: FindQuestionsByMemberParams) => {
   return [`/api/channels/questions`, ...(params ? [params] : [])] as const
 }
 
@@ -532,7 +532,7 @@ export const getFindQuestionsByMemberQueryOptions = <
   TData = Awaited<ReturnType<typeof findQuestionsByMember>>,
   TError = ErrorType<unknown>
 >(
-  params: FindQuestionsByMemberParams,
+  params?: FindQuestionsByMemberParams,
   options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByMember>>, TError, TData>> }
 ) => {
   const { query: queryOptions } = options ?? {}
@@ -556,7 +556,7 @@ export function useFindQuestionsByMember<
   TData = Awaited<ReturnType<typeof findQuestionsByMember>>,
   TError = ErrorType<unknown>
 >(
-  params: FindQuestionsByMemberParams,
+  params: undefined | FindQuestionsByMemberParams,
   options: {
     query: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByMember>>, TError, TData>> &
       Pick<
@@ -573,7 +573,7 @@ export function useFindQuestionsByMember<
   TData = Awaited<ReturnType<typeof findQuestionsByMember>>,
   TError = ErrorType<unknown>
 >(
-  params: FindQuestionsByMemberParams,
+  params?: FindQuestionsByMemberParams,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByMember>>, TError, TData>> &
       Pick<
@@ -590,7 +590,7 @@ export function useFindQuestionsByMember<
   TData = Awaited<ReturnType<typeof findQuestionsByMember>>,
   TError = ErrorType<unknown>
 >(
-  params: FindQuestionsByMemberParams,
+  params?: FindQuestionsByMemberParams,
   options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByMember>>, TError, TData>> }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
@@ -598,7 +598,7 @@ export function useFindQuestionsByMember<
   TData = Awaited<ReturnType<typeof findQuestionsByMember>>,
   TError = ErrorType<unknown>
 >(
-  params: FindQuestionsByMemberParams,
+  params?: FindQuestionsByMemberParams,
   options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByMember>>, TError, TData>> }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
   const queryOptions = getFindQuestionsByMemberQueryOptions(params, options)
