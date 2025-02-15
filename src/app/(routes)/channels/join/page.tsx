@@ -4,6 +4,8 @@ import Guide from "@/components/auth/Guide"
 import Header from "@/components/auth/Header"
 import ChannelNicknameSection from "@/components/auth/section/ChannelNicknameSection"
 import InviteCodeInputSection from "@/components/auth/section/InviteCodeInputSection"
+import { createChannelNameSchema } from "@/validations/channelSchema"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
@@ -28,7 +30,9 @@ function Page() {
     defaultValues: {
       inviteCode: "",
       channelNickname: ""
-    }
+    },
+    resolver: zodResolver(createChannelNameSchema),
+    mode: "onChange"
   })
 
   const { watch, handleSubmit } = formMethods
@@ -59,7 +63,11 @@ function Page() {
           {steps[stepLevel] === "InvitationCode" && <InviteCodeInputSection onNext={onNext} />}
           {steps[stepLevel] === "ChannelNickname" && <ChannelNicknameSection type="invite" onNext={onNext} />}
           {steps[stepLevel] === "CreatedCode" && (
-            <Guide title={`이제 친구와 소통하도록\n주파수를 맞춰볼게요.`} onNext={onNext} />
+            <Guide
+              title={`이제 친구와 소통하도록\n주파수를 맞춰볼게요.`}
+              onNext={onNext}
+              imageUrl="https://placehold.co/229x229.png"
+            />
           )}
         </form>
       </FormProvider>
