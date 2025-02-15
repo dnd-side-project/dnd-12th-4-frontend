@@ -51,7 +51,7 @@ export default function ChannelBox({
 
   return (
     <section
-      className={cn("flex flex-col gap-[12px] rounded-[24px] bg-gray-01 p-[20px]")}
+      className={cn("flex cursor-pointer flex-col gap-[12px] rounded-[24px] bg-gray-01 p-[20px]")}
       onClick={() => {
         if (editMode) {
           onClickChannelBox()

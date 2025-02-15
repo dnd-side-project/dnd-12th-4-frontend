@@ -36,7 +36,7 @@ export default function ToadyAnswerSlider() {
       >
         {data?.body?.answerList?.map((data) => (
           <SwiperSlide key={data.id} className="ms-[8px] !w-fit first:ms-[16px]">
-            <article className="flex w-[360px] max-w-[90vw] flex-col gap-[12px] rounded-[20px] bg-gray-01 p-[20px]">
+            <article className="flex h-[140px] w-[360px] max-w-[90vw] flex-col gap-[12px] rounded-[20px] bg-gray-01 p-[20px]">
               <div className="flex items-center gap-[8px]">
                 <Image src={"/favicon.ico"} width={32} height={32} alt="profile-image" />
                 <div className="flex flex-col text-black/60">
@@ -44,10 +44,7 @@ export default function ToadyAnswerSlider() {
                   <p className="text-[12px]">1시간전</p>
                 </div>
               </div>
-              <p className="line-clamp-2 text-[14px]">
-                이번 주 7시에 다 같이 모여서 저녁 먹자 이번 주 7시에 다 같이 모여서 저녁 먹자이번 주 7시에 다 같이
-                모여서 저녁 먹자이번 주 7시에 다 같이 모여서 저녁 먹자이번 주 7시에 다 같이 모여서 저녁 먹자
-              </p>
+              <p className="line-clamp-2 text-[14px]">{data.content}</p>
               {/* <div className="flex items-center gap-[4px]">
                   <MessageCircle size={16} color="#00000099" />
                   <p className="text-black/60">000</p>

@@ -24,14 +24,18 @@ export default function TodayAnswer() {
         }}
       />
       {data?.body?.answerList && data?.body?.answerList?.length > 0 ? (
-        <ToadyAnswerSlider />
+        <>
+          <ToadyAnswerSlider />
+          {data?.body?.answerList?.length > 1 && (
+            <section id="today-answer-slider" className="flex h-[12px] w-full justify-center gap-[4px]" />
+          )}
+        </>
       ) : (
         <section className="flex flex-col items-center justify-center gap-[20px] rounded-[20px] bg-gray-01 px-[20px] py-[24px]">
           <Image src={"/favicon.ico"} width={80} height={80} alt="logo" />
           <p className="text-body-03 text-emphasis-medium">아직 아무도 응답하지 않았어요</p>
         </section>
       )}
-      <section id="today-answer-slider" className="flex h-[12px] w-full justify-center gap-[4px]" />
     </article>
   )
 }
