@@ -12,9 +12,13 @@ interface Params extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 
 export default function Textarea({ count, date, maxLength, ...props }: Params) {
   return (
-    <section className="relative flex w-full flex-col items-center gap-[12px] rounded-[20px] bg-gray-01 p-[20px] font-semibold">
+    <section
+      className={cn(
+        "relative flex w-full flex-col items-center gap-[12px] rounded-[20px] border border-transparent bg-gray-01 p-[20px] font-semibold focus-within:border-gray-04"
+      )}
+    >
       {(count || date) && (
-        <div className={cn("flex w-full items-center", count ? "justify-between" : "justify-end")}>
+        <div className={cn("flex w-full items-center text-caption-01", count ? "justify-between" : "justify-end")}>
           {count && <Tag text={`${count}번째 시그널`} />}
           {date && <p className="text-[12px] text-black/60">2025.00.00</p>}
         </div>

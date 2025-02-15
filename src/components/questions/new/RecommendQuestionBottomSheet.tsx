@@ -42,7 +42,7 @@ export default function RecommendQuestionBottomSheet({ isOpen, setIsOpen }: Para
               <article className="flex flex-col items-center">
                 <article className="flex w-full justify-between">
                   <p className="text-subtitle-02 font-semibold text-emphasis-high">추천 시그널</p>
-                  <XIcon size={20} color="#000000DE" />
+                  <XIcon size={20} color="#000000DE" className="cursor-pointer" onClick={() => setIsOpen(false)} />
                 </article>
                 <article className="mt-[8px] flex w-full flex-col">
                   <div className="relative flex whitespace-nowrap">

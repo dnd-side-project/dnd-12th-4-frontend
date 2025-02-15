@@ -1,15 +1,14 @@
 "use client"
 
 import Button from "@/components/common/Button"
-import "@/styles/bottomSheet.css"
-import { questionSchema } from "@/validations/questionSchema"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Info } from "lucide-react"
-import { useState } from "react"
-import { FieldValues, useForm } from "react-hook-form"
 import Textarea from "@/components/common/Textarea"
 import Toggle from "@/components/common/Toggle"
 import RecommendQuestionBottomSheet from "@/components/questions/new/RecommendQuestionBottomSheet"
+import "@/styles/bottomSheet.css"
+import { questionSchema } from "@/validations/questionSchema"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react"
+import { FieldValues, useForm } from "react-hook-form"
 
 export default function FormSection() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -37,9 +36,13 @@ export default function FormSection() {
             onChange={(e) => setValue("question", e.target.value, { shouldValidate: true })}
           />
           <section className="flex justify-between">
-            <button className="flex items-center gap-[4px]" onClick={() => setIsOpen(true)}>
-              <p className="text-[14px] text-black/60">추천 시그널</p>
-              <Info size={16} />
+            <button
+              className="flex items-center gap-[4px] rounded-xsm bg-gray-03 px-[16px] py-[8px]"
+              onClick={() => setIsOpen(true)}
+            >
+              {/* <p className="text-[14px] text-black/60">추천 시그널</p>
+              <Info size={16} /> */}
+              <p className="text-caption-01 text-emphasis-high">추천 시그널</p>
             </button>
             <article className="flex items-center gap-[8px]">
               <Toggle
