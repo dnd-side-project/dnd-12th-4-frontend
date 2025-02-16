@@ -26,7 +26,7 @@ export default function InviteCodeInputSection({ onNext }: InviteCodeInputSectio
           <div className="size-[60px]">
             <Image src={Character} width={60} height={60} alt="캐릭터 이미지" />
           </div>
-          <TitleAndDescriptionBox title={`친구에게 받은 코드를\n저에게 알려주세요`} />
+          <TitleAndDescriptionBox title={`친구에게 전달받은\n초대 코드를 알려주세요`} />
         </div>
         <div className="flex flex-col gap-[4px]">
           <input

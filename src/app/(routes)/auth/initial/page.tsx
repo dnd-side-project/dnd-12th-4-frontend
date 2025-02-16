@@ -18,7 +18,7 @@ function Page() {
       )}
       {steps[stepLevel] === "PreGuide" && (
         <Guide
-          title={`저에게 간단한 정보를 주시면\n친구와의 소통을 도와드릴게요!`}
+          title={`친구들과의 소통을 위해\n간단한 정보가 필요해요`}
           buttonValue="알겠어!"
           nextPageUrl="common-nickname"
           imageUrl="https://placehold.co/229x229.png"

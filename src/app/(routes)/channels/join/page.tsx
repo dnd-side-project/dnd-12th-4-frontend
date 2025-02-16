@@ -64,7 +64,7 @@ function Page() {
           {steps[stepLevel] === "ChannelNickname" && <ChannelNicknameSection type="invite" onNext={onNext} />}
           {steps[stepLevel] === "CreatedCode" && (
             <Guide
-              title={`이제 친구와 소통하도록\n주파수를 맞춰볼게요.`}
+              title={`이제 친구들과 소통할 수 있도록\n주파수를 맞춰볼게요!`}
               onNext={onNext}
               imageUrl="https://placehold.co/229x229.png"
             />

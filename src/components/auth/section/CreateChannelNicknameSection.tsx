@@ -27,7 +27,7 @@ export default function CreateChannelNicknameSection({ onNext, type }: CreateCha
           <TitleAndDescriptionBox
             title={
               type === "invite"
-                ? `초대 받은 채널에서\n채널 코드명으로 활동해 보세요`
+                ? `초대 받은 채널에서 사용할\n 채널 코드명을 알려주세요`
                 : `해당 채널에서 사용할\n채널 코드명을 알려주세요`
             }
             description={`채널 코드명은 한 채널에서 사용할 닉네임이에요.\n회원 가입 후에도 수정이 가능해요.`}
