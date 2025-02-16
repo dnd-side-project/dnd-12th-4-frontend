@@ -11,4 +11,5 @@ export interface MyChannelMemberResponse {
   codeName?: string
   channelName?: string
   profileImage?: string
+  countPerson?: number
 }

@@ -13,11 +13,12 @@ export default {
       lg: "460px"
     },
     fontFamily: {
-      pretendard: ["var(--font-pretendard)"]
+      pretendard: ["var(--font-pretendard)"],
+      pixel: ["var(--font-pixel)"]
     },
     fontSize: {
-      "headline-01": ["24px", { fontWeight: 700, lineHeight: "1.5", letterSpacing: "-2" }],
-      "headline-02": ["20px", { fontWeight: 700, lineHeight: "1.5", letterSpacing: "-2" }],
+      "headline-01": ["24px", { fontWeight: 700, lineHeight: "1.5", letterSpacing: "-0.2" }],
+      "headline-02": ["20px", { fontWeight: 700, lineHeight: "1.5", letterSpacing: "-0.2" }],
       "subtitle-01": ["20px", { fontWeight: 600, lineHeight: "1.5", letterSpacing: "-0.2" }],
       "subtitle-02": ["18px", { fontWeight: 600, lineHeight: "1.5", letterSpacing: "-0.2" }],
       "subtitle-03": ["16px", { fontWeight: 600, lineHeight: "1.5", letterSpacing: "-0.2" }],
@@ -27,7 +28,10 @@ export default {
       "body-03": ["14px", { fontWeight: 500, lineHeight: "1.4", letterSpacing: "-0.2" }],
       "body-04": ["14px", { fontWeight: 400, lineHeight: "1.4", letterSpacing: "-0.2" }],
       "caption-01": ["12px", { fontWeight: 500, lineHeight: "1.4", letterSpacing: "-0.2" }],
-      "caption-02": ["12px", { fontWeight: 400, lineHeight: "1.4", letterSpacing: "-0.2" }]
+      "caption-02": ["12px", { fontWeight: 400, lineHeight: "1.4", letterSpacing: "-0.2" }],
+      "pixel-headline": ["16px", { fontWeight: 400, lineHeight: "1.4", letterSpacing: "-0.5" }],
+      "pixel-body": ["14px", { fontWeight: 400, lineHeight: "1.4", letterSpacing: "-0.5" }],
+      "pixel-caption": ["12px", { fontWeight: 400, lineHeight: "1.4", letterSpacing: "-0.5" }]
     },
     borderRadius: {
       xsm: "8px",
@@ -42,32 +46,42 @@ export default {
       colors: {
         primary: {
           DEFAULT: "#FDD835",
-          100: "#FDD83526",
-          200: "#FFF1BF",
-          300: "#FFE057",
-          400: "#FDD835",
-          500: "#FFD000"
+          0: "#FDD83526",
+          50: "#FFF1BF",
+          100: "#FFE057",
+          200: "#FDD835",
+          300: "#FFD000"
         },
         secondary: {
           DEFAULT: "#1263C9",
-          100: "#358FFF26",
-          200: "#A2CBFF",
-          300: "#358FFF",
-          400: "#1263C9"
+          0: "#358FFF26",
+          100: "#A2CBFF",
+          200: "#358FFF",
+          300: "#1263C9"
         },
-        "gray-scale": {
+        gray: {
           DEFAULT: "#292D30",
-          100: "#F4F7F9",
-          200: "#ECF0F3",
-          300: "#D7DFE7",
-          400: "#B4C0CD",
-          500: "#9CAAB9",
-          600: "#637180",
-          700: "#3C4754",
-          800: "#2F363E",
-          900: "#292D30",
-          1000: "#1A1E21"
-        }
+          "01": "#F5F8FA",
+          "02": "#ECF0F3",
+          "03": "#D7DFE7",
+          "04": "#9CAAB9",
+          "05": "#637180",
+          "06": "#3C4754",
+          "07": "#2F363E",
+          "08": "#292D30",
+          "09": "#1A1E21"
+        },
+        error: {
+          DEFAULT: "#D13838",
+          light: "#D1383826"
+        },
+        emphasis: {
+          high: "#000000DE",
+          medium: "#00000099"
+        },
+        background: "#FFFFFF",
+        outline: "#0000001F",
+        disabled: "#00000061"
       }
     }
   },

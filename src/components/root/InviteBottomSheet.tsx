@@ -10,13 +10,14 @@ interface Params {
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
   channelRoomName?: string
+  inviteCode?: string
 }
 
-export default function InviteBottomSheet({ isOpen, setIsOpen, channelRoomName }: Params) {
+export default function InviteBottomSheet({ isOpen, setIsOpen, channelRoomName, inviteCode }: Params) {
   const handleShare = async () => {
     const shareData: ShareAPIRequest = {
-      title: `피키토키 채널에 초대합니다`,
-      text: `${channelRoomName} 채널에서 친구가 기다리고 있어요!`,
+      title: `피키토키에 초대합니다`,
+      text: `${channelRoomName} 채널에서 친구가 기다리고 있어요!\초대코드: ${inviteCode}`,
       // Todo 데이터 알맞게 수정
       url: "https://dnd.ac"
     }

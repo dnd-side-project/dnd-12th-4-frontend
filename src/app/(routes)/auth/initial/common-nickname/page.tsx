@@ -1,8 +1,10 @@
 "use client"
 import { useRegisterName } from "@/api/member-controller/member-controller"
 import Guide from "@/components/auth/Guide"
-import CommonNicknameSection from "@/components/auth/section/CommonNicknameSection"
+import CreateCommonNicknameSection from "@/components/auth/section/CreateCommonNicknameSection"
 import { FIRST_PAGE } from "@/constants/auth"
+import { createCommonNicknameSchema } from "@/validations/nicknameSchema"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 
@@ -17,7 +19,9 @@ function Page() {
   const formMethods = useForm({
     defaultValues: {
       nickname: ""
-    }
+    },
+    resolver: zodResolver(createCommonNicknameSchema),
+    mode: "onChange"
   })
 
   const { watch, handleSubmit } = formMethods
@@ -38,9 +42,14 @@ function Page() {
   return (
     <FormProvider {...formMethods}>
       <form onSubmit={handleSubmit(onSubmit)} className="flex h-full flex-col justify-between">
-        {steps[stepLevel] === "CommonNickname" && <CommonNicknameSection onNext={onNext} />}
+        {steps[stepLevel] === "CommonNickname" && <CreateCommonNicknameSection onNext={onNext} />}
         {steps[stepLevel] === "GoodNickname" && (
-          <Guide title={`${nickname}!\n멋진 이름이네요.`} buttonValue="고마워" nextPageUrl="create-or-join" />
+          <Guide
+            title={`${nickname}!\n멋진 이름이네요.`}
+            buttonValue="고마워"
+            nextPageUrl="create-or-join"
+            imageUrl="https://placehold.co/220x220.png"
+          />
         )}
       </form>
     </FormProvider>

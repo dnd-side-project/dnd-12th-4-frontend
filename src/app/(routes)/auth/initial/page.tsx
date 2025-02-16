@@ -3,6 +3,7 @@
 import Guide from "@/components/auth/Guide"
 import { FIRST_PAGE } from "@/constants/auth"
 import { useState } from "react"
+import Character from "../../../../../public/character-front.svg"
 
 function Page() {
   const steps = ["Introduction", "PreGuide"]
@@ -13,13 +14,14 @@ function Page() {
   return (
     <>
       {steps[stepLevel] === "Introduction" && (
-        <Guide title={`안녕하세요.\n저는 토끼에요.`} buttonValue="안녕!" onNext={onNext} />
+        <Guide title={`안녕하세요.\n저는 토키에요.`} buttonValue="안녕!" onNext={onNext} imageUrl={Character} />
       )}
       {steps[stepLevel] === "PreGuide" && (
         <Guide
-          title={`저에게 간단한 정보를 주시면\n친구와의 소통을 도와드릴게요!`}
+          title={`친구들과의 소통을 위해\n간단한 정보가 필요해요`}
           buttonValue="알겠어!"
           nextPageUrl="common-nickname"
+          imageUrl="https://placehold.co/229x229.png"
         />
       )}
     </>

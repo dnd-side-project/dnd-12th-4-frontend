@@ -27,13 +27,15 @@ serverInstance.interceptors.response.use(
   async (error) => {
     try {
       console.log("error", error)
-      // Todo implement refreshToken logic
-
       if (error.response?.status === 401) {
         console.log("AccessToken 만료")
 
         const session = await getServerSession(authOptions)
         const refreshToken = session?.user.refreshToken
+
+        if (!refreshToken) {
+          return Promise.reject(error)
+        }
 
         const { data: refreshTokenData } = await Axios.post(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/refresh`,

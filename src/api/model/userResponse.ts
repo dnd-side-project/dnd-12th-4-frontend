@@ -10,4 +10,6 @@ export interface UserResponse {
   refreshToken?: string
   expiredAccessToken?: number
   userName?: string
+  channelCount?: number
+  channelId?: string
 }

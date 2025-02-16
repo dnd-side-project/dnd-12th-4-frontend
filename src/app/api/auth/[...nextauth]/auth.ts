@@ -35,7 +35,7 @@ const authOptions: AuthOptions = {
       if (token.accessToken) {
         const currentTime = Math.floor(Date.now() / 1000)
         const tokenExpirationTime = Number(token.expiredAccessToken)
-        if (currentTime > tokenExpirationTime - 60) {
+        if (currentTime > tokenExpirationTime) {
           try {
             const { data: refreshTokenData } = await axios.post(
               `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/refresh`,
