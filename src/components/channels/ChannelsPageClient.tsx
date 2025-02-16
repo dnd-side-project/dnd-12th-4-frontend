@@ -3,7 +3,7 @@ import { useFindChannelsByRole } from "@/api/channel-controller/channel-controll
 import { useLeaveChannels } from "@/api/channel-member-controller/channel-member-controller"
 import { ChannelMemberDeleteRequest } from "@/api/model/channelMemberDeleteRequest"
 import ChannelBottomSheet from "@/components/channels/ChannelBottomSheet"
-import ChannelBox from "@/components/channels/ChannelBox"
+import ChannelBoxForm from "@/components/channels/ChannelBoxForm"
 import ListHeader from "@/components/channels/ListHeader"
 import Button from "@/components/common/Button"
 import MenuHeader from "@/components/common/MenuHeader"
@@ -77,7 +77,7 @@ export default function ChannelsPageClient({ isFooter = false }: Params) {
               <Tab
                 key={TAB_MENU.value}
                 label={TAB_MENU.label}
-                isActive={tab === TAB_MENU.value}
+                isActive={tab === TAB_MENU.value || (TAB_MENU.value === "all" && tab === undefined)}
                 onClick={() => router.push(`?tab=${TAB_MENU.value}`)}
               />
             ))}
@@ -87,7 +87,7 @@ export default function ChannelsPageClient({ isFooter = false }: Params) {
 
           <section className="flex flex-col gap-[20px]">
             {data?.body?.channelShowResponse?.map((data) => (
-              <ChannelBox
+              <ChannelBoxForm
                 key={data.channelId}
                 channelId={data.channelId as string}
                 count={data.signalCount || 0}

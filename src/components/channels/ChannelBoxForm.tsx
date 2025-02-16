@@ -15,7 +15,7 @@ interface Params {
   selected?: boolean
   editMode?: boolean
 }
-export default function ChannelBox({
+export default function ChannelBoxForm({
   channelId,
   count,
   name,
