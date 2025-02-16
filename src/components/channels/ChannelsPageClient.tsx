@@ -1,5 +1,7 @@
 "use client"
 import { useFindChannelsByRole } from "@/api/channel-controller/channel-controller"
+import { useLeaveChannels } from "@/api/channel-member-controller/channel-member-controller"
+import { ChannelMemberDeleteRequest } from "@/api/model/channelMemberDeleteRequest"
 import ChannelBottomSheet from "@/components/channels/ChannelBottomSheet"
 import ChannelBox from "@/components/channels/ChannelBox"
 import ListHeader from "@/components/channels/ListHeader"
@@ -8,12 +10,13 @@ import MenuHeader from "@/components/common/MenuHeader"
 import Tab from "@/components/common/Tab"
 import { TAB_MENUS } from "@/constants/tab"
 import { cn } from "@/utils/cn"
-import { deleteChannelSchema, DeleteChannelType } from "@/validations/channelSchema"
+import { deleteChannelSchema } from "@/validations/channelSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import dynamic from "next/dynamic"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useState } from "react"
 import { FieldValues, FormProvider, useForm } from "react-hook-form"
+import ConfirmModal from "@/components/common/ConfirmModal"
 
 const ListEditHeader = dynamic(() => import("@/components/channels/ListEditHeader"))
 const ChannelEditHeader = dynamic(() => import("@/components/channels/ChannelEditHeader"))
@@ -27,20 +30,35 @@ export default function ChannelsPageClient({ isFooter = false }: Params) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const tab = searchParams.get("tab") || "all"
+  const [isDeleteModal, setIsDeleteModal] = useState(false)
 
-  const { data } = useFindChannelsByRole({ tab })
+  const { data, refetch } = useFindChannelsByRole({ tab })
 
-  const formMethods = useForm<DeleteChannelType>({
+  const { mutateAsync } = useLeaveChannels()
+
+  const formMethods = useForm<ChannelMemberDeleteRequest>({
     defaultValues: {
       channelIds: []
     },
     resolver: zodResolver(deleteChannelSchema)
   })
 
-  const { watch, handleSubmit } = formMethods
+  const {
+    watch,
+    handleSubmit,
+    formState: { isSubmitting }
+  } = formMethods
 
   const onSubmit = async (data: FieldValues) => {
-    console.log("data", data)
+    try {
+      await mutateAsync({ data })
+      // await queryClient.invalidateQueries({ queryKey: ["/api/channels/channel-profile"] })
+      formMethods.reset()
+      await refetch()
+      setIsDeleteModal(false)
+    } catch (error) {
+      console.log("error", error)
+    }
   }
 
   return (
@@ -61,7 +79,7 @@ export default function ChannelsPageClient({ isFooter = false }: Params) {
               />
             ))}
           </ul>
-          {editMode && <ListEditHeader count={watch("channelIds").length} />}
+          {editMode && <ListEditHeader count={watch("channelIds") ? watch("channelIds")!.length : 0} />}
           {!editMode && <ListHeader count={data?.body?.channelShowResponse?.length ?? 0} setEditMode={setEditMode} />}
 
           <section className="flex flex-col gap-[20px]">
@@ -73,7 +91,7 @@ export default function ChannelsPageClient({ isFooter = false }: Params) {
                 name={data.channelRoomName ?? "-"}
                 memberCount={data?.countPerson || 1}
                 owner={data.channelOwnerName ?? "-"}
-                selected={watch("channelIds").includes(data.channelId as string)}
+                selected={watch("channelIds") ? watch("channelIds")!.includes(data.channelId as string) : false}
                 editMode={editMode}
               />
             ))}
@@ -87,10 +105,17 @@ export default function ChannelsPageClient({ isFooter = false }: Params) {
               isFooter ? "bottom-[80px]" : "bottom-0"
             )}
           >
-            <Button type="submit" className="w-full">
+            <Button type="button" onClick={() => setIsDeleteModal(true)} className="w-full" disabled={isSubmitting}>
               삭제하기
             </Button>
           </section>
+        )}
+        {isDeleteModal && (
+          <ConfirmModal
+            title="삭제 하시겠습니까?"
+            onCancel={() => setIsDeleteModal((prev) => !prev)}
+            onClick={handleSubmit(onSubmit)}
+          />
         )}
       </form>
     </FormProvider>
