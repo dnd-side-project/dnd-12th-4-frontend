@@ -56,6 +56,7 @@ export default function ChannelsPageClient({ isFooter = false }: Params) {
       formMethods.reset()
       await refetch()
       setIsDeleteModal(false)
+      setEditMode(false)
     } catch (error) {
       console.log("error", error)
     }
