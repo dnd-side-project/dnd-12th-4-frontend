@@ -9,9 +9,10 @@ import InviteBottomSheet from "@/components/root/InviteBottomSheet"
 
 interface CreatedCodeSectionProps {
   onNext: () => void
+  channelData: { channelId: string; inviteCode: string; channelName: string }
 }
 
-export default function CreatedCodeSection({ onNext }: CreatedCodeSectionProps) {
+export default function CreatedCodeSection({ onNext, channelData }: CreatedCodeSectionProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   return (
@@ -24,7 +25,7 @@ export default function CreatedCodeSection({ onNext }: CreatedCodeSectionProps) 
         <div className="flex h-full flex-col justify-between">
           <div className="flex h-[108px] w-full flex-col items-center justify-center gap-[4px] rounded-[16px] border-2 border-[#9CAAB9] font-semibold">
             <div className="text-body-01 text-black/60">초대코드</div>
-            <div className="text-[24px]">2414214124</div>
+            <div className="text-[24px]">{channelData.inviteCode}</div>
           </div>
           <div className="flex gap-[12px]">
             <Button variant="default" size="default" className="bg-[#ECF0F3]" onNext={onNext}>
@@ -33,7 +34,12 @@ export default function CreatedCodeSection({ onNext }: CreatedCodeSectionProps) 
             <Button variant="default" size="default" onClick={() => setIsOpen(true)}>
               지금 공유할래
             </Button>
-            <InviteBottomSheet isOpen={isOpen} setIsOpen={setIsOpen} />
+            <InviteBottomSheet
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+              channelRoomName={channelData.channelName}
+              inviteCode={channelData.inviteCode}
+            />
           </div>
         </div>
       </div>

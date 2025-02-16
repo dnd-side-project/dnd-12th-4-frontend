@@ -6,9 +6,7 @@ import { redirect } from "next/navigation"
 
 export default async function Auth() {
   const session = await getServerSession(authOptions)
-  console.log("session", session)
   const { channelId, channelCount, userName } = session?.user || { channelId: "", channelCount: 0, userName: null }
-  console.log(channelId, channelCount, userName)
 
   if (session) {
     if (!userName) {
@@ -21,7 +19,7 @@ export default async function Auth() {
       redirect(`/${channelId}`)
     }
     if (channelCount === 0) {
-      redirect("/create-or-join")
+      redirect("auth/initial/create-or-join")
     }
   }
 

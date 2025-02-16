@@ -29,12 +29,12 @@ export default function CarouselItems() {
           </div>
         ))}
       </div>
-      <div className="flex gap-1">
+      <div className="flex gap-[8px]">
         {AUTH_CAROUSEL_ITEMS.map((carouselItem, index) => (
           <div
             key={carouselItem.id}
             className={`h-[6px] w-[6px] rounded-full duration-1000 ${
-              index === currentIndex ? "h-[6px] w-[15px] scale-125 rounded-[20px] bg-[#292D30]" : "bg-gray-300"
+              index === currentIndex ? "h-[6px] w-[16px] scale-125 rounded-[20px] bg-[#292D30]" : "bg-gray-300"
             }`}
           ></div>
         ))}
