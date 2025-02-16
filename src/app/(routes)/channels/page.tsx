@@ -20,10 +20,9 @@ export default async function ChannelsPage({ searchParams }: Params) {
 
   try {
     await queryClient.fetchQuery({
-      // Todo 백엔드 tab default value 수정되면 "all" 삭제
-      queryKey: getFindChannelsByRoleQueryKey({ tab: tab ?? "all", sort }),
+      queryKey: getFindChannelsByRoleQueryKey({ tab: tab, sort }),
       queryFn: async () => {
-        const { data } = await serverInstance.get(`/api/channels/channel-profile?tab=${tab ?? "all"}`)
+        const { data } = await serverInstance.get(`/api/channels/channel-profile?tab=${tab ?? ""}&sort=${sort ?? ""}`)
         return data
       }
     })

@@ -29,8 +29,7 @@ export default function ChannelsPageClient({ isFooter = false }: Params) {
   const [editMode, setEditMode] = useState(false)
   const router = useRouter()
   const searchParams = useSearchParams()
-  // Todo 백엔드 tab default value 수정되면 "all" -> undefined
-  const tab = searchParams.get("tab") || "all"
+  const tab = searchParams.get("tab") || undefined
   const sort = searchParams.get("sort") || undefined
 
   const [isDeleteModal, setIsDeleteModal] = useState(false)
