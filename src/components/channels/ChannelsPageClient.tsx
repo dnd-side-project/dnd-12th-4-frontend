@@ -105,7 +105,7 @@ export default function ChannelsPageClient({ isFooter = false }: Params) {
           <section
             className={cn(
               "fixed flex h-[96px] w-full max-w-screen-lg items-center justify-center bg-white p-[20px]",
-              isFooter ? "bottom-[80px]" : "bottom-0"
+              isFooter ? "bottom-[92px]" : "bottom-0"
             )}
           >
             <Button type="button" onClick={() => setIsDeleteModal(true)} className="w-full" disabled={isSubmitting}>
