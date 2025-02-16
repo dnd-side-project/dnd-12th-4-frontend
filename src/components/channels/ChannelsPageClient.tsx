@@ -29,10 +29,13 @@ export default function ChannelsPageClient({ isFooter = false }: Params) {
   const [editMode, setEditMode] = useState(false)
   const router = useRouter()
   const searchParams = useSearchParams()
+  // Todo 백엔드 tab default value 수정되면 "all" -> undefined
   const tab = searchParams.get("tab") || "all"
+  const sort = searchParams.get("sort") || undefined
+
   const [isDeleteModal, setIsDeleteModal] = useState(false)
 
-  const { data, refetch } = useFindChannelsByRole({ tab })
+  const { data, refetch } = useFindChannelsByRole({ tab, sort })
 
   const { mutateAsync } = useLeaveChannels()
 

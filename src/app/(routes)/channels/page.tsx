@@ -10,16 +10,18 @@ import { notFound } from "next/navigation"
 interface Params {
   searchParams: Promise<{
     tab?: string
+    sort?: string
   }>
 }
 
 export default async function ChannelsPage({ searchParams }: Params) {
   const queryClient = new QueryClient()
-  const { tab } = await searchParams
+  const { tab, sort } = await searchParams
 
   try {
     await queryClient.fetchQuery({
-      queryKey: getFindChannelsByRoleQueryKey({ tab: tab ?? "all" }),
+      // Todo 백엔드 tab default value 수정되면 "all" 삭제
+      queryKey: getFindChannelsByRoleQueryKey({ tab: tab ?? "all", sort }),
       queryFn: async () => {
         const { data } = await serverInstance.get(`/api/channels/channel-profile?tab=${tab ?? "all"}`)
         return data
