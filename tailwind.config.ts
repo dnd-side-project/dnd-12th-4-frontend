@@ -17,8 +17,8 @@ export default {
       pixel: ["var(--font-pixel)"]
     },
     fontSize: {
-      "headline-01": ["24px", { fontWeight: 700, lineHeight: "1.5", letterSpacing: "-2" }],
-      "headline-02": ["20px", { fontWeight: 700, lineHeight: "1.5", letterSpacing: "-2" }],
+      "headline-01": ["24px", { fontWeight: 700, lineHeight: "1.5", letterSpacing: "-0.2" }],
+      "headline-02": ["20px", { fontWeight: 700, lineHeight: "1.5", letterSpacing: "-0.2" }],
       "subtitle-01": ["20px", { fontWeight: 600, lineHeight: "1.5", letterSpacing: "-0.2" }],
       "subtitle-02": ["18px", { fontWeight: 600, lineHeight: "1.5", letterSpacing: "-0.2" }],
       "subtitle-03": ["16px", { fontWeight: 600, lineHeight: "1.5", letterSpacing: "-0.2" }],
