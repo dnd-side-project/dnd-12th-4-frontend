@@ -9,7 +9,7 @@ export default async function ChannelProfileModifyPage({
   const { channelName } = await searchParams
   return (
     <HeaderFooterWrapper header footer headerTitle={channelName}>
-      <ModifyProfileForm />
+      <ModifyProfileForm profileType="channel" />
     </HeaderFooterWrapper>
   )
 }

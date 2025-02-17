@@ -1,7 +1,5 @@
 "use client"
-import { useShowAnswers } from "@/api/answer-controller/answer-controller"
-import { useFindChannelById, useFindChannelStatus } from "@/api/channel-controller/channel-controller"
-import { useFindTodayQuestionByChannel } from "@/api/question-controller/question-controller"
+import { useFindChannelStatus } from "@/api/channel-controller/channel-controller"
 import Image from "next/image"
 import { useParams } from "next/navigation"
 import { Tooltip } from "react-tooltip"
@@ -9,11 +7,11 @@ import { Tooltip } from "react-tooltip"
 
 export default function CharacterInformation() {
   const { id } = useParams()
-  const { data: channelData } = useFindChannelById(id as string)
+  // const { data: channelData } = useFindChannelById(id as string)
 
-  const { data: questionData } = useFindTodayQuestionByChannel(id as string)
+  // const { data: questionData } = useFindTodayQuestionByChannel(id as string)
 
-  const { data: answerData } = useShowAnswers(questionData?.questionId as number)
+  // const { data: answerData } = useShowAnswers(questionData?.questionId as number)
 
   const { data: channelStatusData } = useFindChannelStatus(id as string)
   return (
@@ -23,11 +21,11 @@ export default function CharacterInformation() {
           <p className="font-pixel text-pixel-headline text-gray-01">
             토키 <span className="text-pixel-caption text-gray-03">Lv. {channelStatusData?.body?.level}</span>
           </p>
-          <p className="font-pixel text-pixel-caption">
+          {/* <p className="font-pixel text-pixel-caption">
             <span className="text-gray-03">오늘 응답 </span>
-            <span className="text-primary-200">{answerData?.body?.answerList?.length}</span>
+            <span className="text-primary-200">{answerData?.body?.answerList?.length ?? 0}</span>
             <span className="text-gray-04">/{channelData?.body?.countPerson}</span>
-          </p>
+          </p> */}
         </div>
         <div className="flex items-start gap-[4px]">
           <Image src={"/favicon.ico"} alt="타이틀" width={24} height={24} />

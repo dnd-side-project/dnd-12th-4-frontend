@@ -2,18 +2,26 @@
 
 import Guide from "@/components/auth/Guide"
 import Header from "@/components/auth/Header"
-import ChannelNicknameSection from "@/components/auth/section/ChannelNicknameSection"
 import CreateChannelNameSection from "@/components/auth/section/CreateChannelNameSection"
 import CreatedCodeSection from "@/components/auth/section/CreatedCodeSection"
+import { createChannelSchema } from "@/validations/channelSchema"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
+import CreateChannelNicknameSection from "@/components/auth/section/CreateChannelNicknameSection"
+import { useMakeChannel } from "@/api/channel-controller/channel-controller"
 
 const steps = ["CreateChannelName", "ChannelNickname", "CreatedCode", "LaterInvitation"]
 
 function Page() {
-  const [stepLevel, setStepLevel] = useState(0)
   const router = useRouter()
+  const [stepLevel, setStepLevel] = useState(0)
+  const [channelData, setChannelData] = useState({
+    channelId: "",
+    inviteCode: "",
+    channelName: ""
+  })
 
   const onNext = () => {
     setStepLevel((prev) => prev + 1)
@@ -30,7 +38,9 @@ function Page() {
     defaultValues: {
       channelName: "",
       channelNickname: ""
-    }
+    },
+    resolver: zodResolver(createChannelSchema),
+    mode: "onChange"
   })
 
   const { watch, handleSubmit } = formMethods
@@ -38,19 +48,34 @@ function Page() {
   const channelNickname = watch("channelNickname")
 
   console.log(channelName, channelNickname)
-  const onSubmit = (data: any) => {
+
+  const createChannelMutation = useMakeChannel()
+  const onSubmit = async (data: any) => {
     console.log("폼 데이터:", data)
-    //api 요청 및 응답 성공하면 onNext 실행(API 연동 시 구현 예정)
-    onNext()
+
+    try {
+      const response = await createChannelMutation.mutateAsync({
+        data: { channelName: channelName, codeName: channelNickname }
+      })
+      console.log(response)
+      setChannelData({
+        channelId: response.channelId as string,
+        inviteCode: response.inviteCode as string,
+        channelName: response.channelName as string
+      })
+      onNext()
+    } catch {
+      console.error("에러 발생")
+    }
   }
 
   useEffect(() => {
     if (steps[stepLevel] === "LaterInvitation") {
       setTimeout(() => {
-        router.push("/2")
+        router.push(`/${channelData.channelId}`)
       }, 2000)
     }
-  }, [stepLevel, router])
+  }, [stepLevel, router, channelData.channelId])
 
   return (
     <div className="relative h-full px-[16px] pb-[12px] pt-[56px]">
@@ -58,9 +83,11 @@ function Page() {
       <FormProvider {...formMethods}>
         <form onSubmit={handleSubmit(onSubmit)} className="flex h-full flex-col justify-between">
           {steps[stepLevel] === "CreateChannelName" && <CreateChannelNameSection onNext={onNext} />}
-          {steps[stepLevel] === "ChannelNickname" && <ChannelNicknameSection type="create" onNext={onNext} />}
-          {steps[stepLevel] === "CreatedCode" && <CreatedCodeSection onNext={onNext} />}
-          {steps[stepLevel] === "LaterInvitation" && <Guide title={`그럼 채널로\n보내드릴게요!`} />}
+          {steps[stepLevel] === "ChannelNickname" && <CreateChannelNicknameSection type="create" onNext={onNext} />}
+          {steps[stepLevel] === "CreatedCode" && <CreatedCodeSection onNext={onNext} channelData={channelData} />}
+          {steps[stepLevel] === "LaterInvitation" && (
+            <Guide title={`그럼 채널로\n보내드릴게요!`} imageUrl="https://placehold.co/229x229.png" />
+          )}
         </form>
       </FormProvider>
     </div>

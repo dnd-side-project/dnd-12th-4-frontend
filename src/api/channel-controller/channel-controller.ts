@@ -17,17 +17,85 @@ import type {
   ApiChannelSpecificResponse,
   ApiChannelStatusResponse,
   ChannelCreateRequest,
+  ChannelNameUpdateResponse,
   ChannelResponse,
   FindChannelByNameParams,
   FindChannelInviteCodeParams,
   FindChannelsByRoleParams,
-  InviteCodeDto
+  InviteCodeDto,
+  UpdateChannelNameParams
 } from ".././model"
 import { customInstance } from ".././clientInstance"
 import type { ErrorType, BodyType } from ".././clientInstance"
 
 type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1]
 
+export const updateChannelName = (
+  channelId: string,
+  params: UpdateChannelNameParams,
+  options?: SecondParameter<typeof customInstance>
+) => {
+  return customInstance<ChannelNameUpdateResponse>(
+    { url: `/api/channels/${channelId}/channelName`, method: "PUT", params },
+    options
+  )
+}
+
+export const getUpdateChannelNameMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof updateChannelName>>,
+    TError,
+    { channelId: string; params: UpdateChannelNameParams },
+    TContext
+  >
+  request?: SecondParameter<typeof customInstance>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof updateChannelName>>,
+  TError,
+  { channelId: string; params: UpdateChannelNameParams },
+  TContext
+> => {
+  const mutationKey = ["updateChannelName"]
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof updateChannelName>>,
+    { channelId: string; params: UpdateChannelNameParams }
+  > = (props) => {
+    const { channelId, params } = props ?? {}
+
+    return updateChannelName(channelId, params, requestOptions)
+  }
+
+  return { mutationFn, ...mutationOptions }
+}
+
+export type UpdateChannelNameMutationResult = NonNullable<Awaited<ReturnType<typeof updateChannelName>>>
+
+export type UpdateChannelNameMutationError = ErrorType<unknown>
+
+export const useUpdateChannelName = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof updateChannelName>>,
+    TError,
+    { channelId: string; params: UpdateChannelNameParams },
+    TContext
+  >
+  request?: SecondParameter<typeof customInstance>
+}): UseMutationResult<
+  Awaited<ReturnType<typeof updateChannelName>>,
+  TError,
+  { channelId: string; params: UpdateChannelNameParams },
+  TContext
+> => {
+  const mutationOptions = getUpdateChannelNameMutationOptions(options)
+
+  return useMutation(mutationOptions)
+}
 export const findChannelByName = (
   params: FindChannelByNameParams,
   options?: SecondParameter<typeof customInstance>,

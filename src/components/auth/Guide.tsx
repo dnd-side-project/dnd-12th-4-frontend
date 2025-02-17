@@ -9,9 +9,11 @@ interface GuideProps {
   buttonValue?: string
   nextPageUrl?: string
   onNext?: () => void
+  nickname?: string
+  imageUrl: string
 }
 
-function Guide({ title, onNext, nextPageUrl, buttonValue }: GuideProps) {
+function Guide({ title, onNext, nextPageUrl, buttonValue, imageUrl }: GuideProps) {
   const router = useRouter()
   const handleButtonClick = () => {
     if (!nextPageUrl && onNext) {
@@ -25,8 +27,8 @@ function Guide({ title, onNext, nextPageUrl, buttonValue }: GuideProps) {
   return (
     <div className="flex size-full flex-col items-center justify-between pt-[64px]">
       <div className="flex flex-col items-center gap-[24px]">
-        <Image src={"https://placehold.co/229x229.png"} width={230} height={230} alt="일러스트 이미지" />
-        <div className="whitespace-pre-line text-center text-[24px] font-semibold leading-[1.6]">
+        <Image src={imageUrl} width={200} height={200} alt="일러스트 이미지" />
+        <div className="whitespace-pre-line text-center text-headline-01">
           {title}
           <br />
         </div>
