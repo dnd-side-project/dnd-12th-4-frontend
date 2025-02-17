@@ -26,7 +26,7 @@ export const ImageInput = ({ previewImage, handleDeleteButton, handleImageChange
       ) : (
         <div className="relative h-[100px] w-[100px] rounded-full border border-solid p-[58px]">
           <input className="absolute inset-0 h-full w-full opacity-0" type="file" onChange={handleImageChange} />
-          <div className="absolute bottom-0 right-0 flex size-[29px] items-center justify-center rounded-full border border-opacity-[0.12] bg-white">
+          <div className="absolute bottom-0 right-0 flex size-[29px] items-center justify-center rounded-full border border-opacity-[0.12] bg-gray-02">
             <Pen className="size-4 text-black" />
           </div>
         </div>
