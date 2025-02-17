@@ -35,7 +35,9 @@ export default function ModifyProfileForm() {
   console.log("errors", errors)
   const nickname = watch("nickname")
   console.log(userInfo)
-  const { mutateAsync: uploadImage } = useUploadProfileImage()
+  const { mutateAsync: uploadImage } = useUploadProfileImage({
+    request: { headers: { "Content-Type": "multipart/form-data" } }
+  })
 
   const onSubmit = async (data: any) => {
     try {
@@ -51,12 +53,9 @@ export default function ModifyProfileForm() {
     if (file) {
       const upload = async () => {
         try {
-          console.log("filedddd", file)
-          const formData = new FormData()
-          formData.append("file", file) // ✅ 여기서 FormData 생성
-          console.log("formData", formData)
-          // const data = await uploadImage({ data: { file: formData } })
-          // console.log("data", data)
+          console.log("file", file)
+          const data = await uploadImage({ data: { file: file } })
+          console.log("data", data)
           // setPreview(data.imageUrl ?? "") // ✅ 서버에서 받은 이미지 URL 저장
         } catch {
           setErrorMessage("이미지 업로드에 실패했습니다. 다시 시도해주세요.")
@@ -93,7 +92,7 @@ export default function ModifyProfileForm() {
             />
             <div className="flex justify-between text-caption-02 text-error">
               {errors.nickname && <p className="">{String(errors.nickname.message)}</p>}
-              <p className={cn("absolute right-4", !errors.nickname && "text-black/60")}>{nickname.length}/10</p>
+              <p className={cn("absolute right-4", !errors.nickname && "text-black/60")}>{nickname?.length}/10</p>
             </div>
           </div>
         </div>
