@@ -1,17 +1,17 @@
 "use client"
-import { handleDeleteButton, handleImageChange } from "@/utils/changeImage"
-import { useState } from "react"
-import { ImageInput } from "@/components/my-page/profile/ImageInput"
 import Button from "@/components/auth/Button"
-import { useForm } from "react-hook-form"
+import { ImageInput } from "@/components/my-page/profile/ImageInput"
+import { handleDeleteButton, handleImageChange } from "@/utils/changeImage"
 import { modifyProfileSchema, ModifyProfileType } from "@/validations/profileSchema"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
 // import { useUploadProfileImage } from "@/api/profile-image-controller/profile-image-controller"
+import { useFindMemberInfo } from "@/api/member-controller/member-controller"
 import { cn } from "@/utils/cn"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useFindMemberInfo } from "@/api/member-controller/member-controller"
 // import { useFindChannelById } from "@/api/channel-controller/channel-controller"
-import { useParams } from "next/navigation"
 import { useFindMyChannelMemberProfile } from "@/api/channel-member-controller/channel-member-controller"
+import { useParams } from "next/navigation"
 
 interface ModifyProfileFormProps {
   profileType: "common" | "channel"
@@ -40,7 +40,10 @@ export default function ModifyProfileForm({ profileType }: ModifyProfileFormProp
     mode: "onChange"
   })
   const nickname = watch("nickname")
-  // const { mutateAsync: uploadImage } = useUploadProfileImage()
+  console.log(userInfo)
+  // const { mutateAsync: uploadImage } = useUploadProfileImage({
+  //   request: { headers: { "Content-Type": "multipart/form-data" } }
+  // })
 
   const onSubmit = async (data: any) => {
     try {
@@ -55,6 +58,7 @@ export default function ModifyProfileForm({ profileType }: ModifyProfileFormProp
 
   const isButtonDisabled = !nickname?.trim().length || !!errors.nickname || defaultName === nickname
   console.log(file)
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}

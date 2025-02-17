@@ -21,11 +21,11 @@ export const handleImageChange = ({ event, setFile, setPreview, setErrorMessage 
       return
     }
 
-    const newFileName = Math.random().toString(36).substring(2, 8)
-    const newFile = new File([selectedFile], newFileName, {
-      type: selectedFile.type
-    })
-    setFile(newFile)
+    // const newFileName = Math.random().toString(36).substring(2, 8)
+    // const newFile = new File([selectedFile], newFileName, {
+    //   type: selectedFile.type
+    // })
+    setFile(selectedFile)
 
     const reader = new FileReader()
     reader.onloadend = () => {
