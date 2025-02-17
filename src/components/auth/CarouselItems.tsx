@@ -24,11 +24,12 @@ export default function CarouselItems() {
         autoplay={{
           delay: 3000
         }}
+        loop
         fadeEffect={{ crossFade: true }}
         pagination={{
           el: `#splash-slider`,
           clickable: true,
-          renderBullet: function (index, className) {
+          renderBullet: function (_, className) {
             return `<span class="${className} !bg-black !w-[4px] !h-[4px]"> </span>`
           }
         }}
@@ -48,28 +49,3 @@ export default function CarouselItems() {
     </div>
   )
 }
-
-// "use client"
-// import Image from "next/image"
-// import { Swiper, SwiperSlide } from "swiper/react"
-// import "swiper/css"
-
-// const gifUrls = ["/splash/splash_1.gif", "/splash/splash_2.gif", "/splash/splash_3.gif"]
-
-// export default function CarouselItems() {
-//   return (
-//     <div className="w-full">
-//       <div className="mx-[-16px]">
-//         <Swiper className="w-full">
-//           {gifUrls.map((gifUrl) => (
-//             <SwiperSlide key={gifUrl}>
-//               <div className="relative h-[300px] w-[300px] justify-self-center">
-//                 <Image src={gifUrl ?? "/"} fill alt="splash-gif" />
-//               </div>
-//             </SwiperSlide>
-//           ))}
-//         </Swiper>
-//       </div>
-//     </div>
-//   )
-// }
