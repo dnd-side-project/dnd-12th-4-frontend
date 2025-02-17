@@ -31,7 +31,7 @@ export default function FriendsSlider() {
               key={member.channelMemberId}
               className="ms-[8px] !w-fit rounded-[12px] bg-gray-01 first:ms-[16px]"
             >
-              <div className="flex w-[106px] max-w-[50vw] flex-col items-center gap-[8px] p-[20px]">
+              <div className="flex w-[104px] max-w-[50vw] flex-col items-center justify-center gap-[8px] p-[20px] text-center">
                 <Image
                   src={member.profileImageUrl ?? "/"}
                   width={48}
