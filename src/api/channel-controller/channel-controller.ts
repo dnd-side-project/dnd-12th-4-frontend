@@ -477,7 +477,7 @@ export function useFindChannelInviteCode<
   return query
 }
 
-export const findChannelsByRole = (params: FindChannelsByRoleParams, signal?: AbortSignal) => {
+export const findChannelsByRole = (params?: FindChannelsByRoleParams, signal?: AbortSignal) => {
   return customInstance<ApiChannelShowAllResponse>({
     url: `/api/channels/channel-profile`,
     method: "GET",
@@ -486,7 +486,7 @@ export const findChannelsByRole = (params: FindChannelsByRoleParams, signal?: Ab
   })
 }
 
-export const getFindChannelsByRoleQueryKey = (params: FindChannelsByRoleParams) => {
+export const getFindChannelsByRoleQueryKey = (params?: FindChannelsByRoleParams) => {
   return [`/api/channels/channel-profile`, ...(params ? [params] : [])] as const
 }
 
@@ -494,7 +494,7 @@ export const getFindChannelsByRoleQueryOptions = <
   TData = Awaited<ReturnType<typeof findChannelsByRole>>,
   TError = ErrorType<unknown>
 >(
-  params: FindChannelsByRoleParams,
+  params?: FindChannelsByRoleParams,
   options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelsByRole>>, TError, TData>> }
 ) => {
   const { query: queryOptions } = options ?? {}
@@ -518,7 +518,7 @@ export function useFindChannelsByRole<
   TData = Awaited<ReturnType<typeof findChannelsByRole>>,
   TError = ErrorType<unknown>
 >(
-  params: FindChannelsByRoleParams,
+  params: undefined | FindChannelsByRoleParams,
   options: {
     query: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelsByRole>>, TError, TData>> &
       Pick<
@@ -535,7 +535,7 @@ export function useFindChannelsByRole<
   TData = Awaited<ReturnType<typeof findChannelsByRole>>,
   TError = ErrorType<unknown>
 >(
-  params: FindChannelsByRoleParams,
+  params?: FindChannelsByRoleParams,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelsByRole>>, TError, TData>> &
       Pick<
@@ -552,7 +552,7 @@ export function useFindChannelsByRole<
   TData = Awaited<ReturnType<typeof findChannelsByRole>>,
   TError = ErrorType<unknown>
 >(
-  params: FindChannelsByRoleParams,
+  params?: FindChannelsByRoleParams,
   options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelsByRole>>, TError, TData>> }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
@@ -560,7 +560,7 @@ export function useFindChannelsByRole<
   TData = Awaited<ReturnType<typeof findChannelsByRole>>,
   TError = ErrorType<unknown>
 >(
-  params: FindChannelsByRoleParams,
+  params?: FindChannelsByRoleParams,
   options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findChannelsByRole>>, TError, TData>> }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
   const queryOptions = getFindChannelsByRoleQueryOptions(params, options)
