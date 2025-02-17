@@ -40,7 +40,7 @@ export default async function RootPage({ params }: { params: Params }) {
       if (!questionId) return
 
       await queryClient.prefetchQuery({
-        queryKey: getShowAnswersQueryKey(Number(questionId)), // Todo 백엔드 string 으로 수정
+        queryKey: getShowAnswersQueryKey(Number(questionId)),
         queryFn: async () => {
           const { data } = await serverInstance.get(`/api/answer/${questionId}`)
           return data
