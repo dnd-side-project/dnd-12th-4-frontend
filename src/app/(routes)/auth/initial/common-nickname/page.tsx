@@ -48,7 +48,7 @@ function Page() {
             title={`${nickname}!\n멋진 이름이네요.`}
             buttonValue="고마워"
             nextPageUrl="create-or-join"
-            imageUrl="https://placehold.co/220x220.png"
+            imageUrl={"/talki/gif/talki_shinning.gif"}
           />
         )}
       </form>

@@ -86,7 +86,7 @@ function Page() {
           {steps[stepLevel] === "ChannelNickname" && <CreateChannelNicknameSection type="create" onNext={onNext} />}
           {steps[stepLevel] === "CreatedCode" && <CreatedCodeSection onNext={onNext} channelData={channelData} />}
           {steps[stepLevel] === "LaterInvitation" && (
-            <Guide title={`그럼 채널로\n보내드릴게요!`} imageUrl="https://placehold.co/229x229.png" />
+            <Guide title={`그럼 채널로\n보내드릴게요!`} imageUrl={"/talki/gif/talki_sending.gif"} />
           )}
         </form>
       </FormProvider>
