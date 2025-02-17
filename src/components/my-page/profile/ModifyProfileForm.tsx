@@ -1,23 +1,30 @@
 "use client"
 import { handleDeleteButton, handleImageChange } from "@/utils/changeImage"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { ImageInput } from "@/components/my-page/profile/ImageInput"
 import Button from "@/components/auth/Button"
 import { useForm } from "react-hook-form"
 import { modifyProfileSchema, ModifyProfileType } from "@/validations/profileSchema"
-import { useUploadProfileImage } from "@/api/profile-image-controller/profile-image-controller"
+// import { useUploadProfileImage } from "@/api/profile-image-controller/profile-image-controller"
 import { cn } from "@/utils/cn"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useFindMemberInfo } from "@/api/member-controller/member-controller"
+// import { useFindChannelById } from "@/api/channel-controller/channel-controller"
+import { useParams } from "next/navigation"
+import { useFindMyChannelMemberProfile } from "@/api/channel-member-controller/channel-member-controller"
 
-export default function ModifyProfileForm() {
+interface ModifyProfileFormProps {
+  profileType: "common" | "channel"
+}
+export default function ModifyProfileForm({ profileType }: ModifyProfileFormProps) {
+  const params = useParams()
   const [file, setFile] = useState<File | null>(null)
   const [preview, setPreview] = useState("")
-  console.log(preview)
   const [errorMessage, setErrorMessage] = useState("")
   const { data: userInfo } = useFindMemberInfo()
+  const { data: channelProfileInfo } = useFindMyChannelMemberProfile(params.id as string)
 
-  console.log("file", file)
+  const defaultName = profileType === "common" ? userInfo?.body?.name : channelProfileInfo?.body?.codeName
   const {
     register,
     handleSubmit,
@@ -26,16 +33,14 @@ export default function ModifyProfileForm() {
     formState: { errors }
   } = useForm<ModifyProfileType>({
     defaultValues: {
-      nickname: userInfo?.body?.name,
+      nickname: defaultName,
       profileImage: ""
     },
     resolver: zodResolver(modifyProfileSchema),
     mode: "onChange"
   })
-  console.log("errors", errors)
   const nickname = watch("nickname")
-  console.log(userInfo)
-  const { mutateAsync: uploadImage } = useUploadProfileImage()
+  // const { mutateAsync: uploadImage } = useUploadProfileImage()
 
   const onSubmit = async (data: any) => {
     try {
@@ -47,24 +52,8 @@ export default function ModifyProfileForm() {
       console.error("닉네임 등록 실패:", error)
     }
   }
-  useEffect(() => {
-    if (file) {
-      const upload = async () => {
-        try {
-          console.log("filedddd", file)
-          const formData = new FormData()
-          formData.append("file", file) // ✅ 여기서 FormData 생성
-          console.log("formData", formData)
-          // const data = await uploadImage({ data: { file: formData } })
-          // console.log("data", data)
-          // setPreview(data.imageUrl ?? "") // ✅ 서버에서 받은 이미지 URL 저장
-        } catch {
-          setErrorMessage("이미지 업로드에 실패했습니다. 다시 시도해주세요.")
-        }
-      }
-      upload()
-    }
-  }, [file, uploadImage]) // ✅ file 변경 시 실행
+
+  const isButtonDisabled = !nickname?.trim().length || !!errors.nickname || defaultName === nickname
   console.log(file)
   return (
     <form
@@ -93,12 +82,12 @@ export default function ModifyProfileForm() {
             />
             <div className="flex justify-between text-caption-02 text-error">
               {errors.nickname && <p className="">{String(errors.nickname.message)}</p>}
-              <p className={cn("absolute right-4", !errors.nickname && "text-black/60")}>{nickname.length}/10</p>
+              <p className={cn("absolute right-4", !errors.nickname && "text-black/60")}>{nickname?.length}/10</p>
             </div>
           </div>
         </div>
       </div>
-      <Button variant="default" size="default" isSubmit disabled={!nickname?.trim().length || !!errors.nickname}>
+      <Button variant="default" size="default" isSubmit disabled={isButtonDisabled}>
         완료
       </Button>
     </form>
