@@ -32,13 +32,9 @@ export default function FriendsSlider() {
               className="ms-[8px] !w-fit rounded-[12px] bg-gray-01 first:ms-[16px]"
             >
               <div className="flex w-[104px] max-w-[50vw] flex-col items-center justify-center gap-[8px] p-[20px] text-center">
-                <Image
-                  src={member.profileImageUrl ?? "/"}
-                  width={48}
-                  height={48}
-                  alt="profile-image"
-                  className="rounded-full"
-                />
+                <div className="relative h-[48px] w-[48px]">
+                  <Image src={member.profileImageUrl ?? "/"} fill alt="profile-image" className="rounded-full" />
+                </div>
                 <p className="w-full overflow-hidden text-ellipsis text-nowrap text-caption-01 text-black/60">
                   {member.codeName}
                 </p>
