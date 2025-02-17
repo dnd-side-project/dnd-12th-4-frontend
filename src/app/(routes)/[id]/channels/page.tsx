@@ -8,17 +8,18 @@ import { notFound } from "next/navigation"
 interface Params {
   searchParams: Promise<{
     tab?: string
+    sort?: string
   }>
 }
 
 export default async function ChannelsPage({ searchParams }: Params) {
   const queryClient = new QueryClient()
-  const { tab } = await searchParams
+  const { tab, sort } = await searchParams
 
   try {
     // * prefetch 는 오류를 발생시키지 않으므로 유효한 id값인지 확인하기 위해 fetchQuery 사용
     await queryClient.fetchQuery({
-      queryKey: getFindChannelsByRoleQueryKey({ tab: tab || "all" }),
+      queryKey: getFindChannelsByRoleQueryKey({ tab: tab ?? "all", sort }),
       queryFn: async () => {
         const { data } = await serverInstance.get(`/api/channels/channel-profile?tab=${tab ?? "all"}`)
         return data

@@ -1,8 +1,8 @@
 "use client"
+import { ChannelMemberDeleteRequest } from "@/api/model/channelMemberDeleteRequest"
 import Tag from "@/components/common/Tag"
 import { cn } from "@/utils/cn"
 import { share, ShareAPIRequest } from "@/utils/share"
-import { DeleteChannelType } from "@/validations/channelSchema"
 import { Check, Share2 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useFormContext } from "react-hook-form"
@@ -15,7 +15,7 @@ interface Params {
   selected?: boolean
   editMode?: boolean
 }
-export default function ChannelBox({
+export default function ChannelBoxForm({
   channelId,
   count,
   name,
@@ -24,7 +24,7 @@ export default function ChannelBox({
   editMode = false,
   selected = false
 }: Params) {
-  const { setValue, watch } = useFormContext<DeleteChannelType>()
+  const { setValue, watch } = useFormContext<ChannelMemberDeleteRequest>()
   const router = useRouter()
 
   const onClickChannelBox = () => {
@@ -61,7 +61,7 @@ export default function ChannelBox({
       }}
     >
       <article className="flex justify-between">
-        <Tag text={`${count}번째 시그널`} className="bg-secondary-0 text-secondary-300" />
+        <Tag text={`${count}번째 시그널`} className="bg-secondary-0 text-secondary-300" count={count} />
         {!editMode && (
           <button type="button" onClick={handleShare}>
             <Share2 size={24} />

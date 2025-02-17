@@ -6,8 +6,10 @@ interface Params {
   description?: string
   onCancel: () => void
   onClick: () => void
+  disabled?: boolean
 }
-export default function ConfirmModal({ title, description, onCancel, onClick }: Params) {
+export default function ConfirmModal({ title, description, onCancel, onClick, disabled = false }: Params) {
+  console.log(disabled)
   return (
     <ModalWrapper overlayClose onClose={onCancel}>
       <section className="z-[100] flex w-[340px] flex-col items-center gap-[20px] rounded-[24px] bg-white px-[20px] pb-[20px] pt-[40px]">

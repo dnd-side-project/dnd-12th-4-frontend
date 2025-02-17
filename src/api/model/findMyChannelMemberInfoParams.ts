@@ -6,6 +6,6 @@
  */
 
 export type FindMyChannelMemberInfoParams = {
-  tab: string
+  tab?: string
   sort?: string
 }

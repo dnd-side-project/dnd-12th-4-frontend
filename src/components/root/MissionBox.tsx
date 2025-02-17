@@ -11,11 +11,11 @@ export default function MissionBox() {
 
   const { data: questionData } = useFindTodayQuestionByChannel(id as string)
 
-  if (questionData?.isExist) return null
-
   if (data?.body?.isTodayQuestioner) {
-    return <SignalMission />
+    if (questionData?.isExist) return null
+    else return <SignalMission />
   } else {
+    if (!questionData?.isExist) return null
     return <TodayAnswerSummary />
   }
 }
