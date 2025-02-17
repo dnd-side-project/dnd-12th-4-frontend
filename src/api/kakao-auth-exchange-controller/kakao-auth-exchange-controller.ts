@@ -13,8 +13,10 @@ import type { ApiUserResponse } from ".././model"
 import { customInstance } from ".././clientInstance"
 import type { ErrorType } from ".././clientInstance"
 
-export const kakaoCallback = (signal?: AbortSignal) => {
-  return customInstance<ApiUserResponse>({ url: `/auth/kakao/exchange`, method: "GET", signal })
+type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1]
+
+export const kakaoCallback = (options?: SecondParameter<typeof customInstance>, signal?: AbortSignal) => {
+  return customInstance<ApiUserResponse>({ url: `/auth/kakao/exchange`, method: "GET", signal }, options)
 }
 
 export const getKakaoCallbackQueryKey = () => {
@@ -26,12 +28,14 @@ export const getKakaoCallbackQueryOptions = <
   TError = ErrorType<unknown>
 >(options?: {
   query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof kakaoCallback>>, TError, TData>>
+  request?: SecondParameter<typeof customInstance>
 }) => {
-  const { query: queryOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {}
 
   const queryKey = queryOptions?.queryKey ?? getKakaoCallbackQueryKey()
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof kakaoCallback>>> = ({ signal }) => kakaoCallback(signal)
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof kakaoCallback>>> = ({ signal }) =>
+    kakaoCallback(requestOptions, signal)
 
   return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof kakaoCallback>>,
@@ -56,6 +60,7 @@ export function useKakaoCallback<
       >,
       "initialData"
     >
+  request?: SecondParameter<typeof customInstance>
 }): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useKakaoCallback<
   TData = Awaited<ReturnType<typeof kakaoCallback>>,
@@ -70,12 +75,14 @@ export function useKakaoCallback<
       >,
       "initialData"
     >
+  request?: SecondParameter<typeof customInstance>
 }): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useKakaoCallback<
   TData = Awaited<ReturnType<typeof kakaoCallback>>,
   TError = ErrorType<unknown>
 >(options?: {
   query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof kakaoCallback>>, TError, TData>>
+  request?: SecondParameter<typeof customInstance>
 }): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
 export function useKakaoCallback<
@@ -83,6 +90,7 @@ export function useKakaoCallback<
   TError = ErrorType<unknown>
 >(options?: {
   query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof kakaoCallback>>, TError, TData>>
+  request?: SecondParameter<typeof customInstance>
 }): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
   const queryOptions = getKakaoCallbackQueryOptions(options)
 

@@ -27,12 +27,18 @@ import type {
 import { customInstance } from ".././clientInstance"
 import type { ErrorType, BodyType } from ".././clientInstance"
 
-export const findQuestionsByQuestionId = (channelId: string, questionId: number, signal?: AbortSignal) => {
-  return customInstance<QuestionResponse>({
-    url: `/api/channels/${channelId}/questions/${questionId}`,
-    method: "GET",
-    signal
-  })
+type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1]
+
+export const findQuestionsByQuestionId = (
+  channelId: string,
+  questionId: number,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal
+) => {
+  return customInstance<QuestionResponse>(
+    { url: `/api/channels/${channelId}/questions/${questionId}`, method: "GET", signal },
+    options
+  )
 }
 
 export const getFindQuestionsByQuestionIdQueryKey = (channelId: string, questionId: number) => {
@@ -45,14 +51,17 @@ export const getFindQuestionsByQuestionIdQueryOptions = <
 >(
   channelId: string,
   questionId: number,
-  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByQuestionId>>, TError, TData>> }
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByQuestionId>>, TError, TData>>
+    request?: SecondParameter<typeof customInstance>
+  }
 ) => {
-  const { query: queryOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {}
 
   const queryKey = queryOptions?.queryKey ?? getFindQuestionsByQuestionIdQueryKey(channelId, questionId)
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof findQuestionsByQuestionId>>> = ({ signal }) =>
-    findQuestionsByQuestionId(channelId, questionId, signal)
+    findQuestionsByQuestionId(channelId, questionId, requestOptions, signal)
 
   return { queryKey, queryFn, enabled: !!(channelId && questionId), ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof findQuestionsByQuestionId>>,
@@ -80,6 +89,7 @@ export function useFindQuestionsByQuestionId<
         >,
         "initialData"
       >
+    request?: SecondParameter<typeof customInstance>
   }
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useFindQuestionsByQuestionId<
@@ -98,6 +108,7 @@ export function useFindQuestionsByQuestionId<
         >,
         "initialData"
       >
+    request?: SecondParameter<typeof customInstance>
   }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useFindQuestionsByQuestionId<
@@ -106,7 +117,10 @@ export function useFindQuestionsByQuestionId<
 >(
   channelId: string,
   questionId: number,
-  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByQuestionId>>, TError, TData>> }
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByQuestionId>>, TError, TData>>
+    request?: SecondParameter<typeof customInstance>
+  }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
 export function useFindQuestionsByQuestionId<
@@ -115,7 +129,10 @@ export function useFindQuestionsByQuestionId<
 >(
   channelId: string,
   questionId: number,
-  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByQuestionId>>, TError, TData>> }
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByQuestionId>>, TError, TData>>
+    request?: SecondParameter<typeof customInstance>
+  }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
   const queryOptions = getFindQuestionsByQuestionIdQueryOptions(channelId, questionId, options)
 
@@ -129,14 +146,18 @@ export function useFindQuestionsByQuestionId<
 export const updateQuestion = (
   channelId: string,
   questionId: number,
-  questionUpdateRequest: BodyType<QuestionUpdateRequest>
+  questionUpdateRequest: BodyType<QuestionUpdateRequest>,
+  options?: SecondParameter<typeof customInstance>
 ) => {
-  return customInstance<QuestionUpdateResponse>({
-    url: `/api/channels/${channelId}/questions/${questionId}`,
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    data: questionUpdateRequest
-  })
+  return customInstance<QuestionUpdateResponse>(
+    {
+      url: `/api/channels/${channelId}/questions/${questionId}`,
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      data: questionUpdateRequest
+    },
+    options
+  )
 }
 
 export const getUpdateQuestionMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
@@ -146,6 +167,7 @@ export const getUpdateQuestionMutationOptions = <TError = ErrorType<unknown>, TC
     { channelId: string; questionId: number; data: BodyType<QuestionUpdateRequest> },
     TContext
   >
+  request?: SecondParameter<typeof customInstance>
 }): UseMutationOptions<
   Awaited<ReturnType<typeof updateQuestion>>,
   TError,
@@ -153,11 +175,11 @@ export const getUpdateQuestionMutationOptions = <TError = ErrorType<unknown>, TC
   TContext
 > => {
   const mutationKey = ["updateQuestion"]
-  const { mutation: mutationOptions } = options
+  const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
 
   const mutationFn: MutationFunction<
     Awaited<ReturnType<typeof updateQuestion>>,
@@ -165,7 +187,7 @@ export const getUpdateQuestionMutationOptions = <TError = ErrorType<unknown>, TC
   > = (props) => {
     const { channelId, questionId, data } = props ?? {}
 
-    return updateQuestion(channelId, questionId, data)
+    return updateQuestion(channelId, questionId, data, requestOptions)
   }
 
   return { mutationFn, ...mutationOptions }
@@ -182,6 +204,7 @@ export const useUpdateQuestion = <TError = ErrorType<unknown>, TContext = unknow
     { channelId: string; questionId: number; data: BodyType<QuestionUpdateRequest> },
     TContext
   >
+  request?: SecondParameter<typeof customInstance>
 }): UseMutationResult<
   Awaited<ReturnType<typeof updateQuestion>>,
   TError,
@@ -192,8 +215,12 @@ export const useUpdateQuestion = <TError = ErrorType<unknown>, TContext = unknow
 
   return useMutation(mutationOptions)
 }
-export const deleteQuestion = (channelId: string, questionId: number) => {
-  return customInstance<void>({ url: `/api/channels/${channelId}/questions/${questionId}`, method: "DELETE" })
+export const deleteQuestion = (
+  channelId: string,
+  questionId: number,
+  options?: SecondParameter<typeof customInstance>
+) => {
+  return customInstance<void>({ url: `/api/channels/${channelId}/questions/${questionId}`, method: "DELETE" }, options)
 }
 
 export const getDeleteQuestionMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
@@ -203,6 +230,7 @@ export const getDeleteQuestionMutationOptions = <TError = ErrorType<unknown>, TC
     { channelId: string; questionId: number },
     TContext
   >
+  request?: SecondParameter<typeof customInstance>
 }): UseMutationOptions<
   Awaited<ReturnType<typeof deleteQuestion>>,
   TError,
@@ -210,11 +238,11 @@ export const getDeleteQuestionMutationOptions = <TError = ErrorType<unknown>, TC
   TContext
 > => {
   const mutationKey = ["deleteQuestion"]
-  const { mutation: mutationOptions } = options
+  const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
 
   const mutationFn: MutationFunction<
     Awaited<ReturnType<typeof deleteQuestion>>,
@@ -222,7 +250,7 @@ export const getDeleteQuestionMutationOptions = <TError = ErrorType<unknown>, TC
   > = (props) => {
     const { channelId, questionId } = props ?? {}
 
-    return deleteQuestion(channelId, questionId)
+    return deleteQuestion(channelId, questionId, requestOptions)
   }
 
   return { mutationFn, ...mutationOptions }
@@ -239,6 +267,7 @@ export const useDeleteQuestion = <TError = ErrorType<unknown>, TContext = unknow
     { channelId: string; questionId: number },
     TContext
   >
+  request?: SecondParameter<typeof customInstance>
 }): UseMutationResult<
   Awaited<ReturnType<typeof deleteQuestion>>,
   TError,
@@ -252,14 +281,13 @@ export const useDeleteQuestion = <TError = ErrorType<unknown>, TContext = unknow
 export const findQuestionsByChannel = (
   channelId: string,
   params?: FindQuestionsByChannelParams,
+  options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<FindQuestionsByChannel200>({
-    url: `/api/channels/${channelId}/questions`,
-    method: "GET",
-    params,
-    signal
-  })
+  return customInstance<FindQuestionsByChannel200>(
+    { url: `/api/channels/${channelId}/questions`, method: "GET", params, signal },
+    options
+  )
 }
 
 export const getFindQuestionsByChannelQueryKey = (channelId: string, params?: FindQuestionsByChannelParams) => {
@@ -272,14 +300,17 @@ export const getFindQuestionsByChannelQueryOptions = <
 >(
   channelId: string,
   params?: FindQuestionsByChannelParams,
-  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByChannel>>, TError, TData>> }
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByChannel>>, TError, TData>>
+    request?: SecondParameter<typeof customInstance>
+  }
 ) => {
-  const { query: queryOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {}
 
   const queryKey = queryOptions?.queryKey ?? getFindQuestionsByChannelQueryKey(channelId, params)
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof findQuestionsByChannel>>> = ({ signal }) =>
-    findQuestionsByChannel(channelId, params, signal)
+    findQuestionsByChannel(channelId, params, requestOptions, signal)
 
   return { queryKey, queryFn, enabled: !!channelId, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof findQuestionsByChannel>>,
@@ -307,6 +338,7 @@ export function useFindQuestionsByChannel<
         >,
         "initialData"
       >
+    request?: SecondParameter<typeof customInstance>
   }
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useFindQuestionsByChannel<
@@ -325,6 +357,7 @@ export function useFindQuestionsByChannel<
         >,
         "initialData"
       >
+    request?: SecondParameter<typeof customInstance>
   }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useFindQuestionsByChannel<
@@ -333,7 +366,10 @@ export function useFindQuestionsByChannel<
 >(
   channelId: string,
   params?: FindQuestionsByChannelParams,
-  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByChannel>>, TError, TData>> }
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByChannel>>, TError, TData>>
+    request?: SecondParameter<typeof customInstance>
+  }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
 export function useFindQuestionsByChannel<
@@ -342,7 +378,10 @@ export function useFindQuestionsByChannel<
 >(
   channelId: string,
   params?: FindQuestionsByChannelParams,
-  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByChannel>>, TError, TData>> }
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByChannel>>, TError, TData>>
+    request?: SecondParameter<typeof customInstance>
+  }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
   const queryOptions = getFindQuestionsByChannelQueryOptions(channelId, params, options)
 
@@ -356,15 +395,19 @@ export function useFindQuestionsByChannel<
 export const createQuestion = (
   channelId: string,
   questionCreateRequest: BodyType<QuestionCreateRequest>,
+  options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<QuestionCreateResponse>({
-    url: `/api/channels/${channelId}/questions`,
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    data: questionCreateRequest,
-    signal
-  })
+  return customInstance<QuestionCreateResponse>(
+    {
+      url: `/api/channels/${channelId}/questions`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: questionCreateRequest,
+      signal
+    },
+    options
+  )
 }
 
 export const getCreateQuestionMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
@@ -374,6 +417,7 @@ export const getCreateQuestionMutationOptions = <TError = ErrorType<unknown>, TC
     { channelId: string; data: BodyType<QuestionCreateRequest> },
     TContext
   >
+  request?: SecondParameter<typeof customInstance>
 }): UseMutationOptions<
   Awaited<ReturnType<typeof createQuestion>>,
   TError,
@@ -381,11 +425,11 @@ export const getCreateQuestionMutationOptions = <TError = ErrorType<unknown>, TC
   TContext
 > => {
   const mutationKey = ["createQuestion"]
-  const { mutation: mutationOptions } = options
+  const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
 
   const mutationFn: MutationFunction<
     Awaited<ReturnType<typeof createQuestion>>,
@@ -393,7 +437,7 @@ export const getCreateQuestionMutationOptions = <TError = ErrorType<unknown>, TC
   > = (props) => {
     const { channelId, data } = props ?? {}
 
-    return createQuestion(channelId, data)
+    return createQuestion(channelId, data, requestOptions)
   }
 
   return { mutationFn, ...mutationOptions }
@@ -410,6 +454,7 @@ export const useCreateQuestion = <TError = ErrorType<unknown>, TContext = unknow
     { channelId: string; data: BodyType<QuestionCreateRequest> },
     TContext
   >
+  request?: SecondParameter<typeof customInstance>
 }): UseMutationResult<
   Awaited<ReturnType<typeof createQuestion>>,
   TError,
@@ -420,12 +465,15 @@ export const useCreateQuestion = <TError = ErrorType<unknown>, TContext = unknow
 
   return useMutation(mutationOptions)
 }
-export const findTodayQuestionByChannel = (channelId: string, signal?: AbortSignal) => {
-  return customInstance<TodayQuestionResponse>({
-    url: `/api/channels/${channelId}/questions/today`,
-    method: "GET",
-    signal
-  })
+export const findTodayQuestionByChannel = (
+  channelId: string,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal
+) => {
+  return customInstance<TodayQuestionResponse>(
+    { url: `/api/channels/${channelId}/questions/today`, method: "GET", signal },
+    options
+  )
 }
 
 export const getFindTodayQuestionByChannelQueryKey = (channelId: string) => {
@@ -437,14 +485,17 @@ export const getFindTodayQuestionByChannelQueryOptions = <
   TError = ErrorType<unknown>
 >(
   channelId: string,
-  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findTodayQuestionByChannel>>, TError, TData>> }
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findTodayQuestionByChannel>>, TError, TData>>
+    request?: SecondParameter<typeof customInstance>
+  }
 ) => {
-  const { query: queryOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {}
 
   const queryKey = queryOptions?.queryKey ?? getFindTodayQuestionByChannelQueryKey(channelId)
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof findTodayQuestionByChannel>>> = ({ signal }) =>
-    findTodayQuestionByChannel(channelId, signal)
+    findTodayQuestionByChannel(channelId, requestOptions, signal)
 
   return { queryKey, queryFn, enabled: !!channelId, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof findTodayQuestionByChannel>>,
@@ -471,6 +522,7 @@ export function useFindTodayQuestionByChannel<
         >,
         "initialData"
       >
+    request?: SecondParameter<typeof customInstance>
   }
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useFindTodayQuestionByChannel<
@@ -488,6 +540,7 @@ export function useFindTodayQuestionByChannel<
         >,
         "initialData"
       >
+    request?: SecondParameter<typeof customInstance>
   }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useFindTodayQuestionByChannel<
@@ -495,7 +548,10 @@ export function useFindTodayQuestionByChannel<
   TError = ErrorType<unknown>
 >(
   channelId: string,
-  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findTodayQuestionByChannel>>, TError, TData>> }
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findTodayQuestionByChannel>>, TError, TData>>
+    request?: SecondParameter<typeof customInstance>
+  }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
 export function useFindTodayQuestionByChannel<
@@ -503,7 +559,10 @@ export function useFindTodayQuestionByChannel<
   TError = ErrorType<unknown>
 >(
   channelId: string,
-  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findTodayQuestionByChannel>>, TError, TData>> }
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findTodayQuestionByChannel>>, TError, TData>>
+    request?: SecondParameter<typeof customInstance>
+  }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
   const queryOptions = getFindTodayQuestionByChannelQueryOptions(channelId, options)
 
@@ -514,8 +573,15 @@ export function useFindTodayQuestionByChannel<
   return query
 }
 
-export const findQuestionsByMember = (params?: FindQuestionsByMemberParams, signal?: AbortSignal) => {
-  return customInstance<QuestionShowAllResponse>({ url: `/api/channels/questions`, method: "GET", params, signal })
+export const findQuestionsByMember = (
+  params?: FindQuestionsByMemberParams,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal
+) => {
+  return customInstance<QuestionShowAllResponse>(
+    { url: `/api/channels/questions`, method: "GET", params, signal },
+    options
+  )
 }
 
 export const getFindQuestionsByMemberQueryKey = (params?: FindQuestionsByMemberParams) => {
@@ -527,14 +593,17 @@ export const getFindQuestionsByMemberQueryOptions = <
   TError = ErrorType<unknown>
 >(
   params?: FindQuestionsByMemberParams,
-  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByMember>>, TError, TData>> }
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByMember>>, TError, TData>>
+    request?: SecondParameter<typeof customInstance>
+  }
 ) => {
-  const { query: queryOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {}
 
   const queryKey = queryOptions?.queryKey ?? getFindQuestionsByMemberQueryKey(params)
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof findQuestionsByMember>>> = ({ signal }) =>
-    findQuestionsByMember(params, signal)
+    findQuestionsByMember(params, requestOptions, signal)
 
   return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof findQuestionsByMember>>,
@@ -561,6 +630,7 @@ export function useFindQuestionsByMember<
         >,
         "initialData"
       >
+    request?: SecondParameter<typeof customInstance>
   }
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useFindQuestionsByMember<
@@ -578,6 +648,7 @@ export function useFindQuestionsByMember<
         >,
         "initialData"
       >
+    request?: SecondParameter<typeof customInstance>
   }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useFindQuestionsByMember<
@@ -585,7 +656,10 @@ export function useFindQuestionsByMember<
   TError = ErrorType<unknown>
 >(
   params?: FindQuestionsByMemberParams,
-  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByMember>>, TError, TData>> }
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByMember>>, TError, TData>>
+    request?: SecondParameter<typeof customInstance>
+  }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
 export function useFindQuestionsByMember<
@@ -593,7 +667,10 @@ export function useFindQuestionsByMember<
   TError = ErrorType<unknown>
 >(
   params?: FindQuestionsByMemberParams,
-  options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByMember>>, TError, TData>> }
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findQuestionsByMember>>, TError, TData>>
+    request?: SecondParameter<typeof customInstance>
+  }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
   const queryOptions = getFindQuestionsByMemberQueryOptions(params, options)
 

@@ -4,14 +4,23 @@ import type { ImageResponse, MemberResponse, MemberUpdateRequest, UploadProfileI
 import { customInstance } from ".././clientInstance"
 import type { ErrorType, BodyType } from ".././clientInstance"
 
-export const uploadProfileImage = (uploadProfileImageBody: BodyType<UploadProfileImageBody>, signal?: AbortSignal) => {
-  return customInstance<ImageResponse>({
-    url: `/api/members/profile-image`,
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    data: uploadProfileImageBody,
-    signal
-  })
+type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1]
+
+export const uploadProfileImage = (
+  uploadProfileImageBody: BodyType<UploadProfileImageBody>,
+  options?: SecondParameter<typeof customInstance>,
+  signal?: AbortSignal
+) => {
+  return customInstance<ImageResponse>(
+    {
+      url: `/api/members/profile-image`,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: uploadProfileImageBody,
+      signal
+    },
+    options
+  )
 }
 
 export const getUploadProfileImageMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
@@ -21,6 +30,7 @@ export const getUploadProfileImageMutationOptions = <TError = ErrorType<unknown>
     { data: BodyType<UploadProfileImageBody> },
     TContext
   >
+  request?: SecondParameter<typeof customInstance>
 }): UseMutationOptions<
   Awaited<ReturnType<typeof uploadProfileImage>>,
   TError,
@@ -28,11 +38,11 @@ export const getUploadProfileImageMutationOptions = <TError = ErrorType<unknown>
   TContext
 > => {
   const mutationKey = ["uploadProfileImage"]
-  const { mutation: mutationOptions } = options
+  const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
 
   const mutationFn: MutationFunction<
     Awaited<ReturnType<typeof uploadProfileImage>>,
@@ -40,7 +50,7 @@ export const getUploadProfileImageMutationOptions = <TError = ErrorType<unknown>
   > = (props) => {
     const { data } = props ?? {}
 
-    return uploadProfileImage(data)
+    return uploadProfileImage(data, requestOptions)
   }
 
   return { mutationFn, ...mutationOptions }
@@ -57,6 +67,7 @@ export const useUploadProfileImage = <TError = ErrorType<unknown>, TContext = un
     { data: BodyType<UploadProfileImageBody> },
     TContext
   >
+  request?: SecondParameter<typeof customInstance>
 }): UseMutationResult<
   Awaited<ReturnType<typeof uploadProfileImage>>,
   TError,
@@ -67,13 +78,19 @@ export const useUploadProfileImage = <TError = ErrorType<unknown>, TContext = un
 
   return useMutation(mutationOptions)
 }
-export const updateMemberProfile = (memberUpdateRequest: BodyType<MemberUpdateRequest>) => {
-  return customInstance<MemberResponse>({
-    url: `/api/members/profile-image`,
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    data: memberUpdateRequest
-  })
+export const updateMemberProfile = (
+  memberUpdateRequest: BodyType<MemberUpdateRequest>,
+  options?: SecondParameter<typeof customInstance>
+) => {
+  return customInstance<MemberResponse>(
+    {
+      url: `/api/members/profile-image`,
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      data: memberUpdateRequest
+    },
+    options
+  )
 }
 
 export const getUpdateMemberProfileMutationOptions = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
@@ -83,6 +100,7 @@ export const getUpdateMemberProfileMutationOptions = <TError = ErrorType<unknown
     { data: BodyType<MemberUpdateRequest> },
     TContext
   >
+  request?: SecondParameter<typeof customInstance>
 }): UseMutationOptions<
   Awaited<ReturnType<typeof updateMemberProfile>>,
   TError,
@@ -90,11 +108,11 @@ export const getUpdateMemberProfileMutationOptions = <TError = ErrorType<unknown
   TContext
 > => {
   const mutationKey = ["updateMemberProfile"]
-  const { mutation: mutationOptions } = options
+  const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
 
   const mutationFn: MutationFunction<
     Awaited<ReturnType<typeof updateMemberProfile>>,
@@ -102,7 +120,7 @@ export const getUpdateMemberProfileMutationOptions = <TError = ErrorType<unknown
   > = (props) => {
     const { data } = props ?? {}
 
-    return updateMemberProfile(data)
+    return updateMemberProfile(data, requestOptions)
   }
 
   return { mutationFn, ...mutationOptions }
@@ -119,6 +137,7 @@ export const useUpdateMemberProfile = <TError = ErrorType<unknown>, TContext = u
     { data: BodyType<MemberUpdateRequest> },
     TContext
   >
+  request?: SecondParameter<typeof customInstance>
 }): UseMutationResult<
   Awaited<ReturnType<typeof updateMemberProfile>>,
   TError,
