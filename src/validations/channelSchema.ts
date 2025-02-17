@@ -5,8 +5,8 @@ export const deleteChannelSchema = z.object({
 })
 
 export const createChannelSchema = z.object({
-  channelName: z.string().max(10, "최대 10자까지 입력 가능해요."),
-  channelNickname: z.string().max(10, "최대 10자까지 입력 가능해요.")
+  channelName: z.string().min(1, "입력이 필요합니다.").max(10, "최대 10자까지 입력 가능해요."),
+  channelNickname: z.string().min(1, "입력이 필요합니다.").max(10, "최대 10자까지 입력 가능해요.")
 })
 
 export type DeleteChannelType = z.output<typeof deleteChannelSchema>
