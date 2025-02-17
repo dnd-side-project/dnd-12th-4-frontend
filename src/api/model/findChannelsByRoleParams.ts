@@ -6,6 +6,6 @@
  */
 
 export type FindChannelsByRoleParams = {
-  tab: string
+  tab?: string
   sort?: string
 }

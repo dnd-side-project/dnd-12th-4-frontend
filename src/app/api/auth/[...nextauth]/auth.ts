@@ -21,6 +21,8 @@ const authOptions: AuthOptions = {
               "Content-Type": "application/json"
             }
           })
+
+          console.log("tokenData", tokenData.body.accessToken)
           token.expiredAccessToken = tokenData.body.expiredAccessToken
           token.accessToken = tokenData.body.accessToken
           token.refreshToken = tokenData.body.refreshToken

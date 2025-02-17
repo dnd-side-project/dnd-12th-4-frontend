@@ -6,8 +6,9 @@ interface Params {
   description?: string
   onCancel: () => void
   onClick: () => void
+  disabled?: boolean
 }
-export default function ConfirmModal({ title, description, onCancel, onClick }: Params) {
+export default function ConfirmModal({ title, description, onCancel, onClick, disabled = false }: Params) {
   return (
     <ModalWrapper overlayClose onClose={onCancel}>
       <section className="z-[100] flex w-[340px] flex-col items-center gap-[20px] rounded-[24px] bg-white px-[20px] pb-[20px] pt-[40px]">
@@ -16,10 +17,10 @@ export default function ConfirmModal({ title, description, onCancel, onClick }: 
           {description && <p>{description}</p>}
         </article>
         <article className="flex gap-[12px]">
-          <Button className="h-[52px] bg-gray-300" onClick={onCancel}>
+          <Button type="button" className="h-[52px] bg-gray-300" onClick={onCancel}>
             취소하기
           </Button>
-          <Button className="h-[52px] bg-primary-200" onClick={onClick}>
+          <Button type="button" className="h-[52px] bg-primary-200" onClick={onClick} disabled={disabled}>
             삭제하기
           </Button>
         </article>

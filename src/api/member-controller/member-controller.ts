@@ -234,7 +234,7 @@ export function useFindMyFriends<TData = Awaited<ReturnType<typeof findMyFriends
   return query
 }
 
-export const findMyChannelMemberInfo = (params: FindMyChannelMemberInfoParams, signal?: AbortSignal) => {
+export const findMyChannelMemberInfo = (params?: FindMyChannelMemberInfoParams, signal?: AbortSignal) => {
   return customInstance<ApiMyChannelMemberShowAllResponse>({
     url: `/api/members/channel-members`,
     method: "GET",
@@ -243,7 +243,7 @@ export const findMyChannelMemberInfo = (params: FindMyChannelMemberInfoParams, s
   })
 }
 
-export const getFindMyChannelMemberInfoQueryKey = (params: FindMyChannelMemberInfoParams) => {
+export const getFindMyChannelMemberInfoQueryKey = (params?: FindMyChannelMemberInfoParams) => {
   return [`/api/members/channel-members`, ...(params ? [params] : [])] as const
 }
 
@@ -251,7 +251,7 @@ export const getFindMyChannelMemberInfoQueryOptions = <
   TData = Awaited<ReturnType<typeof findMyChannelMemberInfo>>,
   TError = ErrorType<unknown>
 >(
-  params: FindMyChannelMemberInfoParams,
+  params?: FindMyChannelMemberInfoParams,
   options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findMyChannelMemberInfo>>, TError, TData>> }
 ) => {
   const { query: queryOptions } = options ?? {}
@@ -275,7 +275,7 @@ export function useFindMyChannelMemberInfo<
   TData = Awaited<ReturnType<typeof findMyChannelMemberInfo>>,
   TError = ErrorType<unknown>
 >(
-  params: FindMyChannelMemberInfoParams,
+  params: undefined | FindMyChannelMemberInfoParams,
   options: {
     query: Partial<UseQueryOptions<Awaited<ReturnType<typeof findMyChannelMemberInfo>>, TError, TData>> &
       Pick<
@@ -292,7 +292,7 @@ export function useFindMyChannelMemberInfo<
   TData = Awaited<ReturnType<typeof findMyChannelMemberInfo>>,
   TError = ErrorType<unknown>
 >(
-  params: FindMyChannelMemberInfoParams,
+  params?: FindMyChannelMemberInfoParams,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findMyChannelMemberInfo>>, TError, TData>> &
       Pick<
@@ -309,7 +309,7 @@ export function useFindMyChannelMemberInfo<
   TData = Awaited<ReturnType<typeof findMyChannelMemberInfo>>,
   TError = ErrorType<unknown>
 >(
-  params: FindMyChannelMemberInfoParams,
+  params?: FindMyChannelMemberInfoParams,
   options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findMyChannelMemberInfo>>, TError, TData>> }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
@@ -317,7 +317,7 @@ export function useFindMyChannelMemberInfo<
   TData = Awaited<ReturnType<typeof findMyChannelMemberInfo>>,
   TError = ErrorType<unknown>
 >(
-  params: FindMyChannelMemberInfoParams,
+  params?: FindMyChannelMemberInfoParams,
   options?: { query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findMyChannelMemberInfo>>, TError, TData>> }
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
   const queryOptions = getFindMyChannelMemberInfoQueryOptions(params, options)
