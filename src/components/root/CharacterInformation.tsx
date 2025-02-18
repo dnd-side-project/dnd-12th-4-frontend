@@ -36,6 +36,7 @@ export default function CharacterInformation() {
             <span className="text-gray-04">/100</span>
           </p>
           <Tooltip
+            defaultIsOpen
             id="tooltip-message"
             style={{ backgroundColor: "white", borderRadius: 8, padding: "8px" }}
             openOnClick
