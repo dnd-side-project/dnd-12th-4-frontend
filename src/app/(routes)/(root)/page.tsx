@@ -1,7 +1,9 @@
-"use client"
+import { Metadata } from "next"
 
-import { signOut } from "next-auth/react"
+export const metadata: Metadata = {
+  title: "홈"
+}
 
 export default function Home() {
-  return <p onClick={() => signOut()}>홈화면</p>
+  return <p>홈화면</p>
 }

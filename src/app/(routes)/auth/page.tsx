@@ -3,6 +3,11 @@ import { getServerSession } from "next-auth"
 import LoginButton from "@/components/auth/LoginButton"
 import CarouselItems from "@/components/auth/CarouselItems"
 import { redirect } from "next/navigation"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "로그인"
+}
 
 export default async function Auth() {
   const session = await getServerSession(authOptions)

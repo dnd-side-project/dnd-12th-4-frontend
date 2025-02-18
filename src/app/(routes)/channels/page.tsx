@@ -5,7 +5,12 @@ import { serverInstance } from "@/api/serverInstance"
 import ChannelsPageClient from "@/components/channels/ChannelsPageClient"
 import HeaderFooterWrapper from "@/components/layout/HeaderFooterWrapper"
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query"
+import { Metadata } from "next"
 import { notFound } from "next/navigation"
+
+export const metadata: Metadata = {
+  title: "채널"
+}
 
 interface Params {
   searchParams: Promise<{

@@ -3,7 +3,12 @@ import { serverInstance } from "@/api/serverInstance"
 import HeaderFooterWrapper from "@/components/layout/HeaderFooterWrapper"
 import ReplyPageClient from "@/components/questions/reply/new/ReplyPageClient"
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query"
+import { Metadata } from "next"
 import { notFound } from "next/navigation"
+
+export const metadata: Metadata = {
+  title: "응답작성"
+}
 
 type Params = Promise<{ id: string; questionId: number }>
 

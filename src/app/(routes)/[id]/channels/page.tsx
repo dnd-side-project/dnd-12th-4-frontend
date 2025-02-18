@@ -1,3 +1,5 @@
+// * 해당 페이지는 삭제예정 페이지입니다
+
 import { getFindChannelsByRoleQueryKey } from "@/api/channel-controller/channel-controller"
 import { serverInstance } from "@/api/serverInstance"
 import ChannelsPageClient from "@/components/channels/ChannelsPageClient"
