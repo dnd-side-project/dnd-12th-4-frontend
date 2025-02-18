@@ -3,24 +3,28 @@ import Button from "@/components/auth/Button"
 import { ImageInput } from "@/components/my-page/profile/ImageInput"
 import { handleDeleteButton, handleImageChange } from "@/utils/changeImage"
 import { modifyProfileSchema, ModifyProfileType } from "@/validations/profileSchema"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 // import { useUploadProfileImage } from "@/api/profile-image-controller/profile-image-controller"
 import { useFindMemberInfo } from "@/api/member-controller/member-controller"
 import { cn } from "@/utils/cn"
 import { zodResolver } from "@hookform/resolvers/zod"
 // import { useFindChannelById } from "@/api/channel-controller/channel-controller"
-import { useFindMyChannelMemberProfile } from "@/api/channel-member-controller/channel-member-controller"
-import { useParams } from "next/navigation"
+import {
+  useFindMyChannelMemberProfile,
+  useUpdateChannelMemberProfile
+} from "@/api/channel-member-controller/channel-member-controller"
+import { useParams, useRouter } from "next/navigation"
+import { useUpdateMemberProfile, useUploadProfileImage } from "@/api/profile-image-controller/profile-image-controller"
 
 interface ModifyProfileFormProps {
   profileType: "common" | "channel"
 }
 export default function ModifyProfileForm({ profileType }: ModifyProfileFormProps) {
+  const router = useRouter()
   const params = useParams()
   const [file, setFile] = useState<File | null>(null)
   const [preview, setPreview] = useState("")
-  const [errorMessage, setErrorMessage] = useState("")
   const { data: userInfo } = useFindMemberInfo()
   const { data: channelProfileInfo } = useFindMyChannelMemberProfile(params.id as string)
 
@@ -28,7 +32,6 @@ export default function ModifyProfileForm({ profileType }: ModifyProfileFormProp
   const {
     register,
     handleSubmit,
-    // setValue,
     watch,
     formState: { errors }
   } = useForm<ModifyProfileType>({
@@ -40,25 +43,43 @@ export default function ModifyProfileForm({ profileType }: ModifyProfileFormProp
     mode: "onChange"
   })
   const nickname = watch("nickname")
-  console.log(userInfo)
-  // const { mutateAsync: uploadImage } = useUploadProfileImage({
-  //   request: { headers: { "Content-Type": "multipart/form-data" } }
-  // })
 
-  const onSubmit = async (data: any) => {
+  const { mutateAsync: uploadImage } = useUploadProfileImage({
+    request: { headers: { "Content-Type": "multipart/form-data" } }
+  })
+  const { mutateAsync: updateCommonProfile } = useUpdateMemberProfile()
+  const { mutateAsync: updateChannelProfile } = useUpdateChannelMemberProfile()
+
+  const onSubmit = async () => {
     try {
-      console.log("폼 데이터:", data)
-      // await registerCommonNameMutation.mutateAsync({ params: { name: nickname } })
-      //api 요청 성공하면 onNext 실행
-      // onNext()
+      if (file) {
+        const { imageUrl } = await uploadImage({ data: { file } })
+        console.log(imageUrl)
+        if (profileType === "common") {
+          updateCommonProfile({ data: { nickName: nickname, image: imageUrl } })
+        }
+        if (profileType === "channel") {
+          updateChannelProfile({ channelId: params.id as string, data: { codeName: nickname, image: imageUrl } })
+        }
+      }
+      router.back()
     } catch (error) {
       console.error("닉네임 등록 실패:", error)
     }
   }
 
   const isButtonDisabled = !nickname?.trim().length || !!errors.nickname || defaultName === nickname
-  console.log(file)
 
+  useEffect(() => {
+    if (profileType === "common") {
+      setPreview(userInfo?.body?.profileImage as string)
+    }
+    if (profileType === "channel") {
+      setPreview(channelProfileInfo?.body?.profileImageUrl as string)
+    }
+  }, [userInfo?.body?.profileImage, channelProfileInfo?.body?.profileImageUrl, profileType])
+
+  console.log(channelProfileInfo?.body?.profileImageUrl)
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -69,9 +90,8 @@ export default function ModifyProfileForm({ profileType }: ModifyProfileFormProp
           <ImageInput
             previewImage={preview}
             handleDeleteButton={() => handleDeleteButton({ setPreview })}
-            handleImageChange={(event) => handleImageChange({ event, setFile, setPreview, setErrorMessage })}
+            handleImageChange={(event) => handleImageChange({ event, setFile, setPreview })}
           />
-          {errorMessage && <div>이미지를 다시 선택해주세요.</div>}
         </div>
         <div className="flex w-full flex-col gap-[2px]">
           <div className="flex flex-col gap-[4px]">
