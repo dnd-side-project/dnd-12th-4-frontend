@@ -1,33 +1,30 @@
 "use client"
 
 import { MessageCircle } from "lucide-react"
-import { useRouter, useSearchParams } from "next/navigation"
+import Link from "next/link"
+import { useSearchParams } from "next/navigation"
 
 interface QuestionBoxProps {
-  count: number
+  signalNumber: number
+  replyCount: number
   nickname: string
-  time: number
-  text: string
+  time: string
+  content: string
 }
-export default function QuestionBox({ count, nickname, time, text }: QuestionBoxProps) {
+export default function QuestionBox({ signalNumber, replyCount, nickname, time, content }: QuestionBoxProps) {
   const searchParams = useSearchParams()
   const tab = searchParams.get("tab")
-  const router = useRouter()
-
-  const handleBoxClick = () => {
-    router.push(`questions/${2}/detail`)
-  }
 
   return (
     <>
-      <div
-        onClick={handleBoxClick}
+      <Link
+        href={`questions/${2}/detail`}
         className="flex cursor-pointer flex-col gap-[12px] rounded-[24px] bg-[#F5F8FA] px-[20px] py-[24px]"
       >
         <p className="inline-block w-fit rounded-[40px] bg-secondary-0 px-[12px] py-[4px] text-[12px] font-medium text-secondary-300">
-          {count}번째 시그널
+          {signalNumber}번째 시그널
         </p>
-        <div className="text-body-04 text-emphasis-high">{text}</div>
+        <div className="text-body-04 text-emphasis-high">{content}</div>
         <div className="flex text-[12px] text-caption-02 text-emphasis-medium">
           <div className="flex flex-1 gap-[12px]">
             {tab !== "my-signal" && <p>{nickname}</p>}
@@ -35,10 +32,10 @@ export default function QuestionBox({ count, nickname, time, text }: QuestionBox
           </div>
           <div className="flex items-center gap-[4px]">
             <MessageCircle className="size-[16px]" />
-            <p>{count}</p>
+            <p>{replyCount}</p>
           </div>
         </div>
-      </div>
+      </Link>
       <div className="mb-[12px]" />
     </>
   )

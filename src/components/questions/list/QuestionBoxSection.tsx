@@ -2,26 +2,27 @@
 
 import { useFindQuestionsByMember } from "@/api/question-controller/question-controller"
 import QuestionBox from "./QuestionBox"
+import { useSearchParams } from "next/navigation"
 
 export default function QuestionBoxSection() {
-  const { data } = useFindQuestionsByMember({ sort: "all" })
+  const searchParams = useSearchParams()
+  const sort = searchParams.get("sort")
+  const { data: latestData } = useFindQuestionsByMember({ sort: "latest" })
+  const { data: oldestData } = useFindQuestionsByMember({ sort: "oldest" })
+  const data = sort === "latest" ? latestData : oldestData
   console.log(data)
   return (
     <section>
-      <QuestionBox
-        count={12}
-        nickname={"무전기"}
-        time={3}
-        text="이번 주 7시에 다 같이 모여서 저녁 먹자 이번 주 7시에 다 같이 모여서 저녁 먹자이번 주 7시에 다 같이 모여서 저녁
-        먹자이번 주 7시에 다 같이 모여서 저녁 먹자이번 주 7시에 다 같이 모여서 저녁 먹자"
-      />
-      <QuestionBox
-        count={12}
-        nickname={"무전기"}
-        time={3}
-        text="이번 주 7시에 다 같이 모여서 저녁 먹자 이번 주 7시에 다 같이 모여서 저녁 먹자이번 주 7시에 다 같이 모여서 저녁
-        먹자이번 주 7시에 다 같이 모여서 저녁 먹자이번 주 7시에 다 같이 모여서 저녁 먹자"
-      />
+      {data?.questionResponse?.map((questionData) => (
+        <QuestionBox
+          key={`${questionData.createdAt}-${questionData.writerName}`}
+          signalNumber={questionData.signalNumber || 1}
+          nickname={questionData.writerName || ""}
+          time={questionData.createdAt || ""}
+          content={questionData.content || ""}
+          replyCount={1}
+        />
+      ))}
     </section>
   )
 }
