@@ -8,6 +8,7 @@ export default function QuestionDetailSection() {
   return (
     <section className="flex flex-col gap-[12px]">
       <QuestionOrAnswerDetailBox
+        type="question"
         imageSrc="https://placehold.co/230x230.png"
         content="가이드 텍스트입니다.가이드 텍스트입니다.가이드 텍스트입니다.가이드 텍스트입니다.가이드 텍스트입니다.가이드
               텍스트입니다.가이드 텍스트입니다.가이드 텍스트입니다.가이드 텍스트입니다.가"

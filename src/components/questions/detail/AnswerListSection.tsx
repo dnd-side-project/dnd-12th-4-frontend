@@ -18,6 +18,7 @@ export default function AnswerListSection() {
       {hasAnswers && (
         <>
           <QuestionOrAnswerDetailBox
+            type="answer"
             imageSrc="https://placehold.co/230x230.png"
             content="답장입니다"
             nickname="닉네임2"
@@ -25,6 +26,7 @@ export default function AnswerListSection() {
             isMyAnswer
           />
           <QuestionOrAnswerDetailBox
+            type="answer"
             imageSrc="https://placehold.co/230x230.png"
             content="답장입니다"
             nickname="닉네임2"
