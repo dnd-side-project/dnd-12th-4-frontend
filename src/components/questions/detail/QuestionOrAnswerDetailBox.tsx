@@ -51,14 +51,14 @@ export default function QuestionOrAnswerDetailBox({
       <div className="flex items-center gap-[8px]">
         <Image src={imageSrc} className="rounded-full object-cover" width={32} height={32} alt="프로필 이미지" />
         <div className="flex flex-col">
-          <div className="text-[14px] font-semibold text-black/60">{nickname}</div>
-          <div className="text-[12px] text-black/60">{time}시간 전</div>
+          <div className="text-body-03 text-emphasis-high">{nickname}</div>
+          <div className="text-caption-02 text-emphasis-medium">{time}시간 전</div>
         </div>
       </div>
       <textarea
         ref={textareaRef}
         className={cn(
-          "resize-none bg-inherit font-medium text-black/80",
+          "resize-none bg-inherit text-body-04 text-emphasis-high",
           edit ? "cursor-text outline-2" : "cursor-default outline-none"
         )}
         rows={2}
@@ -68,7 +68,7 @@ export default function QuestionOrAnswerDetailBox({
       />
       {isMyAnswer &&
         (edit ? (
-          <div className="flex justify-end gap-[12px] text-[12px] text-black/60">
+          <div className="flex justify-end gap-[12px] text-caption-02 text-emphasis-medium">
             <button type="button" onClick={() => setEdit(false)}>
               취소
             </button>

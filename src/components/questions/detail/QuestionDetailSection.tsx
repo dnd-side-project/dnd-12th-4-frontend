@@ -1,3 +1,5 @@
+"use client"
+
 import QuestionOrAnswerDetailBox from "@/components/questions/detail/QuestionOrAnswerDetailBox"
 import MyAnswerStatusBox from "@/components/questions/detail/MyAnswerStatusBox"
 
@@ -12,10 +14,7 @@ export default function QuestionDetailSection() {
         nickname="닉네임"
         time={3}
       />
-      <MyAnswerStatusBox
-        title={isMyAnswer ? "응답을 보내셨군요. 정말 멋져요!" : "누군가가 응답을 기다리고 있어요!"}
-        isMyAnswer={isMyAnswer}
-      />
+      <MyAnswerStatusBox title={isMyAnswer ? "응답을 보내셨네요. 정말 멋져요!" : "질문자가 응답을 기다리고 있어요!"} />
     </section>
   )
 }
