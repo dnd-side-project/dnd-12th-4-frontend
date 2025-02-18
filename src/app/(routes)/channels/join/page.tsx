@@ -66,7 +66,7 @@ function Page() {
         router.push(`/${channelId}`)
       }, 2000)
     }
-  }, [stepLevel, router])
+  }, [stepLevel, router, channelId])
 
   return (
     <div className="relative h-full px-[16px] pb-[12px] pt-[56px]">
