@@ -19,7 +19,6 @@ export default function ChannelSection() {
   const params = useParams()
   const { data: channelInfo } = useFindChannelById(params.id as string)
   const { data: userInfo } = useFindMyChannelMemberProfile(params.id as string)
-
   const leaveChannelMutation = useLeaveOneChannel()
   const handleButtonClick = async () => {
     setIsDeleteModal(true)
@@ -32,6 +31,7 @@ export default function ChannelSection() {
       console.error(error)
     }
   }
+
   return (
     <>
       <section className="flex flex-col gap-[20px]">

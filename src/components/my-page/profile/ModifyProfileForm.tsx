@@ -27,6 +27,9 @@ export default function ModifyProfileForm({ profileType }: ModifyProfileFormProp
   const { data: channelProfileInfo } = useFindMyChannelMemberProfile(params.id as string)
 
   const defaultName = profileType === "common" ? userInfo?.body?.name : channelProfileInfo?.body?.codeName
+  const defaultImage =
+    profileType === "common" ? userInfo?.body?.profileImage : channelProfileInfo?.body?.profileImageUrl
+
   const {
     register,
     handleSubmit,
@@ -34,13 +37,14 @@ export default function ModifyProfileForm({ profileType }: ModifyProfileFormProp
     formState: { errors }
   } = useForm<ModifyProfileType>({
     defaultValues: {
-      nickname: defaultName
-      // profileImage: ""
+      nickname: defaultName,
+      profileImage: defaultImage
     },
     resolver: zodResolver(modifyProfileSchema),
     mode: "onChange"
   })
   const nickname = watch("nickname")
+  const profileImage = watch("profileImage")
 
   const { mutateAsync: uploadImage } = useUploadProfileImage({
     request: { headers: { "Content-Type": "multipart/form-data" } }
@@ -50,34 +54,32 @@ export default function ModifyProfileForm({ profileType }: ModifyProfileFormProp
 
   const onSubmit = async () => {
     try {
-      if (file) {
-        const { imageUrl } = await uploadImage({ data: { file } })
-        console.log(imageUrl)
-        if (profileType === "common") {
-          updateCommonProfile({ data: { nickName: nickname, image: imageUrl } })
-        }
-        if (profileType === "channel") {
-          updateChannelProfile({ channelId: params.id as string, data: { codeName: nickname, image: imageUrl } })
-        }
+      const uploadedImage = file ? await uploadImage({ data: { file } }) : null
+      const imageUrl = uploadedImage?.imageUrl || preview
+
+      if (profileType === "common") {
+        await updateCommonProfile({
+          data: { nickName: nickname, image: imageUrl }
+        })
+      } else if (profileType === "channel") {
+        await updateChannelProfile({
+          channelId: params.id as string,
+          data: { codeName: nickname, image: imageUrl }
+        })
       }
       router.back()
     } catch (error) {
-      console.error("닉네임 등록 실패:", error)
+      console.error("프로필 업데이트 실패:", error)
     }
   }
 
-  const isButtonDisabled = !nickname?.trim().length || !!errors.nickname || defaultName === nickname
+  const isButtonDisabled =
+    !nickname?.trim().length || !!errors.nickname || (defaultName === nickname && defaultImage === preview)
 
   useEffect(() => {
-    if (profileType === "common") {
-      setPreview(userInfo?.body?.profileImage as string)
-    }
-    if (profileType === "channel") {
-      setPreview(channelProfileInfo?.body?.profileImageUrl as string)
-    }
-  }, [userInfo?.body?.profileImage, channelProfileInfo?.body?.profileImageUrl, profileType])
+    setPreview(profileImage || "")
+  }, [profileImage])
 
-  console.log(channelProfileInfo?.body?.profileImageUrl)
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}

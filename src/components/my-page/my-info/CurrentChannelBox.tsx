@@ -16,7 +16,6 @@ export default function CurrentChannelBox({ count, name, memberCount, owner, onC
     <section className={cn("flex flex-col gap-[12px] rounded-[24px] bg-gray-01 p-[20px]")}>
       <article className="flex items-center justify-between">
         <Tag text={`${count}번째 시그널`} className="bg-primary-200/15 text-caption-01 font-medium text-primary-400" />
-
         <div className="flex h-[24px] w-[24px] items-center justify-center" onClick={onClick}>
           <EllipsisVertical size={24} className="cursor-pointer text-black/60" />
         </div>
