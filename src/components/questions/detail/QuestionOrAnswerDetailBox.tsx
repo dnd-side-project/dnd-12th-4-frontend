@@ -32,7 +32,7 @@ export default function QuestionOrAnswerDetailBox({
   }
 
   return (
-    <section className="flex flex-col gap-[12px] rounded-[24px] bg-[#F5F8FA] px-[20px] py-[24px]">
+    <section className="flex flex-col gap-[12px] rounded-xl bg-[#F5F8FA] px-[20px] py-[24px]">
       <div className="flex items-center gap-[8px]">
         <Image src={imageSrc} className="rounded-full object-cover" width={32} height={32} alt="프로필 이미지" />
         <div className="flex flex-col">
