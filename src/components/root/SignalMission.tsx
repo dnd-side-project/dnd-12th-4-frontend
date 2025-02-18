@@ -24,7 +24,7 @@ export default function TodayAnswerSummary() {
             <p className="text-body-03 text-emphasis-medium">친구들이 시그널을 기다려요</p>
           </div>
         </div>
-        <Image src={"/favicon.ico"} alt="unknown" width={80} height={80} />
+        <Image src={"/walkitalki/walkitalki_no_signal.webp"} alt="unknown" width={96} height={96} />
       </div>
     </article>
   )

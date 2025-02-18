@@ -26,7 +26,7 @@ export default function TodayAnswerSummary() {
             </p>
           </div>
         </div>
-        <Image src={"/favicon.ico"} alt="unknown" width={80} height={80} />
+        <Image src={"/walkitalki/walkitalki_signal.webp"} alt="unknown" width={96} height={96} />
       </div>
     </article>
   )

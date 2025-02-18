@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation"
 import { useFormContext } from "react-hook-form"
 interface Params {
   channelId: string
-  count: number
+  questionCount: number
   name: string
   memberCount: number
   owner: string
@@ -17,7 +17,7 @@ interface Params {
 }
 export default function ChannelBoxForm({
   channelId,
-  count,
+  questionCount,
   name,
   memberCount,
   // owner, // Todo 추 후 필요없는게 확실해지면 props 제거
@@ -61,7 +61,11 @@ export default function ChannelBoxForm({
       }}
     >
       <article className="flex justify-between">
-        <Tag text={`${count}번째 시그널`} className="bg-secondary-0 text-secondary-300" count={count} />
+        <Tag
+          text={`${questionCount ?? 0}번째 시그널`}
+          className="bg-secondary-0 text-secondary-300"
+          count={questionCount}
+        />
         {!editMode && (
           <button type="button" onClick={handleShare}>
             <Share2 size={24} />
