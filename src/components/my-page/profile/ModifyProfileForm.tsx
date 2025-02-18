@@ -5,11 +5,9 @@ import { handleDeleteButton, handleImageChange } from "@/utils/changeImage"
 import { modifyProfileSchema, ModifyProfileType } from "@/validations/profileSchema"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
-// import { useUploadProfileImage } from "@/api/profile-image-controller/profile-image-controller"
 import { useFindMemberInfo } from "@/api/member-controller/member-controller"
 import { cn } from "@/utils/cn"
 import { zodResolver } from "@hookform/resolvers/zod"
-// import { useFindChannelById } from "@/api/channel-controller/channel-controller"
 import {
   useFindMyChannelMemberProfile,
   useUpdateChannelMemberProfile
@@ -36,8 +34,8 @@ export default function ModifyProfileForm({ profileType }: ModifyProfileFormProp
     formState: { errors }
   } = useForm<ModifyProfileType>({
     defaultValues: {
-      nickname: defaultName,
-      profileImage: ""
+      nickname: defaultName
+      // profileImage: ""
     },
     resolver: zodResolver(modifyProfileSchema),
     mode: "onChange"

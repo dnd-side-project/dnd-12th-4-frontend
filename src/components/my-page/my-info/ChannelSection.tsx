@@ -1,10 +1,7 @@
 "use client"
 
 import { useFindChannelById } from "@/api/channel-controller/channel-controller"
-// import { editChannelSchema, EditChannelType } from "@/validations/channelEditSchema"
-// import { zodResolver } from "@hookform/resolvers/zod"
 import { useParams, useRouter } from "next/navigation"
-// import { FieldValues, FormProvider, useForm } from "react-hook-form"
 import CurrentChannelBox from "./CurrentChannelBox"
 import { useState } from "react"
 import ChannelEditBottomSheet from "@/components/channels/ChannelEditBottomSheet"
@@ -13,7 +10,6 @@ import {
   useLeaveOneChannel
 } from "@/api/channel-member-controller/channel-member-controller"
 import ConfirmModal from "@/components/common/ConfirmModal"
-// import { useFindMyChannelMemberProfile } from "@/api/channel-member-controller/channel-member-controller"
 
 export default function ChannelSection() {
   const router = useRouter()
@@ -24,27 +20,6 @@ export default function ChannelSection() {
   const { data: channelInfo } = useFindChannelById(params.id as string)
   const { data: userInfo } = useFindMyChannelMemberProfile(params.id as string)
 
-  console.log(channelInfo)
-  console.log(
-    "userInfo?.body?.name",
-    userInfo?.body?.codeName,
-    "data?.body?.channelOwnerName",
-    channelInfo?.body?.channelOwnerName
-  )
-  // const formMethods = useForm<EditChannelType>({
-  //   defaultValues: {
-  //     channelName: "",
-  //     // commonProfile: { profileImage: "", nickname: "" },
-  //     channelProfile: { profileImage: "", nickname: "" }
-  //   },
-  //   resolver: zodResolver(editChannelSchema)
-  // })
-
-  // const { handleSubmit } = formMethods
-
-  // const onSubmit = async (data: FieldValues) => {
-  //   console.log("data", data)
-  // }
   const leaveChannelMutation = useLeaveOneChannel()
   const handleButtonClick = async () => {
     setIsDeleteModal(true)
@@ -59,7 +34,6 @@ export default function ChannelSection() {
   }
   return (
     <>
-      {/* <form onSubmit={handleSubmit(onSubmit)}> */}
       <section className="flex flex-col gap-[20px]">
         <CurrentChannelBox
           key={channelInfo?.body?.channelId}
@@ -70,7 +44,6 @@ export default function ChannelSection() {
           onClick={() => setIsOpenChannelSheet(true)}
         />
       </section>
-      {/* </form> */}
       <ChannelEditBottomSheet
         isOpen={isOpenChannelSheet}
         setIsOpen={setIsOpenChannelSheet}
