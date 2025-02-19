@@ -20,7 +20,7 @@ export default function QuestionBoxSection() {
           nickname={questionData.writerName || ""}
           time={questionData.createdAt || ""}
           content={questionData.content || ""}
-          replyCount={1}
+          replyCount={questionData.replyCount || 1}
         />
       ))}
     </section>

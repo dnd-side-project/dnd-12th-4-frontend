@@ -5,4 +5,5 @@ export interface MyChannelMemberResponse {
   channelName?: string
   profileImage?: string
   countPerson?: number
+  replyCount?: number
 }

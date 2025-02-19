@@ -21,8 +21,7 @@ export default function QuestionCheckPageClient() {
         </p>
         <QuestionBox
           count={data?.signalNumber || 1}
-          replyCount={1}
-          // replyCount={data.replyCount}
+          replyCount={data?.replyCount}
           date={dayjs.utc(data?.createdAt).toDate()}
           nickname="닉네임"
           text={data?.content ?? ""}

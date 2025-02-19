@@ -14,8 +14,7 @@ export default function ReplyPageClient() {
     <section className="flex h-full flex-col items-center px-[16px] pb-[12px]">
       <QuestionBox
         count={data?.signalNumber}
-        // replyCount={data?.replyCount}
-        replyCount={1}
+        replyCount={data?.replyCount}
         date={dayjs.utc(data?.createdAt).toDate()}
         nickname="닉네임"
         text={data?.content ?? ""}
