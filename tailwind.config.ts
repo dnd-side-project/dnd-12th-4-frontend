@@ -50,7 +50,8 @@ export default {
           50: "#FFF1BF",
           100: "#FFE057",
           200: "#FDD835",
-          300: "#FFD000"
+          300: "#FFD000",
+          400: "#A85F00"
         },
         secondary: {
           DEFAULT: "#1263C9",
