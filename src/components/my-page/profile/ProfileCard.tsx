@@ -11,7 +11,7 @@ export default function ProfileCard() {
   return (
     <Link
       href={`/${id}/my-page/modify/common-profile`}
-      className="flex h-[113px] items-center gap-[12px] rounded-[20px] bg-primary-200/15 p-[20px]"
+      className="flex h-[112px] items-center gap-[12px] rounded-[20px] bg-primary-200/15 p-[20px]"
     >
       <div className="relative h-[48px] w-[48px]">
         <Image src={data?.body?.profileImage || character} fill alt="프로필 이미지" className="rounded-full" />
