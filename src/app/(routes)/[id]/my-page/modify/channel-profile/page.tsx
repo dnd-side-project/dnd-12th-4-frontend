@@ -2,6 +2,11 @@ import { ApiChannelSpecificResponse } from "@/api/model"
 import { serverInstance } from "@/api/serverInstance"
 import HeaderFooterWrapper from "@/components/layout/HeaderFooterWrapper"
 import ModifyProfileForm from "@/components/my-page/profile/ModifyProfileForm"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "채널 프로필"
+}
 
 type Params = Promise<{ id: string }>
 
