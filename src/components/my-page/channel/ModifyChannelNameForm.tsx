@@ -1,15 +1,17 @@
 "use client"
-import { useFindChannelById } from "@/api/channel-controller/channel-controller"
+import { useFindChannelById, useUpdateChannelName } from "@/api/channel-controller/channel-controller"
 import Button from "@/components/auth/Button"
 import { cn } from "@/utils/cn"
 import { modifyChannelNameSchema } from "@/validations/channelNameSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useParams } from "next/navigation"
+// import { QueryClient } from "@tanstack/react-query"
+import { useParams, useRouter } from "next/navigation"
 import { FieldValues, useForm } from "react-hook-form"
+import { toast } from "sonner"
 
 export default function ModifyChannelNameForm() {
   const params = useParams()
-
+  const router = useRouter()
   const { data: channelInfo } = useFindChannelById(params.id as string)
   const {
     register,
@@ -26,9 +28,21 @@ export default function ModifyChannelNameForm() {
   })
 
   const channelName = watch("channelName")
+  const { mutateAsync } = useUpdateChannelName()
 
   const onSubmit = async (data: FieldValues) => {
     console.log("data", data)
+
+    try {
+      await mutateAsync({
+        channelId: channelInfo?.body?.channelId as string,
+        params: { channelName: channelName as string }
+      })
+      toast("채널명 수정이 완료되었습니다.")
+      router.back()
+    } catch (error) {
+      console.log("error", error)
+    }
   }
 
   return (

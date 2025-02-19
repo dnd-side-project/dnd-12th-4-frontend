@@ -9,11 +9,10 @@ interface Params {
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
   isOwner: boolean
-  channelName?: string
   onClick: () => void
 }
 
-export default function ChannelEditBottomSheet({ isOpen, setIsOpen, isOwner, channelName, onClick }: Params) {
+export default function ChannelEditBottomSheet({ isOpen, setIsOpen, isOwner, onClick }: Params) {
   const { id } = useParams()
   return (
     <Sheet isOpen={isOpen} onClose={() => setIsOpen(false)} detent="content-height" className="">
@@ -21,7 +20,7 @@ export default function ChannelEditBottomSheet({ isOpen, setIsOpen, isOwner, cha
         <Sheet.Content>
           <section className="flex flex-col items-start px-[24px] text-body-01 text-emphasis-high">
             <Link
-              href={`/${id}/my-page/modify/channel-profile?channelName=${channelName}`}
+              href={`/${id}/my-page/modify/channel-profile`}
               className="w-full py-[24px] text-start"
               onClick={() => setIsOpen(false)}
             >
