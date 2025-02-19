@@ -49,6 +49,7 @@ function CommonNicknamePageClient() {
             buttonValue="고마워"
             nextPageUrl="create-or-join"
             imageUrl={"/talki/gif/talki_shinning.gif"}
+            unoptimized
           />
         )}
       </form>

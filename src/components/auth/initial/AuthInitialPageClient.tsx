@@ -18,6 +18,7 @@ function AuthInitialPageClient() {
           buttonValue="안녕!"
           onNext={onNext}
           imageUrl={"/talki/gif/talki_front.gif"}
+          unoptimized
         />
       )}
       {steps[stepLevel] === "PreGuide" && (
@@ -26,6 +27,7 @@ function AuthInitialPageClient() {
           buttonValue="알겠어!"
           nextPageUrl="common-nickname"
           imageUrl={"/talki/gif/talki_front.gif"}
+          unoptimized
         />
       )}
     </>

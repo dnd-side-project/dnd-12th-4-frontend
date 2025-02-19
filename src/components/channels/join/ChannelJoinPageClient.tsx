@@ -80,6 +80,7 @@ function ChannelJoinPageClient() {
               title={`이제 친구들과 소통할 수 있도록\n주파수를 맞춰볼게요!`}
               onNext={onNext}
               imageUrl={"/talki/gif/talki_sending.gif"}
+              unoptimized
             />
           )}
         </form>

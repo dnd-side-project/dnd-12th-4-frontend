@@ -39,7 +39,7 @@ export default function CarouselItems() {
             <section className="flex flex-col items-center gap-[40px]">
               <p className="whitespace-pre-line text-center text-headline-01 text-emphasis-high">{slideItem.title}</p>
               <div className="relative h-[300px] w-[300px] justify-self-center">
-                <Image src={slideItem.url ?? "/"} fill alt="splash-gif" />
+                <Image src={slideItem.url ?? "/"} fill alt="splash-gif" unoptimized />
               </div>
             </section>
           </SwiperSlide>
