@@ -1,5 +1,5 @@
 import HeaderFooterWrapper from "@/components/layout/HeaderFooterWrapper"
-import FormSection from "@/components/questions/reply/new/FormSection"
+import FormSection from "@/components/questions/reply/modify/FormSection"
 
 export default function ReplyModifyPage() {
   return (
