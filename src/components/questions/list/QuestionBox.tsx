@@ -1,6 +1,6 @@
 "use client"
 
-import { MessageCircle } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 
@@ -31,7 +31,8 @@ export default function QuestionBox({ signalNumber, replyCount, nickname, time, 
             <p>{time}시간 전</p>
           </div>
           <div className="flex items-center gap-[4px]">
-            <MessageCircle className="size-[16px]" />
+            {/* <MessageCircle className="size-[16px]" /> */}
+            <Image src={"/message-square.png"} width={24} height={24} alt="message-square.png" />
             <p>{replyCount}</p>
           </div>
         </div>

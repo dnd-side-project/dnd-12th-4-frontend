@@ -14,7 +14,12 @@ export default function ProfileCard() {
       className="flex h-[112px] items-center gap-[12px] rounded-[20px] bg-primary-200/15 p-[20px]"
     >
       <div className="relative h-[48px] w-[48px]">
-        <Image src={data?.body?.profileImage || character} fill alt="프로필 이미지" className="rounded-full" />
+        <Image
+          src={data?.body?.profileImage || character}
+          fill
+          alt="프로필 이미지"
+          className="rounded-full object-contain"
+        />
       </div>
       <div className="flex flex-col">
         <div className="text-caption-01 opacity-60">공용 프로필</div>
