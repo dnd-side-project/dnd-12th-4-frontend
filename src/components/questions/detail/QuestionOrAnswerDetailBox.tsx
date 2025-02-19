@@ -27,7 +27,6 @@ export default function QuestionOrAnswerDetailBox({
 
   const handleDeleteButtonClick = () => {
     setIsDeleteModal(false)
-    console.log("a")
     toast("응답을 삭제했어요!")
   }
 
