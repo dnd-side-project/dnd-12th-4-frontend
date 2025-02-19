@@ -26,7 +26,6 @@ export default function Textarea({ count, date, maxLength, ...props }: Params) {
       <textarea
         {...props}
         maxLength={maxLength}
-        placeholder="가이드 텍스트입니다."
         className={cn(
           "w-full resize-none bg-inherit text-body-04 text-emphasis-medium outline-none placeholder:text-emphasis-medium",
           props.className

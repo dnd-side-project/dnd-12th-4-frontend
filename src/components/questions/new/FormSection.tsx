@@ -33,13 +33,17 @@ export default function FormSection() {
   })
 
   const onSubmit = async (data: QuestionCreateRequest) => {
-    const isAnonymous = data.isAnonymous
-    if (isAnonymous) {
-      await mutateAsync({ channelId: id as string, data: { ...data, anonymousName: "익명" } })
-    } else {
-      await mutateAsync({ channelId: id as string, data })
+    try {
+      const isAnonymous = data.isAnonymous
+      if (isAnonymous) {
+        await mutateAsync({ channelId: id as string, data: { ...data, anonymousName: "익명" } })
+      } else {
+        await mutateAsync({ channelId: id as string, data })
+      }
+      router.replace(`/${id}/questions`)
+    } catch (err) {
+      console.log(err)
     }
-    router.replace(`/${id}/questions`)
   }
 
   return (
