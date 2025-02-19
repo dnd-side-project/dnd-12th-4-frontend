@@ -3,6 +3,7 @@ import { useFindQuestionsByQuestionId } from "@/api/question-controller/question
 import QuestionBox from "@/components/common/QuestionBox"
 import FormSection from "@/components/questions/reply/new/FormSection"
 import { useParams } from "next/navigation"
+import { dayjsWithExtends as dayjs } from "@/utils/dayjsWithExtends"
 
 export default function ReplyPageClient() {
   const { id, questionId } = useParams()
@@ -15,7 +16,7 @@ export default function ReplyPageClient() {
         count={data?.signalNumber}
         // replyCount={data?.replyCount}
         replyCount={1}
-        date={new Date()}
+        date={dayjs.utc(data?.createdAt).toDate()}
         nickname="닉네임"
         text={data?.content ?? ""}
       />

@@ -3,6 +3,7 @@
 import { cn } from "@/utils/cn"
 import type { TextareaHTMLAttributes } from "react"
 import Tag from "@/components/common/Tag"
+import dayjs from "dayjs"
 
 interface Params extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   count?: number
@@ -20,7 +21,7 @@ export default function Textarea({ count, date, maxLength, ...props }: Params) {
       {(count || date) && (
         <div className={cn("flex w-full items-center text-caption-01", count ? "justify-between" : "justify-end")}>
           {count && <Tag text={`${count}번째 시그널`} />}
-          {date && <p className="text-[12px] text-black/60">2025.00.00</p>}
+          {date && <p className="text-[12px] text-black/60">{dayjs(new Date()).format("YYYY.MM.DD")}</p>}
         </div>
       )}
       <textarea

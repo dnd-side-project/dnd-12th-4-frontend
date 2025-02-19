@@ -1,5 +1,6 @@
 "use client"
 
+import { formatUtcToKstWithRelativeTime } from "@/utils/formatUtcToKstWithRelativeTime"
 import Image from "next/image"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
@@ -26,9 +27,10 @@ export default function QuestionBox({ signalNumber, replyCount, nickname, time, 
         </p>
         <div className="text-body-04 text-emphasis-high">{content}</div>
         <div className="flex text-[12px] text-caption-02 text-emphasis-medium">
-          <div className="flex flex-1 gap-[12px]">
+          <div className="flex flex-1 items-center gap-[12px]">
             {tab !== "my-signal" && <p>{nickname}</p>}
-            <p>{time}시간 전</p>
+            <p>{formatUtcToKstWithRelativeTime(time)}</p>
+            {/* <p>{time}시간 전</p> */}
           </div>
           <div className="flex items-center gap-[4px]">
             {/* <MessageCircle className="size-[16px]" /> */}
