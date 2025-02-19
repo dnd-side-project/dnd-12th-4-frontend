@@ -26,20 +26,24 @@ export default function AnswerListSection() {
           <p className="text-body-01 text-disabled">아직 응답이 없어요...</p>
         </div>
       )}
-      {data?.body?.answerList?.map((answerItem) => (
-        <QuestionOrAnswerDetailBox
-          key={answerItem.id}
-          type="answer"
-          channelId={channelId}
-          questionId={questionId}
-          answerId={answerItem.id}
-          imageSrc="https://placehold.co/230x230.png"
-          content={answerItem.content || ""}
-          nickname={answerItem.codeName || ""}
-          time={answerItem.createdAt || ""}
-          isMyAnswer={answerItem.myAnswer || false}
-        />
-      ))}
+      <ul>
+        {data?.body?.answerList?.map((answerItem) => (
+          <li key={answerItem.id}>
+            <QuestionOrAnswerDetailBox
+              key={answerItem.id}
+              type="answer"
+              channelId={channelId}
+              questionId={questionId}
+              answerId={answerItem.id}
+              imageSrc="https://placehold.co/230x230.png"
+              content={answerItem.content || ""}
+              nickname={answerItem.codeName || ""}
+              time={answerItem.createdAt || ""}
+              isMyAnswer={answerItem.myAnswer || false}
+            />
+          </li>
+        ))}
+      </ul>
     </section>
   )
 }

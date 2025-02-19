@@ -17,7 +17,7 @@ export default function QuestionBox({ id, signalNumber, replyCount, nickname, ti
   const tab = searchParams.get("tab")
 
   return (
-    <>
+    <section>
       <Link
         href={`questions/${id}/detail`}
         className="flex cursor-pointer flex-col gap-[12px] rounded-[24px] bg-[#F5F8FA] px-[20px] py-[24px]"
@@ -38,6 +38,6 @@ export default function QuestionBox({ id, signalNumber, replyCount, nickname, ti
         </div>
       </Link>
       <div className="mb-[12px]" />
-    </>
+    </section>
   )
 }

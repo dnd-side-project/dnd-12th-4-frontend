@@ -5,12 +5,10 @@ import AnswerListSection from "@/components/questions/detail/AnswerListSection"
 export default function QuestionDetailPage() {
   return (
     <HeaderFooterWrapper header headerTitle="시그널">
-      <div className="flex flex-col gap-[24px] px-[16px] py-[12px]">
-        <div className="flex flex-col gap-[12px]">
-          <QuestionDetailSection />
-        </div>
+      <main className="flex flex-col gap-[24px] px-[16px] py-[12px]">
+        <QuestionDetailSection />
         <AnswerListSection />
-      </div>
+      </main>
     </HeaderFooterWrapper>
   )
 }
