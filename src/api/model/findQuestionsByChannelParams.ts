@@ -1,4 +1,4 @@
 export type FindQuestionsByChannelParams = {
-  questionId?: number
+  tab?: string
   sort?: string
 }
