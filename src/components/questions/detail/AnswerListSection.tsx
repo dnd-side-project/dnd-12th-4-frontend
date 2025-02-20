@@ -18,7 +18,7 @@ export default function AnswerListSection() {
   const hasAnswers = Number(data?.body?.answerList?.length) > 0
 
   return (
-    <section className={cn("flex flex-col", hasAnswers ? "gap-[12px]" : "gap-[40px]")}>
+    <section className={cn("flex flex-col", !hasAnswers && "gap-[28px]")}>
       <CountAndSortBox type="응답" count={data?.body?.answerList?.length || 0} className="text-subtitle-01" />
       {!hasAnswers && (
         <div className="flex flex-col items-center justify-center gap-[12px]">
