@@ -90,7 +90,7 @@ export default function ChannelsPageClient({ isFooter = false }: Params) {
               <ChannelBoxForm
                 key={data.channelId}
                 channelId={data.channelId as string}
-                count={data.signalCount || 0}
+                questionCount={data.signalCount || 0}
                 name={data.channelRoomName ?? "-"}
                 memberCount={data?.countPerson || 1}
                 owner={data.channelOwnerName ?? "-"}

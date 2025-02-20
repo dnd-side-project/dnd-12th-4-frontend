@@ -4,11 +4,12 @@ import Tag from "@/components/common/Tag"
 import { cn } from "@/utils/cn"
 import { share, ShareAPIRequest } from "@/utils/share"
 import { Check, Share2 } from "lucide-react"
+import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useFormContext } from "react-hook-form"
 interface Params {
   channelId: string
-  count: number
+  questionCount: number
   name: string
   memberCount: number
   owner: string
@@ -17,7 +18,7 @@ interface Params {
 }
 export default function ChannelBoxForm({
   channelId,
-  count,
+  questionCount,
   name,
   memberCount,
   // owner, // Todo 추 후 필요없는게 확실해지면 props 제거
@@ -61,7 +62,11 @@ export default function ChannelBoxForm({
       }}
     >
       <article className="flex justify-between">
-        <Tag text={`${count}번째 시그널`} className="bg-secondary-0 text-secondary-300" count={count} />
+        <Tag
+          text={`${questionCount ?? 0}번째 시그널`}
+          className="bg-secondary-0 text-secondary-300"
+          count={questionCount}
+        />
         {!editMode && (
           <button type="button" onClick={handleShare}>
             <Share2 size={24} />
@@ -85,7 +90,10 @@ export default function ChannelBoxForm({
       <article className="flex justify-between text-[12px] text-black/60">
         {/* <p>{memberCount}명과 소통 중이에요.</p> */}
         {/* <p>채널장 : {owner}</p> */}
-        <p className="text-caption-02 text-emphasis-medium">응답을 기다리는 중..</p>
+        <div className="flex items-center">
+          <Image src={"/clock.png"} alt="clock-icon" width={24} height={24} />
+          <p className="text-caption-02 text-emphasis-medium">응답을 기다리는 중..</p>
+        </div>
         <p className="text-caption-01 text-emphasis-medium">
           <span className="text-secondary-300">{memberCount}명</span>과 소통 중이에요.
         </p>

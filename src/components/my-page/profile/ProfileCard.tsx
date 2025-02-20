@@ -18,7 +18,7 @@ export default function ProfileCard() {
           <div className="text-subtitle-02 opacity-[0.87]">{data?.body?.name}</div>
           <div className="text-body-04 opacity-60">{data?.body?.email}</div>
         </div>
-      </Link>{" "}
+      </Link>
     </article>
   )
 }
