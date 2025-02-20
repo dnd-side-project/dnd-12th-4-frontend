@@ -20,8 +20,6 @@ import { notFound } from "next/navigation"
 type Params = Promise<{ id: string }>
 
 export default async function RootPage({ params }: { params: Params }) {
-  // channelId: d4c98bce-9499-4809-bafa-0c75704f8f87
-
   const { id } = await params
 
   const queryClient = new QueryClient()

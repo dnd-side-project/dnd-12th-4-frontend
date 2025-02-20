@@ -2,6 +2,11 @@ import { ApiChannelMembersResponse } from "@/api/model/apiChannelMembersResponse
 import { serverInstance } from "@/api/serverInstance"
 import FriendInformation from "@/components/common/FriendInformation"
 import HeaderFooterWrapper from "@/components/layout/HeaderFooterWrapper"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "친구목록"
+}
 
 type Params = Promise<{ id: string }>
 

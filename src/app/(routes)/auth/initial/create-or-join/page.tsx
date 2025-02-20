@@ -2,6 +2,11 @@ import CardButton from "@/components/auth/CardButton"
 import TitleAndDescriptionBox from "@/components/auth/TitleAndDescriptionBox"
 import Image from "next/image"
 import Character from "../../../../../../public/character-front.svg"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "채널생성 및 참여"
+}
 
 function Page() {
   return (

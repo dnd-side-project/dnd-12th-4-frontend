@@ -18,8 +18,8 @@ export const ImageInput = ({ previewImage, handleDeleteButton, handleImageChange
   return (
     <div>
       {previewImage ? (
-        <div className="relative h-[100px] w-[100px] rounded-full border border-opacity-[0.12]">
-          <Image src={previewImage} alt="Profile Image" fill className="rounded-full" />
+        <div className="relative h-[100px] w-[100px] rounded-full border border-gray-03">
+          <Image src={previewImage} alt="Profile Image" fill className="rounded-full object-contain" />
           <button
             type="button"
             onClick={handleDeleteButton}

@@ -15,7 +15,12 @@ export default function QuestionDetailSection() {
         nickname="닉네임"
         time={3}
       />
-      <MyAnswerStatusBox title={isMyAnswer ? "응답을 보내셨네요. 정말 멋져요!" : "질문자가 응답을 기다리고 있어요!"} />
+      <MyAnswerStatusBox
+        // @hyunjun9788
+        // Todo 시그널을 보내셨네요 최고에요! 문구 추가 필요 / 해당 문구인 경우 talki_jjang.webp 적용
+        title={isMyAnswer ? "응답을 보내셨네요. 정말 멋져요!" : "질문자가 응답을 기다리고 있어요!"}
+        src={isMyAnswer ? "/talki/webp/talki_jjang.webp" : "/talki/webp/talki_front.webp"}
+      />
     </section>
   )
 }

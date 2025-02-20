@@ -13,7 +13,6 @@ import type {
   UseQueryResult
 } from "@tanstack/react-query"
 import type {
-  FindQuestionsByChannel200,
   FindQuestionsByChannelParams,
   FindQuestionsByMemberParams,
   QuestionCreateRequest,
@@ -284,7 +283,7 @@ export const findQuestionsByChannel = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<FindQuestionsByChannel200>(
+  return customInstance<QuestionShowAllResponse>(
     { url: `/api/channels/${channelId}/questions`, method: "GET", params, signal },
     options
   )

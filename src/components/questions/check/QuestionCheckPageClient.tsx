@@ -2,6 +2,7 @@
 import { useFindQuestionsByQuestionId } from "@/api/question-controller/question-controller"
 import Button from "@/components/common/Button"
 import QuestionBox from "@/components/common/QuestionBox"
+import { dayjsWithExtends as dayjs } from "@/utils/dayjsWithExtends"
 import { useParams, useRouter } from "next/navigation"
 
 export default function QuestionCheckPageClient() {
@@ -20,9 +21,8 @@ export default function QuestionCheckPageClient() {
         </p>
         <QuestionBox
           count={data?.signalNumber || 1}
-          replyCount={1}
-          // replyCount={data.replyCount}
-          date={new Date()}
+          replyCount={data?.replyCount}
+          date={dayjs.utc(data?.createdAt).toDate()}
           nickname="닉네임"
           text={data?.content ?? ""}
         />
