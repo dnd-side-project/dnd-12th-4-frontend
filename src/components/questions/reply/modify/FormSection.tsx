@@ -22,17 +22,17 @@ export default function FormSection() {
 
   const { handleSubmit, setValue, watch } = useForm({
     defaultValues: {
-      question: answer as string,
+      answerForm: answer as string,
       isAnonymous: false
     },
     resolver: zodResolver(replySchema)
   })
-  const question = watch("question")
+  const answerForm = watch("answerForm")
 
   const { mutateAsync } = useUpdateAnswer()
   const onSubmit = async () => {
     try {
-      await mutateAsync({ answerId, data: { content: question } })
+      await mutateAsync({ answerId, data: { content: answerForm } })
       await queryClient.invalidateQueries({
         queryKey: getShowAnswersQueryKey(Number(questionId))
       })
@@ -48,8 +48,8 @@ export default function FormSection() {
       <section>
         <Textarea
           maxLength={500}
-          value={watch("question")}
-          onChange={(e) => setValue("question", e.target.value, { shouldValidate: true })}
+          value={watch("answerForm")}
+          onChange={(e) => setValue("answerForm", e.target.value, { shouldValidate: true })}
         />
         <div className="mt-[16px] flex justify-end">
           <Toggle
