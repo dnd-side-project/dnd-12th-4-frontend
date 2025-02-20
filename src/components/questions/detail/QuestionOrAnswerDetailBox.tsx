@@ -1,9 +1,10 @@
 "use client"
-import { useDeleteAnswer } from "@/api/answer-controller/answer-controller"
+import { getShowAnswersQueryKey, useDeleteAnswer } from "@/api/answer-controller/answer-controller"
 import ConfirmModal from "@/components/common/ConfirmModal"
 import { useAnswerStore } from "@/stores/useAnswerStore"
 import { cn } from "@/utils/cn"
 import { formatUtcToKstWithRelativeTime } from "@/utils/formatUtcToKstWithRelativeTime"
+import { useQueryClient } from "@tanstack/react-query"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
@@ -34,12 +35,13 @@ export default function QuestionOrAnswerDetailBox({
   const router = useRouter()
   const [isDeleteModal, setIsDeleteModal] = useState(false)
   const setAnswer = useAnswerStore((state) => state.setAnswer)
-
+  const queryClient = useQueryClient()
   const deleteAnswerMutation = useDeleteAnswer()
 
   const handleDeleteButtonClick = async () => {
     try {
       await deleteAnswerMutation.mutateAsync({ answerId: answerId as number })
+      await queryClient.invalidateQueries({ queryKey: getShowAnswersQueryKey(questionId as number) })
       setIsDeleteModal(false)
       toast("응답을 삭제했어요!")
     } catch (error) {
