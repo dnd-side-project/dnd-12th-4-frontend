@@ -1,12 +1,13 @@
 "use client"
+import { useDeleteAnswer } from "@/api/answer-controller/answer-controller"
 import ConfirmModal from "@/components/common/ConfirmModal"
+import { useAnswerStore } from "@/stores/useAnswerStore"
 import { cn } from "@/utils/cn"
-import useAnswerStore from "@/stores/useAnswerStore"
+import { formatUtcToKstWithRelativeTime } from "@/utils/formatUtcToKstWithRelativeTime"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { toast } from "sonner"
-import { useRouter } from "next/navigation"
-import { formatUtcToKstWithRelativeTime } from "@/utils/formatUtcToKstWithRelativeTime"
 
 interface QuestionOrAnswerDetailBoxProps {
   type: "question" | "answer"
@@ -34,9 +35,16 @@ export default function QuestionOrAnswerDetailBox({
   const [isDeleteModal, setIsDeleteModal] = useState(false)
   const setAnswer = useAnswerStore((state) => state.setAnswer)
 
-  const handleDeleteButtonClick = () => {
-    setIsDeleteModal(false)
-    toast("응답을 삭제했어요!")
+  const deleteAnswerMutation = useDeleteAnswer()
+
+  const handleDeleteButtonClick = async () => {
+    try {
+      await deleteAnswerMutation.mutateAsync({ answerId: answerId as number })
+      setIsDeleteModal(false)
+      toast("응답을 삭제했어요!")
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const handleEditButtonClick = () => {
@@ -69,6 +77,7 @@ export default function QuestionOrAnswerDetailBox({
       )}
       {isDeleteModal && (
         <ConfirmModal
+          type="answer"
           title="답변을 삭제하시겠어요?"
           description={`답변을 삭제하면 더 이상\n복구가 어려워요`}
           onCancel={() => setIsDeleteModal((prev) => !prev)}
