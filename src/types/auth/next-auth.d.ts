@@ -19,6 +19,7 @@ declare module "next-auth/jwt" {
     refreshToken?: string
     userName?: string | null
     channelId: string
+    expiredAccessToken: number
     channelCount: number
   }
 }
