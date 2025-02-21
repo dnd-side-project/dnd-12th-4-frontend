@@ -3,7 +3,7 @@ import { getShowAnswersQueryKey, useDeleteAnswer } from "@/api/answer-controller
 import ConfirmModal from "@/components/common/ConfirmModal"
 import { useAnswerStore } from "@/stores/useAnswerStore"
 import { cn } from "@/utils/cn"
-import { formatUtcToKstWithRelativeTime } from "@/utils/formatUtcToKstWithRelativeTime"
+import { kstToYYYYMMDD } from "@/utils/kstToYYYYMMDD"
 import { useQueryClient } from "@tanstack/react-query"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
@@ -60,9 +60,7 @@ export default function QuestionOrAnswerDetailBox({
         <Image src={imageSrc} className="rounded-full object-cover" width={32} height={32} alt="프로필 이미지" />
         <div className="flex flex-col">
           <div className="text-body-03 text-emphasis-high">{nickname}</div>
-          <div className="text-caption-02 text-emphasis-medium">
-            <p>{formatUtcToKstWithRelativeTime(time)}</p>
-          </div>
+          <div className="text-caption-02 text-emphasis-medium">{kstToYYYYMMDD(time)}</div>
         </div>
       </div>
       <p className={cn("text-body-02 text-emphasis-high", type === "answer" && "text-body-04")}>{content}</p>
