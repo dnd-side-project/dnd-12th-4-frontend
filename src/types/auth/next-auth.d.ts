@@ -8,6 +8,7 @@ declare module "next-auth" {
       refreshToken?: string
       channelId: string
       channelCount: number
+      logout: boolean
     } & DefaultSession["user"]
   }
 }
