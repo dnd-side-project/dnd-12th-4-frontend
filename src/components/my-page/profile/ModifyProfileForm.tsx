@@ -14,6 +14,7 @@ import {
 } from "@/api/channel-member-controller/channel-member-controller"
 import { useParams, useRouter } from "next/navigation"
 import { useUpdateMemberProfile, useUploadProfileImage } from "@/api/profile-image-controller/profile-image-controller"
+import { toast } from "sonner"
 
 interface ModifyProfileFormProps {
   profileType: "common" | "channel"
@@ -69,6 +70,7 @@ export default function ModifyProfileForm({ profileType }: ModifyProfileFormProp
       }
       router.back()
     } catch (error) {
+      toast("오류가 발생했습니다!")
       console.error("프로필 업데이트 실패:", error)
     }
   }
