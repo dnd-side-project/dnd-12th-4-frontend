@@ -20,7 +20,6 @@ const authOptions: AuthOptions = {
               "Content-Type": "application/json"
             }
           })
-
           token.expiredAccessToken = tokenData.body.expiredAccessToken
           token.accessToken = tokenData.body.accessToken
           token.refreshToken = tokenData.body.refreshToken
@@ -31,47 +30,58 @@ const authOptions: AuthOptions = {
           console.error("카카오 또는 DB 요청 실패:", error)
         }
       }
-      if (token.accessToken) {
-        const currentTime = Math.floor(Date.now() / 1000)
-        const tokenExpirationTime = Number(token.expiredAccessToken)
-        if (currentTime >= tokenExpirationTime - 60) {
-          try {
-            const { data: refreshTokenData } = await axios.post(
-              `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/refresh`,
-              null,
-              {
-                headers: {
-                  Authorization: `Bearer ${token.refreshToken}`,
-                  "Content-Type": "application/json"
-                }
-              }
-            )
-            token.accessToken = refreshTokenData.body.accessToken
-            token.expiredAccessToken = refreshTokenData.body.expiredAccessToken
-            token.refreshToken = refreshTokenData.body.refreshToken
-          } catch (error) {
-            console.error("refreshToken 요청 실패:", error)
-            return {} as JWT
-          }
-        }
+
+      const nowTime = Math.round(Date.now() / 1000)
+      const shouldRefreshTime = (token.expiredAccessToken as number) - 5 * 60 - nowTime
+      if (shouldRefreshTime > 0) {
+        return token
       }
-      return token
+      return refreshAccessToken(token)
     },
+
     session: async ({ session, token }: { session: Session; token: JWT }) => {
-      if (!token) return session
       session.user.accessToken = token.accessToken
       session.user.refreshToken = token.refreshToken
       session.user.userName = token.userName
       session.user.channelCount = token.channelCount
       session.user.channelId = token.channelId
+      session.user.expiredAccessToken = token.expiredAccessToken
 
+      if (token.logout) {
+        session.user.logout = true
+      } else {
+        session.user.logout = false
+      }
       return session
     }
   },
-
   session: {
     strategy: "jwt",
-    maxAge: 60 * 60 * 24 * 30
+    maxAge: 30 * 24 * 60 * 60
+  }
+}
+
+async function refreshAccessToken(token: JWT) {
+  try {
+    const { data: refreshTokenData } = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/refresh`, null, {
+      headers: {
+        Authorization: `Bearer ${token.refreshToken}`,
+        "Content-Type": "application/json"
+      }
+    })
+    console.log("refreshTokenData", refreshTokenData)
+    if (refreshTokenData.result.resultCode !== 200) {
+      throw refreshTokenData
+    }
+    return {
+      ...token,
+      accessToken: refreshTokenData.body.accessToken,
+      expiredAccessToken: refreshTokenData.body.expiredAccessToken,
+      refreshToken: refreshTokenData.body.refreshToken ?? token.refreshToken
+    }
+  } catch (error) {
+    console.error("refreshAccessToken-error", error)
+    return { ...token, logout: true }
   }
 }
 

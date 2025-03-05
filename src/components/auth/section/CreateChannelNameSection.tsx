@@ -17,7 +17,6 @@ export default function CreateChannelNameSection({ onNext }: CreateChannelNameSe
     formState: { errors }
   } = useFormContext()
   const channelName = watch("channelName")
-  console.log(errors)
   return (
     <>
       <div className="flex h-full flex-col gap-[24px]">

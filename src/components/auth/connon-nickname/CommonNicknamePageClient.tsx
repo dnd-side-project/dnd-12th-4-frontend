@@ -29,11 +29,9 @@ function CommonNicknamePageClient() {
   const nickname = watch("nickname")
 
   const registerCommonNameMutation = useRegisterName()
-  const onSubmit = async (data: any) => {
+  const onSubmit = async () => {
     try {
-      console.log("폼 데이터:", data)
       await registerCommonNameMutation.mutateAsync({ params: { name: nickname } })
-      //api 요청 성공하면 onNext 실행
       onNext()
     } catch (error) {
       toast("오류가 발생했습니다!")

@@ -1,10 +1,10 @@
 "use client"
 
-import CheckAuth from "@/components/auth/CheckAuth"
+import RefreshTokenHandler from "@/components/refresh/RefreshTokenHandler"
 import { QueryClient } from "@tanstack/react-query"
 import { Session } from "next-auth"
 import { SessionProvider } from "next-auth/react"
-import { PropsWithChildren } from "react"
+import { PropsWithChildren, useState } from "react"
 
 interface ProvidersProps extends PropsWithChildren {
   session?: Session | null
@@ -12,9 +12,10 @@ interface ProvidersProps extends PropsWithChildren {
 }
 
 export const AuthProvider = ({ session, children }: ProvidersProps) => {
+  const [sessionRefetchInterval, setSessionRefetchInterval] = useState(10000)
   return (
-    <SessionProvider session={session}>
-      <CheckAuth />
+    <SessionProvider session={session} refetchInterval={sessionRefetchInterval}>
+      <RefreshTokenHandler setSessionRefetchInterval={setSessionRefetchInterval} />
       {children}
     </SessionProvider>
   )
