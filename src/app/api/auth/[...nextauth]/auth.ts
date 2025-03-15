@@ -69,7 +69,6 @@ async function refreshAccessToken(token: JWT) {
         "Content-Type": "application/json"
       }
     })
-    console.log("refreshTokenData", refreshTokenData)
     if (refreshTokenData.result.resultCode !== 200) {
       throw refreshTokenData
     }
