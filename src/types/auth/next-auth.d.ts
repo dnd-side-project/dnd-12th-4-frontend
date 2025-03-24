@@ -8,6 +8,8 @@ declare module "next-auth" {
       refreshToken?: string
       channelId: string
       channelCount: number
+      expiredAccessToken: number
+      logout: boolean
     } & DefaultSession["user"]
   }
 }
@@ -18,6 +20,7 @@ declare module "next-auth/jwt" {
     refreshToken?: string
     userName?: string | null
     channelId: string
+    expiredAccessToken: number
     channelCount: number
   }
 }

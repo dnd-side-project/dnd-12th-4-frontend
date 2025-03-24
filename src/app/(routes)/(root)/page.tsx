@@ -13,7 +13,7 @@ export default async function Auth() {
   const session = await getServerSession(authOptions)
   const { channelId, channelCount, userName } = session?.user || { channelId: "", channelCount: 0, userName: null }
 
-  if (session?.user.accessToken) {
+  if (session?.user.accessToken && !session?.user.logout) {
     if (!userName) {
       redirect("/initial")
     }

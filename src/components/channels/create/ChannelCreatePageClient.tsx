@@ -13,7 +13,7 @@ import CreateChannelNicknameSection from "@/components/auth/section/CreateChanne
 import { useMakeChannel } from "@/api/channel-controller/channel-controller"
 import { toast } from "sonner"
 
-const steps = ["CreateChannelName", "ChannelNickname", "CreatedCode", "LaterInvitation"]
+const steps = ["CreateChannelName", "CreateChannelNickname", "CreatedCode", "LaterInvitation"]
 
 function ChannelCreatePageClient() {
   const router = useRouter()
@@ -47,18 +47,13 @@ function ChannelCreatePageClient() {
   const { watch, handleSubmit } = formMethods
   const channelName = watch("channelName")
   const channelNickname = watch("channelNickname")
-
-  console.log(channelName, channelNickname)
-
   const createChannelMutation = useMakeChannel()
-  const onSubmit = async (data: any) => {
-    console.log("폼 데이터:", data)
 
+  const onSubmit = async () => {
     try {
       const response = await createChannelMutation.mutateAsync({
         data: { channelName: channelName, codeName: channelNickname }
       })
-      console.log(response)
       setChannelData({
         channelId: response.channelId as string,
         inviteCode: response.inviteCode as string,
@@ -85,7 +80,9 @@ function ChannelCreatePageClient() {
       <FormProvider {...formMethods}>
         <form onSubmit={handleSubmit(onSubmit)} className="flex h-full flex-col justify-between">
           {steps[stepLevel] === "CreateChannelName" && <CreateChannelNameSection onNext={onNext} />}
-          {steps[stepLevel] === "ChannelNickname" && <CreateChannelNicknameSection type="create" onNext={onNext} />}
+          {steps[stepLevel] === "CreateChannelNickname" && (
+            <CreateChannelNicknameSection type="create" onNext={onNext} />
+          )}
           {steps[stepLevel] === "CreatedCode" && <CreatedCodeSection onNext={onNext} channelData={channelData} />}
           {steps[stepLevel] === "LaterInvitation" && (
             <Guide title={`그럼 채널로\n보내드릴게요!`} imageUrl={"/talki/gif/talki_sending.gif"} unoptimized />
